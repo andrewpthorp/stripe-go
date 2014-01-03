@@ -28,6 +28,15 @@ type Charge struct {
 	Metadata           Metadata  `json:"metadata"`
 }
 
+// ChargeListResponse is what is returned with a List request.
+type ChargeListResponse struct {
+	Object string    `json:"object"`
+	Url    string    `json:"url"`
+	Count  int       `json:"count"`
+	Data   []*Charge `json:"data"`
+}
+
+// ChargeClient is the receiver for all Charge methods of the API.
 type ChargeClient struct{}
 
 // Create creates a charge.
@@ -65,24 +74,23 @@ func (c *ChargeClient) Update(id string, params *ChargeParams) (*Charge, error) 
 // 0 as the offset, which are the defaults in the Stripe API.
 //
 // For more information: https://stripe.com/docs/api#list_charges
-func (c *ChargeClient) List() ([]*Charge, error) {
+func (c *ChargeClient) List() (*ChargeListResponse, error) {
 	return c.ListCount(10, 0)
 }
 
 // ListCount lists `count` charges starting at `offset`.
 //
 // For more information: https://stripe.com/docs/api#list_charges
-func (c *ChargeClient) ListCount(count, offset int) ([]*Charge, error) {
-	type charges struct{ Data []*Charge }
-	list := charges{}
+func (c *ChargeClient) ListCount(count, offset int) (*ChargeListResponse, error) {
+	response := ChargeListResponse{}
 
 	params := url.Values{
 		"count":  {strconv.Itoa(count)},
 		"offset": {strconv.Itoa(offset)},
 	}
 
-	err := get("/charges", params, &list)
-	return list.Data, err
+	err := get("/charges", params, &response)
+	return &response, err
 }
 
 // Refund refunds a charge.
