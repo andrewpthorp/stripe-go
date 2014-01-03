@@ -12,10 +12,10 @@ type Fund struct {
 }
 
 type Balance struct {
-	Object    string `json:"object"`
-	Livemode  bool   `json:"livemode"`
-	Available []Fund `json:"available"`
-	Pending   []Fund `json:"pending"`
+	Object    string  `json:"object"`
+	Livemode  bool    `json:"livemode"`
+	Available []*Fund `json:"available"`
+	Pending   []*Fund `json:"pending"`
 }
 
 // The FeeDetails is what is in FeeDetails in the BalanceTransaction.
@@ -28,18 +28,18 @@ type FeeDetails struct {
 }
 
 type BalanceTransaction struct {
-	Id          string       `json:"id"`
-	Object      string       `json:"object"`
-	Source      string       `json:"source"`
-	Amount      int64        `json:"amount"`
-	Currency    string       `json:"currency"`
-	Net         int64        `json:"net"`
-	Type        string       `json:"type"`
-	Created     int64        `json:"created"`
-	AvailableOn int64        `json:"available_on"`
-	Status      string       `json:"status"`
-	Fee         int64        `json:"fee"`
-	FeeDetails  []FeeDetails `json:"fee_details"`
+	Id          string        `json:"id"`
+	Object      string        `json:"object"`
+	Source      string        `json:"source"`
+	Amount      int64         `json:"amount"`
+	Currency    string        `json:"currency"`
+	Net         int64         `json:"net"`
+	Type        string        `json:"type"`
+	Created     int64         `json:"created"`
+	AvailableOn int64         `json:"available_on"`
+	Status      string        `json:"status"`
+	Fee         int64         `json:"fee"`
+	FeeDetails  []*FeeDetails `json:"fee_details"`
 }
 
 // The BalanceClient is the receiver for most standard balance related endpoints.

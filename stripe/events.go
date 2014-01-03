@@ -11,14 +11,14 @@ type EventData struct {
 }
 
 type Event struct {
-	Id              string    `json:"id"`
-	Object          string    `json:"object"`
-	Data            EventData `json:"data"`
-	Livemode        bool      `json:"livemode"`
-	Created         int64     `json:"created"`
-	PendingWebhooks int64     `json:"pending_webhooks"`
-	Type            string    `json:"type"`
-	Request         string    `json:"request"`
+	Id              string     `json:"id"`
+	Object          string     `json:"object"`
+	Data            *EventData `json:"data"`
+	Livemode        bool       `json:"livemode"`
+	Created         int64      `json:"created"`
+	PendingWebhooks int64      `json:"pending_webhooks"`
+	Type            string     `json:"type"`
+	Request         string     `json:"request"`
 }
 
 // The EventClient is the receiver for most standard event related endpoints.

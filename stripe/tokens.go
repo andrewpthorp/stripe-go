@@ -3,14 +3,14 @@ package stripe
 import "net/url"
 
 type Token struct {
-	Id          string      `json:"id"`
-	Object      string      `json:"object"`
-	Livemode    bool        `json:"livemode"`
-	Created     int64       `json:"created"`
-	Type        string      `json:"type"`
-	Used        bool        `json:"used"`
-	BankAccount BankAccount `json:"bank_account"`
-	Card        Card        `json:"card"`
+	Id          string       `json:"id"`
+	Object      string       `json:"object"`
+	Livemode    bool         `json:"livemode"`
+	Created     int64        `json:"created"`
+	Type        string       `json:"type"`
+	Used        bool         `json:"used"`
+	BankAccount *BankAccount `json:"bank_account"`
+	Card        *Card        `json:"card"`
 }
 
 type TokenClient struct{}

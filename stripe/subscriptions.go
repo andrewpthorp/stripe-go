@@ -10,7 +10,7 @@ type Subscription struct {
 	Object                string  `json:"object"`
 	CancelAtPeriodEnd     bool    `json:"cancel_at_period_end"`
 	Customer              string  `json:"customer"`
-	Plan                  Plan    `json:"plan"`
+	Plan                  *Plan   `json:"plan"`
 	Quantity              int64   `json:"quantity"`
 	Start                 int64   `json:"start"`
 	Status                string  `json:"status"`

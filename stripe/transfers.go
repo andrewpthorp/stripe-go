@@ -13,7 +13,7 @@ type Transfer struct {
 	Currency            string            `json:"currency"`
 	Date                int64             `json:"date"`
 	Status              string            `json:"status"`
-	Account             BankAccount       `json:"account"`
+	Account             *BankAccount      `json:"account"`
 	BalanceTransaction  string            `json:"balance_transaction"`
 	Description         string            `json:"description"`
 	Recipient           string            `json:"recipient"`

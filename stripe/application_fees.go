@@ -6,19 +6,19 @@ import (
 )
 
 type ApplicationFee struct {
-	Id                 string   `json:"id"`
-	Object             string   `json:"object"`
-	Livemode           bool     `json:"livemode"`
-	Account            string   `json:"account"`
-	Amount             int64    `json:"amount"`
-	Application        string   `json:"application"`
-	BalanceTransaction string   `json:"balance_transaction"`
-	Charge             string   `json:"charge"`
-	Created            int64    `json:"created"`
-	Currency           string   `json:"currency"`
-	Refunded           bool     `json:"refunded"`
-	Refunds            []Refund `json:"refunds"`
-	AmountRefunded     int64    `json:"amount_refunded"`
+	Id                 string    `json:"id"`
+	Object             string    `json:"object"`
+	Livemode           bool      `json:"livemode"`
+	Account            string    `json:"account"`
+	Amount             int64     `json:"amount"`
+	Application        string    `json:"application"`
+	BalanceTransaction string    `json:"balance_transaction"`
+	Charge             string    `json:"charge"`
+	Created            int64     `json:"created"`
+	Currency           string    `json:"currency"`
+	Refunded           bool      `json:"refunded"`
+	Refunds            []*Refund `json:"refunds"`
+	AmountRefunded     int64     `json:"amount_refunded"`
 }
 
 type ApplicationFeeClient struct{}

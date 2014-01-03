@@ -11,7 +11,7 @@ type Recipient struct {
 	Livemode      bool              `json:"livemode"`
 	Created       int64             `json:"created"`
 	Type          string            `json:"type"`
-	ActiveAccount BankAccount       `json:"active_account"`
+	ActiveAccount *BankAccount      `json:"active_account"`
 	Description   string            `json:"description"`
 	Email         string            `json:"email"`
 	Name          string            `json:"name"`
