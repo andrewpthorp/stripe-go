@@ -16,8 +16,6 @@ var (
 type Client struct {
 	UserAgent string
 	Cards     CardClient
-	Charges   ChargeClient
-	Disputes  DisputeClient
 }
 
 // NewClient returns a Client and allows us to access the resource clients.
@@ -27,8 +25,6 @@ func NewClient(key string) Client {
 	return Client{
     UserAgent:  userAgent,
 		Cards:      CardClient{},
-		Charges:    ChargeClient{},
-		Disputes:   DisputeClient{},
 	}
 }
 
@@ -78,7 +74,7 @@ func request(method, path string, params url.Values, v interface{}) error {
 
   // If the API didn't return a 200, parse the error and return it.
   if res.StatusCode != 200 {
-    err := StripeError{}
+    err := ErrorResponse{}
     json.Unmarshal(body, &err)
     return &err
   }
