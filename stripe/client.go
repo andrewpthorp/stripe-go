@@ -14,14 +14,15 @@ var (
 )
 
 type Client struct {
-	UserAgent string
-	Cards     CardClient
-	Charges   ChargeClient
-	Coupons   CouponClient
-	Customers CustomerClient
-	Discounts DiscountClient
-  Disputes  DisputeClient
-	Plans     PlanClient
+	UserAgent     string
+	Cards         CardClient
+	Charges       ChargeClient
+	Coupons       CouponClient
+	Customers     CustomerClient
+	Discounts     DiscountClient
+	Disputes      DisputeClient
+	Plans         PlanClient
+	Subscriptions SubscriptionClient
 }
 
 // NewClient returns a Client and allows us to access the resource clients.
@@ -29,14 +30,15 @@ func NewClient(key string) Client {
 	apiKey = key
 
 	return Client{
-		UserAgent: userAgent,
-		Cards:     CardClient{},
-		Charges:   ChargeClient{},
-		Coupons:   CouponClient{},
-		Customers: CustomerClient{},
-		Discounts: DiscountClient{},
-    Disputes:  DisputeClient{},
-		Plans:     PlanClient{},
+		UserAgent:     userAgent,
+		Cards:         CardClient{},
+		Charges:       ChargeClient{},
+		Coupons:       CouponClient{},
+		Customers:     CustomerClient{},
+		Discounts:     DiscountClient{},
+		Disputes:      DisputeClient{},
+		Plans:         PlanClient{},
+		Subscriptions: SubscriptionClient{},
 	}
 }
 

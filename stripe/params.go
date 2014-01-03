@@ -68,3 +68,16 @@ type PlanParams struct {
 	Name            string
 	TrialPeriodDays int
 }
+
+// SubscriptionParams hold all of the parameters used for updating and
+// canceling subscriptions.
+type SubscriptionParams struct {
+	Plan                  string
+	Coupon                string
+	Prorate               bool
+	TrialEnd              int
+	CardParams            *CardParams
+	Quantity              int
+	ApplicationFeePercent float64
+	AtPeriodEnd           bool
+}
