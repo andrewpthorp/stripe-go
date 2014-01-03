@@ -21,6 +21,16 @@ type ApplicationFee struct {
 	AmountRefunded     int64     `json:"amount_refunded"`
 }
 
+// ApplicationFeeListResponse is what is returned with a List request.
+type ApplicationFeeListResponse struct {
+	Object string            `json:"object"`
+	Url    string            `json:"url"`
+	Count  int               `json:"count"`
+	Data   []*ApplicationFee `json:"data"`
+}
+
+// ApplicationFeeClient is the receiver for all ApplicationFee methods of the
+// API.
 type ApplicationFeeClient struct{}
 
 // Retrieve loads an application fee.
@@ -51,22 +61,21 @@ func (c *ApplicationFeeClient) Refund(id string, params *RefundParams) (*Applica
 // count and 0 as the offset, which are the defaults in the Stripe API.
 //
 // For more information: https://stripe.com/docs/api#list_application_fees
-func (c *ApplicationFeeClient) List() ([]*ApplicationFee, error) {
+func (c *ApplicationFeeClient) List() (*ApplicationFeeListResponse, error) {
 	return c.ListCount(10, 0)
 }
 
 // ListCount lists `count` application fees starting at `offset`.
 //
 // For more information: https://stripe.com/docs/api#list_application_fees
-func (c *ApplicationFeeClient) ListCount(count, offset int) ([]*ApplicationFee, error) {
-	type fees struct{ Data []*ApplicationFee }
-	list := fees{}
+func (c *ApplicationFeeClient) ListCount(count, offset int) (*ApplicationFeeListResponse, error) {
+	response := ApplicationFeeListResponse{}
 
 	params := url.Values{
 		"count":  {strconv.Itoa(count)},
 		"offset": {strconv.Itoa(offset)},
 	}
 
-	err := get("/application_fees", params, &list)
-	return list.Data, err
+	err := get("/application_fees", params, &response)
+	return &response, err
 }
