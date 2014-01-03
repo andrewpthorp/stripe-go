@@ -18,6 +18,14 @@ type Recipient struct {
 	Metadata      Metadata     `json:"metadata"`
 }
 
+// RecipientListResponse is what is returned with a List request.
+type RecipientListResponse struct {
+	Object string       `json:"object"`
+	Url    string       `json:"url"`
+	Count  int          `json:"count"`
+	Data   []*Recipient `json:"data"`
+}
+
 // The RecipientClient is the receiver for most standard recipient related endpoints.
 type RecipientClient struct{}
 
@@ -65,24 +73,23 @@ func (c *RecipientClient) Delete(id string) (*DeleteResponse, error) {
 // and 0 as the offset, which are the defaults in the Stripe API.
 //
 // For more information: https://stripe.com/docs/api#list_recipients
-func (c *RecipientClient) List() ([]*Recipient, error) {
+func (c *RecipientClient) List() (*RecipientListResponse, error) {
 	return c.ListCount(10, 0)
 }
 
 // ListCount lists `count` recipients starting at `offset`.
 //
 // For more information: https://stripe.com/docs/api#list_recipients
-func (c *RecipientClient) ListCount(count, offset int) ([]*Recipient, error) {
-	type recipients struct{ Data []*Recipient }
-	list := recipients{}
+func (c *RecipientClient) ListCount(count, offset int) (*RecipientListResponse, error) {
+	response := RecipientListResponse{}
 
 	params := url.Values{
 		"count":  {strconv.Itoa(count)},
 		"offset": {strconv.Itoa(offset)},
 	}
 
-	err := get("/recipients", params, &list)
-	return list.Data, err
+	err := get("/recipients", params, &response)
+	return &response, err
 }
 
 // parseRecipientParams takes a pointer to a RecipientParams and a pointer to a url.Values,
