@@ -15,18 +15,19 @@ var (
 
 type Client struct {
 	UserAgent     string
-  Account       AccountClient
+	Account       AccountClient
+	Balance       BalanceClient
 	Cards         CardClient
 	Charges       ChargeClient
 	Coupons       CouponClient
 	Customers     CustomerClient
 	Discounts     DiscountClient
 	Disputes      DisputeClient
-  Events        EventClient
+	Events        EventClient
 	Plans         PlanClient
 	Recipients    RecipientClient
 	Subscriptions SubscriptionClient
-  Tokens        TokenClient
+	Tokens        TokenClient
 	Transfers     TransferClient
 }
 
@@ -36,18 +37,19 @@ func NewClient(key string) Client {
 
 	return Client{
 		UserAgent:     userAgent,
-    Account:       AccountClient{},
+		Account:       AccountClient{},
+		Balance:       BalanceClient{},
 		Cards:         CardClient{},
 		Charges:       ChargeClient{},
 		Coupons:       CouponClient{},
 		Customers:     CustomerClient{},
 		Discounts:     DiscountClient{},
 		Disputes:      DisputeClient{},
-    Events:        EventClient{},
+		Events:        EventClient{},
 		Plans:         PlanClient{},
 		Recipients:    RecipientClient{},
 		Subscriptions: SubscriptionClient{},
-    Tokens:        TokenClient{},
+		Tokens:        TokenClient{},
 		Transfers:     TransferClient{},
 	}
 }
