@@ -99,7 +99,7 @@ func (c *ChargeClient) Refund(id string, params *RefundParams) (*Charge, error) 
 		values.Add("refund_application_fee", strconv.FormatBool(params.RefundApplicationFee))
 	}
 
-	err := post("/charges/"+id+"/refund", values, &charge)
+	err := post("/charges/" + id + "/refund", values, &charge)
 	return &charge, err
 }
 

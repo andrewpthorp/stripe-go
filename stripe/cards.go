@@ -113,9 +113,9 @@ func (c *CardClient) ListCount(customerId string, count, offset int) ([]*Card, e
 	return list.Data, err
 }
 
-// parseCardParams takes a pointer to a CardParams and a pointer to a url.Values,
-// it iterates over everything in the CardParams struct and Adds what is there
-// to the url.Values.
+// parseCardParams takes a pointer to a CardParams and a pointer to a
+// url.Values. It iterates over everything in the CardParams struct and Adds
+// what is there to the url.Values.
 //
 // If a Token is set on CardParams, that will be Added as "card" to the
 // url.Values and the rest of the CardParams are ignored.
