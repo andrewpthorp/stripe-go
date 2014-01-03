@@ -20,6 +20,14 @@ type Coupon struct {
 	Valid            bool   `json:"valid"`
 }
 
+// CouponListResponse is what is returned with a List request.
+type CouponListResponse struct {
+	Object string    `json:"object"`
+	Url    string    `json:"url"`
+	Count  int       `json:"count"`
+	Data   []*Coupon `json:"data"`
+}
+
 // Delete deletes a coupon.
 //
 // For more information: https://stripe.com/docs/api#delete_coupon
@@ -65,24 +73,23 @@ func (c *CouponClient) Delete(id string) (*DeleteResponse, error) {
 // the count and 0 as the offset, which are the defaults in the Stripe API.
 //
 // For more information: https://stripe.com/docs/api#list_coupons
-func (c *CouponClient) List() ([]*Coupon, error) {
+func (c *CouponClient) List() (*CouponListResponse, error) {
 	return c.ListCount(10, 0)
 }
 
 // ListCount lists `count` coupons starting at `offset`.
 //
 // For more information: https://stripe.com/docs/api#list_coupons
-func (c *CouponClient) ListCount(count, offset int) ([]*Coupon, error) {
-	type coupons struct{ Data []*Coupon }
-	list := coupons{}
+func (c *CouponClient) ListCount(count, offset int) (*CouponListResponse, error) {
+	response := CouponListResponse{}
 
 	params := url.Values{
 		"count":  {strconv.Itoa(count)},
 		"offset": {strconv.Itoa(offset)},
 	}
 
-	err := get("/coupons", params, &list)
-	return list.Data, err
+	err := get("/coupons", params, &response)
+	return &response, err
 }
 
 // parseCouponParams takes a pointer to a CouponParams and a pointer to a url.Values,
