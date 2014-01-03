@@ -20,7 +20,7 @@ type Charge struct {
 	BalanceTransaction string  `json:"balance_transaction"`
 	Customer           string  `json:"customer"`
 	Description        string  `json:"description"`
-	//Dispute            Dispute `json:"dispute"`
+	Dispute            Dispute `json:"dispute"`
 	FailureCode        string  `json:"failure_code"`
 	FailureMessage     string  `json:"failure_message"`
 	Invoice            string  `json:"invoice"`

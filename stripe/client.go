@@ -20,6 +20,7 @@ type Client struct {
 	Coupons   CouponClient
 	Customers CustomerClient
 	Discounts DiscountClient
+  Disputes  DisputeClient
 	Plans     PlanClient
 }
 
@@ -34,6 +35,7 @@ func NewClient(key string) Client {
 		Coupons:   CouponClient{},
 		Customers: CustomerClient{},
 		Discounts: DiscountClient{},
+    Disputes:  DisputeClient{},
 		Plans:     PlanClient{},
 	}
 }
