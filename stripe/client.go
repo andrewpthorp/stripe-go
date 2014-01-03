@@ -15,6 +15,7 @@ var (
 
 type Client struct {
 	UserAgent     string
+  Account       AccountClient
 	Cards         CardClient
 	Charges       ChargeClient
 	Coupons       CouponClient
@@ -33,6 +34,7 @@ func NewClient(key string) Client {
 
 	return Client{
 		UserAgent:     userAgent,
+    Account:       AccountClient{},
 		Cards:         CardClient{},
 		Charges:       ChargeClient{},
 		Coupons:       CouponClient{},
