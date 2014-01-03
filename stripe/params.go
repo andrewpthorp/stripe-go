@@ -70,7 +70,7 @@ type PlanParams struct {
 }
 
 // SubscriptionParams hold all of the parameters used for updating and
-// canceling subscriptions.
+// canceling Subscriptions.
 type SubscriptionParams struct {
 	Plan                  string
 	Coupon                string
@@ -80,4 +80,14 @@ type SubscriptionParams struct {
 	Quantity              int
 	ApplicationFeePercent float64
 	AtPeriodEnd           bool
+}
+
+// TransferParams hold all of the parameters used for creating and updating
+// Transfers.
+type TransferParams struct {
+	Amount              int
+	Currency            string
+	Recipient           string
+	Description         string
+	StatementDescriptor string
 }
