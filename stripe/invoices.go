@@ -44,7 +44,6 @@ type Invoice struct {
 	//Lines              []InvoiceLineItem `json:"lines"`
 }
 
-// InvoiceLineItemListResponse is what is returned with a List request.
 type InvoiceLineItemListResponse struct {
 	Object string             `json:"object"`
 	Url    string             `json:"url"`
@@ -52,7 +51,6 @@ type InvoiceLineItemListResponse struct {
 	Data   []*InvoiceLineItem `json:"data"`
 }
 
-// InvoiceListResponse is what is returned with a List request.
 type InvoiceListResponse struct {
 	Object string     `json:"object"`
 	Url    string     `json:"url"`

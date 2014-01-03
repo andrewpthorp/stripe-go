@@ -20,7 +20,6 @@ type Coupon struct {
 	Valid            bool   `json:"valid"`
 }
 
-// CouponListResponse is what is returned with a List request.
 type CouponListResponse struct {
 	Object string    `json:"object"`
 	Url    string    `json:"url"`
@@ -37,7 +36,6 @@ func (c *Coupon) Delete() (*DeleteResponse, error) {
 	return &response, err
 }
 
-// The CouponClient is the receiver for most standard coupon related endpoints.
 type CouponClient struct{}
 
 // Create creates a coupon.

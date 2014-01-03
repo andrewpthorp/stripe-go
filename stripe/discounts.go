@@ -8,8 +8,6 @@ type Discount struct {
 	End      int64   `json:"end"`
 }
 
-// The DiscountClient is the receiver for most standard discount related
-// endpoints.
 type DiscountClient struct{}
 
 // Delete deletes a customers discount.

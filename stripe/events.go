@@ -21,7 +21,6 @@ type Event struct {
 	Request         string     `json:"request"`
 }
 
-// EventListResponse is what is returned with a List request.
 type EventListResponse struct {
 	Object string   `json:"object"`
 	Url    string   `json:"url"`
@@ -29,7 +28,6 @@ type EventListResponse struct {
 	Data   []*Event `json:"data"`
 }
 
-// The EventClient is the receiver for most standard event related endpoints.
 type EventClient struct{}
 
 // Retrieve loads a event.

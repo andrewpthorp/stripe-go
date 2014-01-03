@@ -21,7 +21,6 @@ type ApplicationFee struct {
 	AmountRefunded     int64     `json:"amount_refunded"`
 }
 
-// ApplicationFeeListResponse is what is returned with a List request.
 type ApplicationFeeListResponse struct {
 	Object string            `json:"object"`
 	Url    string            `json:"url"`
@@ -29,8 +28,6 @@ type ApplicationFeeListResponse struct {
 	Data   []*ApplicationFee `json:"data"`
 }
 
-// ApplicationFeeClient is the receiver for all ApplicationFee methods of the
-// API.
 type ApplicationFeeClient struct{}
 
 // Retrieve loads an application fee.

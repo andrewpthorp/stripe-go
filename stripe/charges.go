@@ -28,7 +28,6 @@ type Charge struct {
 	Metadata           Metadata  `json:"metadata"`
 }
 
-// ChargeListResponse is what is returned with a List request.
 type ChargeListResponse struct {
 	Object string    `json:"object"`
 	Url    string    `json:"url"`
@@ -36,7 +35,6 @@ type ChargeListResponse struct {
 	Data   []*Charge `json:"data"`
 }
 
-// ChargeClient is the receiver for all Charge methods of the API.
 type ChargeClient struct{}
 
 // Create creates a charge.

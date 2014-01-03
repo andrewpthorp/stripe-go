@@ -21,7 +21,6 @@ type Transfer struct {
 	Metadata            Metadata     `json:"metadata"`
 }
 
-// TransferListResponse is what is returned with a List request.
 type TransferListResponse struct {
 	Object string      `json:"object"`
 	Url    string      `json:"url"`
@@ -29,7 +28,6 @@ type TransferListResponse struct {
 	Data   []*Transfer `json:"data"`
 }
 
-// The TransferClient is the receiver for most standard transfer related endpoints.
 type TransferClient struct{}
 
 // Create creates a transfer.

@@ -5,7 +5,6 @@ import (
 	"strconv"
 )
 
-// The Fund is what is in Available/Pending in the Balance.
 type Fund struct {
 	Amount   int64  `json:"amount"`
 	Currency string `json:"currency"`
@@ -18,7 +17,6 @@ type Balance struct {
 	Pending   []*Fund `json:"pending"`
 }
 
-// The FeeDetails is what is in FeeDetails in the BalanceTransaction.
 type FeeDetails struct {
 	Amount      int64  `json:"amount"`
 	Currency    string `json:"currency"`
@@ -42,7 +40,6 @@ type BalanceTransaction struct {
 	FeeDetails  []*FeeDetails `json:"fee_details"`
 }
 
-// The BalanceClient is the receiver for most standard balance related endpoints.
 type BalanceClient struct{}
 
 // Retrieve loads a balance.

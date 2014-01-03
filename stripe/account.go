@@ -14,7 +14,6 @@ type Account struct {
 	StatementDescriptor string   `json:"statement_descriptor"`
 }
 
-// The AccountClient is the receiver for most standard account related endpoints.
 type AccountClient struct{}
 
 // Retrieve loads a account.

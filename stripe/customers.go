@@ -20,7 +20,6 @@ type Customer struct {
 	Metadata       Metadata      `json:"metadata"`
 }
 
-// CustomerListResponse is what is returned with a List request.
 type CustomerListResponse struct {
 	Object string      `json:"object"`
 	Url    string      `json:"url"`
@@ -47,7 +46,6 @@ func (c *Customer) Update(params *CustomerParams) (*Customer, error) {
 	return c, err
 }
 
-// The CustomerClient is the receiver for most standard customer related endpoints.
 type CustomerClient struct{}
 
 // Create creates a customer.

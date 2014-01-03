@@ -18,7 +18,6 @@ type Recipient struct {
 	Metadata      Metadata     `json:"metadata"`
 }
 
-// RecipientListResponse is what is returned with a List request.
 type RecipientListResponse struct {
 	Object string       `json:"object"`
 	Url    string       `json:"url"`
@@ -26,7 +25,6 @@ type RecipientListResponse struct {
 	Data   []*Recipient `json:"data"`
 }
 
-// The RecipientClient is the receiver for most standard recipient related endpoints.
 type RecipientClient struct{}
 
 // Create creates a recipient.

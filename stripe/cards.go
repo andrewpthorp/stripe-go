@@ -27,7 +27,6 @@ type Card struct {
 	Name              string `json:"name"`
 }
 
-// CardListResponse is what is returned with a List request.
 type CardListResponse struct {
 	Object string  `json:"object"`
 	Url    string  `json:"url"`
@@ -54,7 +53,6 @@ func (c *Card) Update(params *CardParams) (*Card, error) {
 	return c, err
 }
 
-// The CardClient is the receiver for most standard card related endpoints.
 type CardClient struct{}
 
 // Create creates a card for a customer.

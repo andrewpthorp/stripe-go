@@ -18,7 +18,6 @@ type Plan struct {
 	Metadata        Metadata `json:"metadata"`
 }
 
-// PlanListResponse is what is returned with a List request.
 type PlanListResponse struct {
 	Object string  `json:"object"`
 	Url    string  `json:"url"`
@@ -45,7 +44,6 @@ func (p *Plan) Update(params *PlanParams) (*Plan, error) {
 	return p, err
 }
 
-// The PlanClient is the receiver for most standard plan related endpoints.
 type PlanClient struct{}
 
 // Create creates a plan.

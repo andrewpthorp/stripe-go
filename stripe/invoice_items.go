@@ -19,7 +19,6 @@ type InvoiceItem struct {
 	Metadata    Metadata `json:"metadata"`
 }
 
-// InvoiceItemListResponse is what is returned with a List request.
 type InvoiceItemListResponse struct {
 	Object string         `json:"object"`
 	Url    string         `json:"url"`
