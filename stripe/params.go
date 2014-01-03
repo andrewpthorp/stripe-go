@@ -28,6 +28,19 @@ type CouponParams struct {
   RedeemBy int
 }
 
+// CustomerParams hold all of the parameters used for creating and updating
+// Customers.
+type CustomerParams struct {
+  AccountBalance int
+  CardParams *CardParams
+  Coupon string
+  Description string
+  Email string
+  Plan string
+  Quantity int
+  TrialEnd int
+}
+
 // PlanParams hold all of the parameters used for creating and updating Plans.
 type PlanParams struct {
   Id string
