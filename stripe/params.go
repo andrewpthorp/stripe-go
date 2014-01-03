@@ -60,6 +60,16 @@ type CustomerParams struct {
 	TrialEnd       int
 }
 
+// InvoiceItemParams hold all of the parameters used for creating and updating
+// InvoiceItems.
+type InvoiceItemParams struct {
+	Customer    string
+	Amount      int
+	Currency    string
+	Invoice     string
+	Description string
+}
+
 // PlanParams hold all of the parameters used for creating and updating Plans.
 type PlanParams struct {
 	Id              string

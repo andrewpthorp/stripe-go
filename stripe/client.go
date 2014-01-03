@@ -25,6 +25,7 @@ type Client struct {
 	Discounts       DiscountClient
 	Disputes        DisputeClient
 	Events          EventClient
+  InvoiceItems    InvoiceItemClient
 	Plans           PlanClient
 	Recipients      RecipientClient
 	Subscriptions   SubscriptionClient
@@ -48,6 +49,7 @@ func NewClient(key string) Client {
 		Discounts:       DiscountClient{},
 		Disputes:        DisputeClient{},
 		Events:          EventClient{},
+    InvoiceItems:    InvoiceItemClient{},
 		Plans:           PlanClient{},
 		Recipients:      RecipientClient{},
 		Subscriptions:   SubscriptionClient{},
