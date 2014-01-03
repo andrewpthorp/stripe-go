@@ -22,8 +22,9 @@ type Client struct {
 	Discounts     DiscountClient
 	Disputes      DisputeClient
 	Plans         PlanClient
+	Recipients    RecipientClient
 	Subscriptions SubscriptionClient
-  Transfers     TransferClient
+	Transfers     TransferClient
 }
 
 // NewClient returns a Client and allows us to access the resource clients.
@@ -39,8 +40,9 @@ func NewClient(key string) Client {
 		Discounts:     DiscountClient{},
 		Disputes:      DisputeClient{},
 		Plans:         PlanClient{},
+		Recipients:    RecipientClient{},
 		Subscriptions: SubscriptionClient{},
-    Transfers:     TransferClient{},
+		Transfers:     TransferClient{},
 	}
 }
 

@@ -69,6 +69,17 @@ type PlanParams struct {
 	TrialPeriodDays int
 }
 
+// RecipientParams hold all of the parameters used for creating and updating
+// Recipients.
+type RecipientParams struct {
+	Name              string
+	Type              string
+	TaxId             string
+	//BankAccountParams *AccountParams
+	Email             string
+	Description       string
+}
+
 // SubscriptionParams hold all of the parameters used for updating and
 // canceling Subscriptions.
 type SubscriptionParams struct {
