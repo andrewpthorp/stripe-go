@@ -21,6 +21,14 @@ type Event struct {
 	Request         string     `json:"request"`
 }
 
+// EventListResponse is what is returned with a List request.
+type EventListResponse struct {
+	Object string   `json:"object"`
+	Url    string   `json:"url"`
+	Count  int      `json:"count"`
+	Data   []*Event `json:"data"`
+}
+
 // The EventClient is the receiver for most standard event related endpoints.
 type EventClient struct{}
 
@@ -37,22 +45,21 @@ func (p *EventClient) Retrieve(id string) (*Event, error) {
 // 0 as the offset, which are the defaults in the Stripe API.
 //
 // For more information: https://stripe.com/docs/api#list_events
-func (c *EventClient) List() ([]*Event, error) {
+func (c *EventClient) List() (*EventListResponse, error) {
 	return c.ListCount(10, 0)
 }
 
 // ListCount lists `count` events starting at `offset`.
 //
 // For more information: https://stripe.com/docs/api#list_events
-func (c *EventClient) ListCount(count, offset int) ([]*Event, error) {
-	type events struct{ Data []*Event }
-	list := events{}
+func (c *EventClient) ListCount(count, offset int) (*EventListResponse, error) {
+	response := EventListResponse{}
 
 	params := url.Values{
 		"count":  {strconv.Itoa(count)},
 		"offset": {strconv.Itoa(offset)},
 	}
 
-	err := get("/events", params, &list)
-	return list.Data, err
+	err := get("/events", params, &response)
+	return &response, err
 }
