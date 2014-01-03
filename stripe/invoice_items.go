@@ -19,6 +19,14 @@ type InvoiceItem struct {
 	Metadata    Metadata `json:"metadata"`
 }
 
+// InvoiceItemListResponse is what is returned with a List request.
+type InvoiceItemListResponse struct {
+	Object string         `json:"object"`
+	Url    string         `json:"url"`
+	Count  int            `json:"count"`
+	Data   []*InvoiceItem `json:"data"`
+}
+
 type InvoiceItemClient struct{}
 
 // Create creates an invoice item.
@@ -65,24 +73,23 @@ func (c *InvoiceItemClient) Delete(id string) (*DeleteResponse, error) {
 // count and 0 as the offset, which are the defaults in the Stripe API.
 //
 // For more information: https://stripe.com/docs/api#list_invoice_items
-func (c *InvoiceItemClient) List() ([]*InvoiceItem, error) {
+func (c *InvoiceItemClient) List() (*InvoiceItemListResponse, error) {
 	return c.ListCount(10, 0)
 }
 
 // ListCount lists `count` invoice items starting at `offset`.
 //
 // For more information: https://stripe.com/docs/api#list_invoice_items
-func (c *InvoiceItemClient) ListCount(count, offset int) ([]*InvoiceItem, error) {
-	type items struct{ Data []*InvoiceItem }
-	list := items{}
+func (c *InvoiceItemClient) ListCount(count, offset int) (*InvoiceItemListResponse, error) {
+	response := InvoiceItemListResponse{}
 
 	params := url.Values{
 		"count":  {strconv.Itoa(count)},
 		"offset": {strconv.Itoa(offset)},
 	}
 
-	err := get("/invoiceitems", params, &list)
-	return list.Data, err
+	err := get("/invoiceitems", params, &response)
+	return &response, err
 }
 
 // parseInvoiceItemParams takes a pointer to a InvoiceItemParams and a pointer
