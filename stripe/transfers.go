@@ -6,19 +6,19 @@ import (
 )
 
 type Transfer struct {
-	Id                  string            `json:"id"`
-	Object              string            `json:"object"`
-	Livemode            bool              `json:"livemode"`
-	Amount              int64             `json:"amount"`
-	Currency            string            `json:"currency"`
-	Date                int64             `json:"date"`
-	Status              string            `json:"status"`
-	Account             *BankAccount      `json:"account"`
-	BalanceTransaction  string            `json:"balance_transaction"`
-	Description         string            `json:"description"`
-	Recipient           string            `json:"recipient"`
-	StatementDescriptor string            `json:"statement_descriptor"`
-	Metadata            map[string]string `json:"metadata"`
+	Id                  string       `json:"id"`
+	Object              string       `json:"object"`
+	Livemode            bool         `json:"livemode"`
+	Amount              int64        `json:"amount"`
+	Currency            string       `json:"currency"`
+	Date                int64        `json:"date"`
+	Status              string       `json:"status"`
+	Account             *BankAccount `json:"account"`
+	BalanceTransaction  string       `json:"balance_transaction"`
+	Description         string       `json:"description"`
+	Recipient           string       `json:"recipient"`
+	StatementDescriptor string       `json:"statement_descriptor"`
+	Metadata            Metadata     `json:"metadata"`
 }
 
 // The TransferClient is the receiver for most standard transfer related endpoints.

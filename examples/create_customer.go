@@ -22,7 +22,7 @@ func main() {
       ExpMonth: 01,
       ExpYear: 2020,
     },
-    Metadata: map[string]string{
+    Metadata: stripe.Metadata{
       "awesome": "yes",
       "twitter": "@andrewpthorp",
     },
@@ -31,8 +31,8 @@ func main() {
   customer, err := client.Customers.Create(&params)
 
   if err != nil {
-    fmt.Println("Error: ", err)
+    fmt.Println("Error creating customer: ", err)
   } else {
-    fmt.Printf("%+v\n", customer)
+    fmt.Println("Created customer: ", customer.id)
   }
 }

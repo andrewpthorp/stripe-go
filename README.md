@@ -32,7 +32,7 @@ Usage
           ExpYear: 2020,
           CVC: "111",
         },
-        Metadata: map[string]string{
+        Metadata: stripe.Metadata{
           "twitter": "@andrewpthorp"
         },
       }

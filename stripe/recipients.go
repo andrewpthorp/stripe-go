@@ -6,16 +6,16 @@ import (
 )
 
 type Recipient struct {
-	Id            string            `json:"id"`
-	Object        string            `json:"object"`
-	Livemode      bool              `json:"livemode"`
-	Created       int64             `json:"created"`
-	Type          string            `json:"type"`
-	ActiveAccount *BankAccount      `json:"active_account"`
-	Description   string            `json:"description"`
-	Email         string            `json:"email"`
-	Name          string            `json:"name"`
-	Metadata      map[string]string `json:"metadata"`
+	Id            string       `json:"id"`
+	Object        string       `json:"object"`
+	Livemode      bool         `json:"livemode"`
+	Created       int64        `json:"created"`
+	Type          string       `json:"type"`
+	ActiveAccount *BankAccount `json:"active_account"`
+	Description   string       `json:"description"`
+	Email         string       `json:"email"`
+	Name          string       `json:"name"`
+	Metadata      Metadata     `json:"metadata"`
 }
 
 // The RecipientClient is the receiver for most standard recipient related endpoints.

@@ -6,16 +6,16 @@ import (
 )
 
 type Plan struct {
-	Id              string            `json:"id"`
-	Object          string            `json:"object"`
-	Livemode        bool              `json:"livemode"`
-	Amount          int64             `json:"amount"`
-	Currency        string            `json:"currency"`
-	Interval        string            `json:"interval"`
-	IntervalCount   int64             `json:"interval_count"`
-	Name            string            `json:"name"`
-	TrialPeriodDays int64             `json:"trial_period_days"`
-	Metadata        map[string]string `json:"metadata"`
+	Id              string   `json:"id"`
+	Object          string   `json:"object"`
+	Livemode        bool     `json:"livemode"`
+	Amount          int64    `json:"amount"`
+	Currency        string   `json:"currency"`
+	Interval        string   `json:"interval"`
+	IntervalCount   int64    `json:"interval_count"`
+	Name            string   `json:"name"`
+	TrialPeriodDays int64    `json:"trial_period_days"`
+	Metadata        Metadata `json:"metadata"`
 }
 
 // Delete deletes a plan.

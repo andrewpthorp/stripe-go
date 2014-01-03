@@ -6,17 +6,17 @@ import (
 )
 
 type InvoiceItem struct {
-	Id          string            `json:"id"`
-	Object      string            `json:"object"`
-	Livemode    bool              `json:"livemode"`
-	Amount      int64             `json:"amount"`
-	Currency    string            `json:"currency"`
-	Customer    string            `json:"customer"`
-	Date        int64             `json:"date"`
-	Proration   bool              `json:"proration"`
-	Description string            `json:"description"`
-	Invoice     string            `json:"invoice"`
-	Metadata    map[string]string `json:"metadata"`
+	Id          string   `json:"id"`
+	Object      string   `json:"object"`
+	Livemode    bool     `json:"livemode"`
+	Amount      int64    `json:"amount"`
+	Currency    string   `json:"currency"`
+	Customer    string   `json:"customer"`
+	Date        int64    `json:"date"`
+	Proration   bool     `json:"proration"`
+	Description string   `json:"description"`
+	Invoice     string   `json:"invoice"`
+	Metadata    Metadata `json:"metadata"`
 }
 
 type InvoiceItemClient struct{}
