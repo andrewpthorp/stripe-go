@@ -30,7 +30,7 @@ type ChargeClient struct{}
 
 // Create creates a charge.
 //
-// For ore information: https://stripe.com/docs/api#create_charge
+// For more information: https://stripe.com/docs/api#create_charge
 func (c *ChargeClient) Create(params *ChargeParams) (*Charge, error) {
   charge := Charge{}
   values := url.Values{}
@@ -102,8 +102,8 @@ func (c *ChargeClient) Refund(id string, params *ChargeRefundParams) (*Charge, e
   return &charge, err
 }
 
-// parseChargeParams takes a pointer to ChargeParams and a pointer to a
-// url.Values, it iterates over everything in the ChargeParams struct and Adds
+// parseChargeParams takes a pointer to a ChargeParams and a pointer to a
+// url.Values. It iterates over everything in the ChargeParams struct and Adds
 // what is there to the url.Values.
 func parseChargeParams(params *ChargeParams, values *url.Values) {
 
