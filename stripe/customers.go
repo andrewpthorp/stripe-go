@@ -20,6 +20,14 @@ type Customer struct {
 	Metadata       Metadata      `json:"metadata"`
 }
 
+// CustomerListResponse is what is returned with a List request.
+type CustomerListResponse struct {
+	Object string      `json:"object"`
+	Url    string      `json:"url"`
+	Count  int         `json:"count"`
+	Data   []*Customer `json:"data"`
+}
+
 // Delete deletes a customer.
 //
 // For more information: https://stripe.com/docs/api#delete_customer
@@ -86,24 +94,23 @@ func (c *CustomerClient) Delete(id string) (*DeleteResponse, error) {
 // and 0 as the offset, which are the defaults in the Stripe API.
 //
 // For more information: https://stripe.com/docs/api#list_customers
-func (c *CustomerClient) List() ([]*Customer, error) {
+func (c *CustomerClient) List() (*CustomerListResponse, error) {
 	return c.ListCount(10, 0)
 }
 
 // ListCount lists `count` customers starting at `offset`.
 //
 // For more information: https://stripe.com/docs/api#list_customers
-func (c *CustomerClient) ListCount(count, offset int) ([]*Customer, error) {
-	type customers struct{ Data []*Customer }
-	list := customers{}
+func (c *CustomerClient) ListCount(count, offset int) (*CustomerListResponse, error) {
+	response := CustomerListResponse{}
 
 	params := url.Values{
 		"count":  {strconv.Itoa(count)},
 		"offset": {strconv.Itoa(offset)},
 	}
 
-	err := get("/customers", params, &list)
-	return list.Data, err
+	err := get("/customers", params, &response)
+	return &response, err
 }
 
 // parseCustomerParams takes a pointer to a CustomerParams and a pointer to a url.Values,
