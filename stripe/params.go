@@ -60,6 +60,14 @@ type CustomerParams struct {
 	TrialEnd       int
 }
 
+// InvoiceParams hold all of the parameters used for creating and updating
+// Invoices.
+type InvoiceParams struct {
+	Customer       string
+	ApplicationFee int
+	Closed         bool
+}
+
 // InvoiceItemParams hold all of the parameters used for creating and updating
 // InvoiceItems.
 type InvoiceItemParams struct {
