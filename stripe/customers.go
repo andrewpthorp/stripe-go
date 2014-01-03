@@ -14,7 +14,7 @@ type Customer struct {
   Currency          string `json:"currency"`
   DefaultCard       string `json:"default_card"`
   Delinquent        bool   `json:"delinquent"`
-  //Discount          Discount `json:"discount"`
+  Discount          Discount `json:"discount"`
   Email             string `json:"email"`
   //Subscription      Subscription `json:"subscription"`
 }
