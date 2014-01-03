@@ -46,7 +46,7 @@ func (p *PlanClient) Create(params *PlanParams) (*Plan, error) {
   plan := Plan{}
   values := url.Values{}
   parsePlanParams(params, &values)
-  err := post("/plans/", values, &plan)
+  err := post("/plans", values, &plan)
   return &plan, err
 }
 
@@ -55,7 +55,7 @@ func (p *PlanClient) Create(params *PlanParams) (*Plan, error) {
 // For more information: https://stripe.com/docs/api#retrieve_plan
 func (p *PlanClient) Retrieve(id string) (*Plan, error) {
   plan := Plan{}
-  err := get("/plans" + id, nil, &plan)
+  err := get("/plans/" + id, nil, &plan)
   return &plan, err
 }
 
