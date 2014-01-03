@@ -21,6 +21,14 @@ type Transfer struct {
 	Metadata            Metadata     `json:"metadata"`
 }
 
+// TransferListResponse is what is returned with a List request.
+type TransferListResponse struct {
+	Object string      `json:"object"`
+	Url    string      `json:"url"`
+	Count  int         `json:"count"`
+	Data   []*Transfer `json:"data"`
+}
+
 // The TransferClient is the receiver for most standard transfer related endpoints.
 type TransferClient struct{}
 
@@ -68,24 +76,23 @@ func (c *TransferClient) Cancel(id string) (*Transfer, error) {
 // and 0 as the offset, which are the defaults in the Stripe API.
 //
 // For more information: https://stripe.com/docs/api#list_transfers
-func (c *TransferClient) List() ([]*Transfer, error) {
+func (c *TransferClient) List() (*TransferListResponse, error) {
 	return c.ListCount(10, 0)
 }
 
 // ListCount lists `count` transfers starting at `offset`.
 //
 // For more information: https://stripe.com/docs/api#list_transfers
-func (c *TransferClient) ListCount(count, offset int) ([]*Transfer, error) {
-	type transfers struct{ Data []*Transfer }
-	list := transfers{}
+func (c *TransferClient) ListCount(count, offset int) (*TransferListResponse, error) {
+	response := TransferListResponse{}
 
 	params := url.Values{
 		"count":  {strconv.Itoa(count)},
 		"offset": {strconv.Itoa(offset)},
 	}
 
-	err := get("/transfers", params, &list)
-	return list.Data, err
+	err := get("/transfers", params, &response)
+	return &response, err
 }
 
 // parseTransferParams takes a pointer to a TransferParams and a pointer to a url.Values,
