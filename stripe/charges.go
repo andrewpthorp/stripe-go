@@ -6,25 +6,26 @@ import (
 )
 
 type Charge struct {
-	Id                 string   `json:"id"`
-	Object             string   `json:"object"`
-	Livemode           bool     `json:"livemode"`
-	Amount             int64    `json:"amount"`
-	Captured           bool     `json:"captured"`
-	Card               Card     `json:"card"`
-	Created            int64    `json:"created"`
-	Currency           string   `json:"currency"`
-	Paid               bool     `json:"paid"`
-	Refunded           bool     `json:"refunded"`
-	Refunds            []Refund `json:"refunds"`
-	AmountRefunded     int64    `json:"amount_refunded"`
-	BalanceTransaction string   `json:"balance_transaction"`
-	Customer           string   `json:"customer"`
-	Description        string   `json:"description"`
-	Dispute            Dispute  `json:"dispute"`
-	FailureCode        string   `json:"failure_code"`
-	FailureMessage     string   `json:"failure_message"`
-	Invoice            string   `json:"invoice"`
+	Id                 string            `json:"id"`
+	Object             string            `json:"object"`
+	Livemode           bool              `json:"livemode"`
+	Amount             int64             `json:"amount"`
+	Captured           bool              `json:"captured"`
+	Card               Card              `json:"card"`
+	Created            int64             `json:"created"`
+	Currency           string            `json:"currency"`
+	Paid               bool              `json:"paid"`
+	Refunded           bool              `json:"refunded"`
+	Refunds            []Refund          `json:"refunds"`
+	AmountRefunded     int64             `json:"amount_refunded"`
+	BalanceTransaction string            `json:"balance_transaction"`
+	Customer           string            `json:"customer"`
+	Description        string            `json:"description"`
+	Dispute            Dispute           `json:"dispute"`
+	FailureCode        string            `json:"failure_code"`
+	FailureMessage     string            `json:"failure_message"`
+	Invoice            string            `json:"invoice"`
+	Metadata           map[string]string `json:"metadata"`
 }
 
 type ChargeClient struct{}
@@ -99,7 +100,7 @@ func (c *ChargeClient) Refund(id string, params *RefundParams) (*Charge, error) 
 		values.Add("refund_application_fee", strconv.FormatBool(params.RefundApplicationFee))
 	}
 
-	err := post("/charges/" + id + "/refund", values, &charge)
+	err := post("/charges/"+id+"/refund", values, &charge)
 	return &charge, err
 }
 
@@ -111,6 +112,11 @@ func parseChargeParams(params *ChargeParams, values *url.Values) {
 	// Use parseCardParams from cards.go to setup the card param
 	if params.CardParams != nil {
 		parseCardParams(params.CardParams, values, true)
+	}
+
+	// Use parseMetaData from metadata.go to setup the metadata param
+	if params.Metadata != nil {
+		parseMetadata(params.Metadata, values)
 	}
 
 	if params.Amount != 0 {

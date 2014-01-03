@@ -19,16 +19,16 @@ type BankAccount struct {
 // and Adds what is there to the url.Values.
 func parseBankAccountParams(params *BankAccountParams, values *url.Values) {
 
-  if params.Country != "" {
-    values.Add("bank_account[country]", params.Country)
-  }
+	if params.Country != "" {
+		values.Add("bank_account[country]", params.Country)
+	}
 
-  if params.RoutingNumber != "" {
-    values.Add("bank_account[routing_number]", params.RoutingNumber)
-  }
+	if params.RoutingNumber != "" {
+		values.Add("bank_account[routing_number]", params.RoutingNumber)
+	}
 
-  if params.AccountNumber != "" {
-    values.Add("bank_account[account_number]", params.AccountNumber)
-  }
+	if params.AccountNumber != "" {
+		values.Add("bank_account[account_number]", params.AccountNumber)
+	}
 
 }

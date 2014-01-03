@@ -6,17 +6,18 @@ import (
 )
 
 type Customer struct {
-	Id             string       `json:"id"`
-	Object         string       `json:"object"`
-	Livemode       bool         `json:"livemode"`
-	Created        int64        `json:"created"`
-	AccountBalance int64        `json:"account_balance"`
-	Currency       string       `json:"currency"`
-	DefaultCard    string       `json:"default_card"`
-	Delinquent     bool         `json:"delinquent"`
-	Discount       Discount     `json:"discount"`
-	Email          string       `json:"email"`
-	Subscription   Subscription `json:"subscription"`
+	Id             string            `json:"id"`
+	Object         string            `json:"object"`
+	Livemode       bool              `json:"livemode"`
+	Created        int64             `json:"created"`
+	AccountBalance int64             `json:"account_balance"`
+	Currency       string            `json:"currency"`
+	DefaultCard    string            `json:"default_card"`
+	Delinquent     bool              `json:"delinquent"`
+	Discount       Discount          `json:"discount"`
+	Email          string            `json:"email"`
+	Subscription   Subscription      `json:"subscription"`
+	Metadata       map[string]string `json:"metadata"`
 }
 
 // Delete deletes a customer.
@@ -113,6 +114,11 @@ func parseCustomerParams(params *CustomerParams, values *url.Values) {
 	// Use parseCardParams from cards.go to setup the card param
 	if params.CardParams != nil {
 		parseCardParams(params.CardParams, values, true)
+	}
+
+	// Use parseMetaData from metadata.go to setup the metadata param
+	if params.Metadata != nil {
+		parseMetadata(params.Metadata, values)
 	}
 
 	if params.AccountBalance != 0 {

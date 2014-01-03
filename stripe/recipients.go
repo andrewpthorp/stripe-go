@@ -6,15 +6,16 @@ import (
 )
 
 type Recipient struct {
-	Id            string      `json:"id"`
-	Object        string      `json:"object"`
-	Livemode      bool        `json:"livemode"`
-	Created       int64       `json:"created"`
-	Type          string      `json:"type"`
-	ActiveAccount BankAccount `json:"active_account"`
-	Description   string      `json:"description"`
-	Email         string      `json:"email"`
-	Name          string      `json:"name"`
+	Id            string            `json:"id"`
+	Object        string            `json:"object"`
+	Livemode      bool              `json:"livemode"`
+	Created       int64             `json:"created"`
+	Type          string            `json:"type"`
+	ActiveAccount BankAccount       `json:"active_account"`
+	Description   string            `json:"description"`
+	Email         string            `json:"email"`
+	Name          string            `json:"name"`
+	Metadata      map[string]string `json:"metadata"`
 }
 
 // The RecipientClient is the receiver for most standard recipient related endpoints.
@@ -93,6 +94,11 @@ func parseRecipientParams(params *RecipientParams, values *url.Values) {
 	// param
 	if params.BankAccountParams != nil {
 		parseBankAccountParams(params.BankAccountParams, values)
+	}
+
+	// Use parseMetaData from metadata.go to setup the metadata param
+	if params.Metadata != nil {
+		parseMetadata(params.Metadata, values)
 	}
 
 	if params.Name != "" {

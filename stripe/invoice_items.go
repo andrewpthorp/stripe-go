@@ -6,16 +6,17 @@ import (
 )
 
 type InvoiceItem struct {
-	Id                 string   `json:"id"`
-	Object             string   `json:"object"`
-	Livemode           bool     `json:"livemode"`
-	Amount             int64    `json:"amount"`
-	Currency           string   `json:"currency"`
-	Customer           string   `json:"customer"`
-  Date               int64    `json:"date"`
-  Proration          bool     `json:"proration"`
-	Description        string   `json:"description"`
-	Invoice            string   `json:"invoice"`
+	Id          string            `json:"id"`
+	Object      string            `json:"object"`
+	Livemode    bool              `json:"livemode"`
+	Amount      int64             `json:"amount"`
+	Currency    string            `json:"currency"`
+	Customer    string            `json:"customer"`
+	Date        int64             `json:"date"`
+	Proration   bool              `json:"proration"`
+	Description string            `json:"description"`
+	Invoice     string            `json:"invoice"`
+	Metadata    map[string]string `json:"metadata"`
 }
 
 type InvoiceItemClient struct{}
@@ -55,9 +56,9 @@ func (c *InvoiceItemClient) Update(id string, params *InvoiceItemParams) (*Invoi
 //
 // For more information: https://stripe.com/docs/api#delete_invoice_item
 func (c *InvoiceItemClient) Delete(id string) (*DeleteResponse, error) {
-  response := DeleteResponse{}
-  err := delete("/invoiceitems/" + id, nil, &response)
-  return &response, err
+	response := DeleteResponse{}
+	err := delete("/invoiceitems/"+id, nil, &response)
+	return &response, err
 }
 
 // List lists the first 10 invoice items. It calls ListCount with 10 as the
@@ -89,24 +90,29 @@ func (c *InvoiceItemClient) ListCount(count, offset int) ([]*InvoiceItem, error)
 // and Adds what is there to the url.Values.
 func parseInvoiceItemParams(params *InvoiceItemParams, values *url.Values) {
 
-  if params.Customer != "" {
-    values.Add("customer", params.Customer)
-  }
+	// Use parseMetaData from metadata.go to setup the metadata param
+	if params.Metadata != nil {
+		parseMetadata(params.Metadata, values)
+	}
 
-  if params.Amount != 0 {
-    values.Add("amount", strconv.Itoa(params.Amount))
-  }
+	if params.Customer != "" {
+		values.Add("customer", params.Customer)
+	}
 
-  if params.Currency != "" {
-    values.Add("currency", params.Currency)
-  }
+	if params.Amount != 0 {
+		values.Add("amount", strconv.Itoa(params.Amount))
+	}
 
-  if params.Invoice != "" {
-    values.Add("invoice", params.Invoice)
-  }
+	if params.Currency != "" {
+		values.Add("currency", params.Currency)
+	}
 
-  if params.Description != "" {
-    values.Add("description", params.Description)
-  }
+	if params.Invoice != "" {
+		values.Add("invoice", params.Invoice)
+	}
+
+	if params.Description != "" {
+		values.Add("description", params.Description)
+	}
 
 }

@@ -33,6 +33,7 @@ type ChargeParams struct {
 	Description    string
 	Capture        bool
 	ApplicationFee int
+	Metadata       map[string]string
 }
 
 // CouponParams hold all of the parameters used for creating Coupons.
@@ -58,6 +59,7 @@ type CustomerParams struct {
 	Plan           string
 	Quantity       int
 	TrialEnd       int
+	Metadata       map[string]string
 }
 
 // InvoiceParams hold all of the parameters used for creating and updating
@@ -76,6 +78,7 @@ type InvoiceItemParams struct {
 	Currency    string
 	Invoice     string
 	Description string
+	Metadata    map[string]string
 }
 
 // PlanParams hold all of the parameters used for creating and updating Plans.
@@ -87,6 +90,7 @@ type PlanParams struct {
 	IntervalCount   int
 	Name            string
 	TrialPeriodDays int
+	Metadata        map[string]string
 }
 
 // RecipientParams hold all of the parameters used for creating and updating
@@ -98,6 +102,7 @@ type RecipientParams struct {
 	BankAccountParams *BankAccountParams
 	Email             string
 	Description       string
+	Metadata          map[string]string
 }
 
 // RefundParams hold all of the parameters used for refunding Charges.
@@ -134,4 +139,5 @@ type TransferParams struct {
 	Recipient           string
 	Description         string
 	StatementDescriptor string
+	Metadata            map[string]string
 }

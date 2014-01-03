@@ -43,7 +43,7 @@ func (c *ApplicationFeeClient) Refund(id string, params *RefundParams) (*Applica
 		values.Add("amount", strconv.Itoa(params.Amount))
 	}
 
-	err := post("/application_fees/" + id + "/refund", values, &fee)
+	err := post("/application_fees/"+id+"/refund", values, &fee)
 	return &fee, err
 }
 

@@ -20,20 +20,20 @@ type DisputeClient struct{}
 //
 // For more information: https://stripe.com/docs/api#update_dispute
 func (c *DisputeClient) Update(chargeId, evidence string) (*Dispute, error) {
-  dispute := Dispute{}
-  values := url.Values{
-    "evidence": {evidence},
-  }
+	dispute := Dispute{}
+	values := url.Values{
+		"evidence": {evidence},
+	}
 
-  err := post("/charges/" + chargeId + "/dispute", values, &dispute)
-  return &dispute, err
+	err := post("/charges/"+chargeId+"/dispute", values, &dispute)
+	return &dispute, err
 }
 
 // Close closes a dispute.
 //
 // For more information: https://stripe.com/docs/api#close_dispute
 func (c *DisputeClient) Close(chargeId string) (*Dispute, error) {
-  dispute := Dispute{}
-  err := post("/charges/" + chargeId + "/dispute/close", nil, &dispute)
-  return &dispute, err
+	dispute := Dispute{}
+	err := post("/charges/"+chargeId+"/dispute/close", nil, &dispute)
+	return &dispute, err
 }

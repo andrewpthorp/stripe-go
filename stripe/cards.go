@@ -31,19 +31,19 @@ type Card struct {
 //
 // For more information: https://stripe.com/docs/api#delete_card
 func (c *Card) Delete() (*DeleteResponse, error) {
-  response := DeleteResponse{}
-  err := delete("/customers/" + c.Customer + "/cards/" + c.Id, nil, &response)
-  return &response, err
+	response := DeleteResponse{}
+	err := delete("/customers/"+c.Customer+"/cards/"+c.Id, nil, &response)
+	return &response, err
 }
 
 // Update updates a customers card.
 //
 // For more information: https://stripe.com/docs/api#update_card
 func (c *Card) Update(params *CardParams) (*Card, error) {
-  values := url.Values{}
-  parseCardParams(params, &values, false)
-  err := post("/customers/" + c.Customer + "/cards/" + c.Id, values, c)
-  return c, err
+	values := url.Values{}
+	parseCardParams(params, &values, false)
+	err := post("/customers/"+c.Customer+"/cards/"+c.Id, values, c)
+	return c, err
 }
 
 // The CardClient is the receiver for most standard card related endpoints.
@@ -53,40 +53,40 @@ type CardClient struct{}
 //
 // For more information: https://stripe.com/docs/api#create_card
 func (c *CardClient) Create(customerId string, params *CardParams) (*Card, error) {
-  card := Card{}
-  values := url.Values{}
-  parseCardParams(params, &values, true)
-  err := post("/customers/" + customerId + "/cards", values, &card)
-  return &card, err
+	card := Card{}
+	values := url.Values{}
+	parseCardParams(params, &values, true)
+	err := post("/customers/"+customerId+"/cards", values, &card)
+	return &card, err
 }
 
 // Retrieve loads a customers card.
 //
 // For more information: https://stripe.com/docs/api#retrieve_card
 func (c *CardClient) Retrieve(customerId, id string) (*Card, error) {
-  card := Card{}
-  err := get("/customers/" + customerId + "/cards/" + id, nil, &card)
-  return &card, err
+	card := Card{}
+	err := get("/customers/"+customerId+"/cards/"+id, nil, &card)
+	return &card, err
 }
 
 // Update updates a customers card.
 //
 // For more information: https://stripe.com/docs/api#update_card
 func (c *CardClient) Update(customerId, id string, params *CardParams) (*Card, error) {
-  card := Card{}
-  values := url.Values{}
-  parseCardParams(params, &values, false)
-  err := post("/customers/" + customerId + "/cards/" + id, values, &card)
-  return &card, err
+	card := Card{}
+	values := url.Values{}
+	parseCardParams(params, &values, false)
+	err := post("/customers/"+customerId+"/cards/"+id, values, &card)
+	return &card, err
 }
 
 // Delete deletes a customers card.
 //
 // For more information: https://stripe.com/docs/api#delete_card
 func (c *CardClient) Delete(customerId, id string) (*DeleteResponse, error) {
-  response := DeleteResponse{}
-  err := delete("/customers/" + customerId + "/cards/" + id, nil, &response)
-  return &response, err
+	response := DeleteResponse{}
+	err := delete("/customers/"+customerId+"/cards/"+id, nil, &response)
+	return &response, err
 }
 
 // List lists the first 10 cards for a customer. It calls ListCount with 10 as
@@ -105,11 +105,11 @@ func (c *CardClient) ListCount(customerId string, count, offset int) ([]*Card, e
 	list := cards{}
 
 	params := url.Values{
-		"count"   : {strconv.Itoa(count)},
-		"offset"  : {strconv.Itoa(offset)},
+		"count":  {strconv.Itoa(count)},
+		"offset": {strconv.Itoa(offset)},
 	}
 
-	err := get("/customers/" + customerId + "/cards", params, &list)
+	err := get("/customers/"+customerId+"/cards", params, &list)
 	return list.Data, err
 }
 
@@ -124,60 +124,60 @@ func (c *CardClient) ListCount(customerId string, count, offset int) ([]*Card, e
 // inside of a card[]. This is normally true for creates and false for updates.
 func parseCardParams(params *CardParams, values *url.Values, includeRoot bool) {
 
-  // If a token is passed, we are using that and not allowing a dictionary.
-  if params.Token != "" {
-    values.Add("card", params.Token)
-    return
-  }
+	// If a token is passed, we are using that and not allowing a dictionary.
+	if params.Token != "" {
+		values.Add("card", params.Token)
+		return
+	}
 
-  var prefix, suffix string
+	var prefix, suffix string
 
-  if includeRoot {
-    prefix = "card["
-    suffix = "]"
-  }
+	if includeRoot {
+		prefix = "card["
+		suffix = "]"
+	}
 
-  if params.Number != "" {
-    values.Add(prefix + "number" + suffix, params.Number)
-  }
+	if params.Number != "" {
+		values.Add(prefix+"number"+suffix, params.Number)
+	}
 
-  if params.CVC != "" {
-    values.Add(prefix + "cvc" + suffix, params.CVC)
-  }
+	if params.CVC != "" {
+		values.Add(prefix+"cvc"+suffix, params.CVC)
+	}
 
-  if params.ExpMonth != 0 {
-    values.Add(prefix + "exp_month" + suffix, strconv.Itoa(params.ExpMonth))
-  }
+	if params.ExpMonth != 0 {
+		values.Add(prefix+"exp_month"+suffix, strconv.Itoa(params.ExpMonth))
+	}
 
-  if params.ExpYear != 0 {
-    values.Add(prefix + "exp_year" + suffix, strconv.Itoa(params.ExpYear))
-  }
+	if params.ExpYear != 0 {
+		values.Add(prefix+"exp_year"+suffix, strconv.Itoa(params.ExpYear))
+	}
 
-  if params.Name != "" {
-    values.Add(prefix + "name" + suffix, params.Name)
-  }
+	if params.Name != "" {
+		values.Add(prefix+"name"+suffix, params.Name)
+	}
 
-  if params.AddressLine1 != "" {
-    values.Add(prefix + "address_line1" + suffix, params.AddressLine1)
-  }
+	if params.AddressLine1 != "" {
+		values.Add(prefix+"address_line1"+suffix, params.AddressLine1)
+	}
 
-  if params.AddressLine2 != "" {
-    values.Add(prefix + "address_line2" + suffix, params.AddressLine2)
-  }
+	if params.AddressLine2 != "" {
+		values.Add(prefix+"address_line2"+suffix, params.AddressLine2)
+	}
 
-  if params.AddressCity != "" {
-    values.Add(prefix + "address_city" + suffix, params.AddressCity)
-  }
+	if params.AddressCity != "" {
+		values.Add(prefix+"address_city"+suffix, params.AddressCity)
+	}
 
-  if params.AddressZip != "" {
-    values.Add(prefix + "address_zip" + suffix, params.AddressZip)
-  }
+	if params.AddressZip != "" {
+		values.Add(prefix+"address_zip"+suffix, params.AddressZip)
+	}
 
-  if params.AddressState != "" {
-    values.Add(prefix + "address_state" + suffix, params.AddressState)
-  }
+	if params.AddressState != "" {
+		values.Add(prefix+"address_state"+suffix, params.AddressState)
+	}
 
-  if params.AddressCountry != "" {
-    values.Add(prefix + "address_country" + suffix, params.AddressCountry)
-  }
+	if params.AddressCountry != "" {
+		values.Add(prefix+"address_country"+suffix, params.AddressCountry)
+	}
 }

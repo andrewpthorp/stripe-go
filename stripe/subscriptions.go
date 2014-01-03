@@ -1,8 +1,8 @@
 package stripe
 
 import (
-  "net/url"
-  "strconv"
+	"net/url"
+	"strconv"
 )
 
 type Subscription struct {
