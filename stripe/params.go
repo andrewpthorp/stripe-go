@@ -13,6 +13,7 @@ type CardParams struct {
   AddressZip string
   AddressState string
   AddressCountry string
+  Token string
 }
 
 // CouponParams hold all of the parameters used for creating Coupons.

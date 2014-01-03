@@ -117,9 +117,19 @@ func (c *CardClient) ListCount(customerId string, count, offset int) ([]*Card, e
 // it iterates over everything in the CardParams struct and Adds what is there
 // to the url.Values.
 //
+// If a Token is set on CardParams, that will be Added as "card" to the
+// url.Values and the rest of the CardParams are ignored.
+//
 // The last argument, `includeRoot`, determines whether the values are added
 // inside of a card[]. This is normally true for creates and false for updates.
 func parseCardParams(params *CardParams, values *url.Values, includeRoot bool) {
+
+  // If a token is passed, we are using that and not allowing a dictionary.
+  if params.Token != "" {
+    values.Add("card", params.Token)
+    return
+  }
+
   var prefix, suffix string
 
   if includeRoot {
