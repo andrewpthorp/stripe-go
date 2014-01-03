@@ -111,7 +111,9 @@ func (c *CustomerClient) ListCount(count, offset int) ([]*Customer, error) {
 func parseCustomerParams(params *CustomerParams, values *url.Values) {
 
   // Use parseCardParams from cards.go to setup the card param
-  parseCardParams(params.CardParams, values, true)
+  if params.CardParams != nil {
+    parseCardParams(params.CardParams, values, true)
+  }
 
   if params.AccountBalance != 0 {
     values.Add("account_balance", strconv.Itoa(params.AccountBalance))
