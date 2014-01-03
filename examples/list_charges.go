@@ -14,7 +14,7 @@ func main() {
   charges, err := client.Charges.List()
 
   if err != nil {
-    fmt.Println("Error creating customer: ", err)
+    fmt.Println("Error listhing charges: ", err)
   } else {
 
     for _, v := range charges.Data {
