@@ -6,15 +6,15 @@ import (
 )
 
 type Recipient struct {
-	Id            string  `json:"id"`
-	Object        string  `json:"object"`
-	Livemode      bool    `json:"livemode"`
-	Created       int64   `json:"created"`
-	Type          string  `json:"type"`
-	//ActiveAccount Account `json:"account"`
-	Description   string  `json:"description"`
-	Email         string  `json:"email"`
-	Name          string  `json:"name"`
+	Id            string      `json:"id"`
+	Object        string      `json:"object"`
+	Livemode      bool        `json:"livemode"`
+	Created       int64       `json:"created"`
+	Type          string      `json:"type"`
+	ActiveAccount BankAccount `json:"active_account"`
+	Description   string      `json:"description"`
+	Email         string      `json:"email"`
+	Name          string      `json:"name"`
 }
 
 // The RecipientClient is the receiver for most standard recipient related endpoints.
@@ -55,7 +55,7 @@ func (c *RecipientClient) Update(id string, params *RecipientParams) (*Recipient
 //
 // For more information: https://stripe.com/docs/api/#delete_recipient
 func (c *RecipientClient) Delete(id string) (*DeleteResponse, error) {
-  response := DeleteResponse{}
+	response := DeleteResponse{}
 	err := delete("/recipients/"+id, nil, &response)
 	return &response, err
 }
@@ -89,26 +89,30 @@ func (c *RecipientClient) ListCount(count, offset int) ([]*Recipient, error) {
 // to the url.Values.
 func parseRecipientParams(params *RecipientParams, values *url.Values) {
 
-  if params.Name != "" {
-    values.Add("name", params.Name)
-  }
+	// Use parseBankAccountParams from bank_accounts.go to setup the bank_account
+	// param
+	if params.BankAccountParams != nil {
+		parseBankAccountParams(params.BankAccountParams, values)
+	}
 
-  if params.Type != "" {
-    values.Add("type", params.Type)
-  }
+	if params.Name != "" {
+		values.Add("name", params.Name)
+	}
 
-  if params.TaxId != "" {
-    values.Add("tax_id", params.TaxId)
-  }
+	if params.Type != "" {
+		values.Add("type", params.Type)
+	}
 
-  // TODO: Add BankAccountParams.
+	if params.TaxId != "" {
+		values.Add("tax_id", params.TaxId)
+	}
 
-  if params.Email != "" {
-    values.Add("email", params.Email)
-  }
+	if params.Email != "" {
+		values.Add("email", params.Email)
+	}
 
-  if params.Description != "" {
-    values.Add("description", params.Description)
-  }
+	if params.Description != "" {
+		values.Add("description", params.Description)
+	}
 
 }

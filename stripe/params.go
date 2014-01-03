@@ -1,5 +1,13 @@
 package stripe
 
+// BankAccountParams hold all of the parameters used for creating and updating
+// BankAccounts.
+type BankAccountParams struct {
+	Country       string
+	RoutingNumber string
+	AccountNumber string
+}
+
 // CardParams hold all of the parameters used for creating and updating Cards.
 type CardParams struct {
 	Number         string
@@ -75,7 +83,7 @@ type RecipientParams struct {
 	Name              string
 	Type              string
 	TaxId             string
-	//BankAccountParams *AccountParams
+	BankAccountParams *BankAccountParams
 	Email             string
 	Description       string
 }

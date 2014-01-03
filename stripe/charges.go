@@ -102,7 +102,7 @@ func (c *ChargeClient) Refund(id string, params *ChargeRefundParams) (*Charge, e
   return &charge, err
 }
 
-// parseChargePArams takes a pointer to ChargeParams and a pointer to a
+// parseChargeParams takes a pointer to ChargeParams and a pointer to a
 // url.Values, it iterates over everything in the ChargeParams struct and Adds
 // what is there to the url.Values.
 func parseChargeParams(params *ChargeParams, values *url.Values) {

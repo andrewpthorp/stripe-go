@@ -6,18 +6,18 @@ import (
 )
 
 type Transfer struct {
-	Id                  string  `json:"id"`
-	Object              string  `json:"object"`
-	Livemode            bool    `json:"livemode"`
-	Amount              int64   `json:"amount"`
-	Currency            string  `json:"currency"`
-	Date                int64   `json:"date"`
-	Status              string  `json:"status"`
-	//Account             Account `json:"account"`
-	BalanceTransaction  string  `json:"balance_transaction"`
-	Description         string  `json:"description"`
-	Recipient           string  `json:"recipient"`
-	StatementDescriptor string  `json:"statement_descriptor"`
+	Id                  string      `json:"id"`
+	Object              string      `json:"object"`
+	Livemode            bool        `json:"livemode"`
+	Amount              int64       `json:"amount"`
+	Currency            string      `json:"currency"`
+	Date                int64       `json:"date"`
+	Status              string      `json:"status"`
+	Account             BankAccount `json:"account"`
+	BalanceTransaction  string      `json:"balance_transaction"`
+	Description         string      `json:"description"`
+	Recipient           string      `json:"recipient"`
+	StatementDescriptor string      `json:"statement_descriptor"`
 }
 
 // The TransferClient is the receiver for most standard transfer related endpoints.
@@ -58,9 +58,9 @@ func (c *TransferClient) Update(id string, params *TransferParams) (*Transfer, e
 //
 // For more information: https://stripe.com/docs/api/#cancel_transfer
 func (c *TransferClient) Cancel(id string) (*Transfer, error) {
-  transfer := Transfer{}
-  err := post("/transfers/"+id, nil, &transfer)
-  return &transfer, err
+	transfer := Transfer{}
+	err := post("/transfers/"+id, nil, &transfer)
+	return &transfer, err
 }
 
 // List lists the first 10 transfers. It calls ListCount with 10 as the count
@@ -92,24 +92,24 @@ func (c *TransferClient) ListCount(count, offset int) ([]*Transfer, error) {
 // to the url.Values.
 func parseTransferParams(params *TransferParams, values *url.Values) {
 
-  if params.Amount != 0 {
-    values.Add("amount", strconv.Itoa(params.Amount))
-  }
+	if params.Amount != 0 {
+		values.Add("amount", strconv.Itoa(params.Amount))
+	}
 
-  if params.Currency != "" {
-    values.Add("currency", params.Currency)
-  }
+	if params.Currency != "" {
+		values.Add("currency", params.Currency)
+	}
 
-  if params.Recipient != "" {
-    values.Add("recipient", params.Recipient)
-  }
+	if params.Recipient != "" {
+		values.Add("recipient", params.Recipient)
+	}
 
-  if params.Description != "" {
-    values.Add("description", params.Description)
-  }
+	if params.Description != "" {
+		values.Add("description", params.Description)
+	}
 
-  if params.StatementDescriptor != "" {
-    values.Add("statement_descriptor", params.StatementDescriptor)
-  }
+	if params.StatementDescriptor != "" {
+		values.Add("statement_descriptor", params.StatementDescriptor)
+	}
 
 }
