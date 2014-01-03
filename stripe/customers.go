@@ -81,15 +81,15 @@ func (c *CustomerClient) Delete(id string) (*DeleteResponse, error) {
   return &response, err
 }
 
-// List lists the first 10 customers for a customer. It calls ListCount with 10 as
-// the count and 0 as the offset, which are the defaults in the Stripe API.
+// List lists the first 10 customers. It calls ListCount with 10 as the count
+// and 0 as the offset, which are the defaults in the Stripe API.
 //
 // For more information: https://stripe.com/docs/api#list_customers
 func (c *CustomerClient) List() ([]*Customer, error) {
 	return c.ListCount(10, 0)
 }
 
-// ListCount lists `count` customers for a customer starting at `offset`.
+// ListCount lists `count` customers starting at `offset`.
 //
 // For more information: https://stripe.com/docs/api#list_customers
 func (c *CustomerClient) ListCount(count, offset int) ([]*Customer, error) {
