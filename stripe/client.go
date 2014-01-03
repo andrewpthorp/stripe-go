@@ -14,21 +14,22 @@ var (
 )
 
 type Client struct {
-	UserAgent     string
-	Account       AccountClient
-	Balance       BalanceClient
-	Cards         CardClient
-	Charges       ChargeClient
-	Coupons       CouponClient
-	Customers     CustomerClient
-	Discounts     DiscountClient
-	Disputes      DisputeClient
-	Events        EventClient
-	Plans         PlanClient
-	Recipients    RecipientClient
-	Subscriptions SubscriptionClient
-	Tokens        TokenClient
-	Transfers     TransferClient
+	UserAgent       string
+	Account         AccountClient
+	ApplicationFees ApplicationFeeClient
+	Balance         BalanceClient
+	Cards           CardClient
+	Charges         ChargeClient
+	Coupons         CouponClient
+	Customers       CustomerClient
+	Discounts       DiscountClient
+	Disputes        DisputeClient
+	Events          EventClient
+	Plans           PlanClient
+	Recipients      RecipientClient
+	Subscriptions   SubscriptionClient
+	Tokens          TokenClient
+	Transfers       TransferClient
 }
 
 // NewClient returns a Client and allows us to access the resource clients.
@@ -36,21 +37,22 @@ func NewClient(key string) Client {
 	apiKey = key
 
 	return Client{
-		UserAgent:     userAgent,
-		Account:       AccountClient{},
-		Balance:       BalanceClient{},
-		Cards:         CardClient{},
-		Charges:       ChargeClient{},
-		Coupons:       CouponClient{},
-		Customers:     CustomerClient{},
-		Discounts:     DiscountClient{},
-		Disputes:      DisputeClient{},
-		Events:        EventClient{},
-		Plans:         PlanClient{},
-		Recipients:    RecipientClient{},
-		Subscriptions: SubscriptionClient{},
-		Tokens:        TokenClient{},
-		Transfers:     TransferClient{},
+		UserAgent:       userAgent,
+		Account:         AccountClient{},
+		ApplicationFees: ApplicationFeeClient{},
+		Balance:         BalanceClient{},
+		Cards:           CardClient{},
+		Charges:         ChargeClient{},
+		Coupons:         CouponClient{},
+		Customers:       CustomerClient{},
+		Discounts:       DiscountClient{},
+		Disputes:        DisputeClient{},
+		Events:          EventClient{},
+		Plans:           PlanClient{},
+		Recipients:      RecipientClient{},
+		Subscriptions:   SubscriptionClient{},
+		Tokens:          TokenClient{},
+		Transfers:       TransferClient{},
 	}
 }
 

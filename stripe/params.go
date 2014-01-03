@@ -35,12 +35,6 @@ type ChargeParams struct {
 	ApplicationFee int
 }
 
-// ChargeRefundParams hold all of the parameters used for refunding Charges.
-type ChargeRefundParams struct {
-	Amount               int
-	RefundApplicationFee bool
-}
-
 // CouponParams hold all of the parameters used for creating Coupons.
 type CouponParams struct {
 	Id               string
@@ -86,6 +80,12 @@ type RecipientParams struct {
 	BankAccountParams *BankAccountParams
 	Email             string
 	Description       string
+}
+
+// RefundParams hold all of the parameters used for refunding Charges.
+type RefundParams struct {
+	Amount               int
+	RefundApplicationFee bool
 }
 
 // SubscriptionParams hold all of the parameters used for updating and

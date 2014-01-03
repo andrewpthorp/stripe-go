@@ -87,7 +87,7 @@ func (c *ChargeClient) ListCount(count, offset int) ([]*Charge, error) {
 // Refund refunds a charge.
 //
 // For more information: https://stripe.com/docs/api#refund_charge
-func (c *ChargeClient) Refund(id string, params *ChargeRefundParams) (*Charge, error) {
+func (c *ChargeClient) Refund(id string, params *RefundParams) (*Charge, error) {
 	charge := Charge{}
 	values := url.Values{}
 
