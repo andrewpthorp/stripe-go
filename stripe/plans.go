@@ -18,6 +18,14 @@ type Plan struct {
 	Metadata        Metadata `json:"metadata"`
 }
 
+// PlanListResponse is what is returned with a List request.
+type PlanListResponse struct {
+	Object string  `json:"object"`
+	Url    string  `json:"url"`
+	Count  int     `json:"count"`
+	Data   []*Plan `json:"data"`
+}
+
 // Delete deletes a plan.
 //
 // For more information: https://stripe.com/docs/api#delete_plan
@@ -84,24 +92,23 @@ func (p *PlanClient) Delete(id string) (*DeleteResponse, error) {
 // the count and 0 as the offset, which are the defaults in the Stripe API.
 //
 // For more information: https://stripe.com/docs/api#list_plans
-func (p *PlanClient) List() ([]*Plan, error) {
+func (p *PlanClient) List() (*PlanListResponse, error) {
 	return p.ListCount(10, 0)
 }
 
 // ListCount lists `count` plans starting at `offset`.
 //
 // For more information: https://stripe.com/docs/api#list_plans
-func (p *PlanClient) ListCount(count, offset int) ([]*Plan, error) {
-	type plans struct{ Data []*Plan }
-	list := plans{}
+func (p *PlanClient) ListCount(count, offset int) (*PlanListResponse, error) {
+	response := PlanListResponse{}
 
 	params := url.Values{
 		"count":  {strconv.Itoa(count)},
 		"offset": {strconv.Itoa(offset)},
 	}
 
-	err := get("/plans", params, &list)
-	return list.Data, err
+	err := get("/plans", params, &response)
+	return &response, err
 }
 
 // parsePlanParams takes a pointer to a PlanParams and a pointer to a url.Values,
