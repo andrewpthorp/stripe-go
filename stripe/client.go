@@ -16,10 +16,11 @@ var (
 type Client struct {
 	UserAgent string
 	Cards     CardClient
-  Coupons   CouponClient
-  Customers CustomerClient
-  Discounts DiscountClient
-  Plans     PlanClient
+	Charges   ChargeClient
+	Coupons   CouponClient
+	Customers CustomerClient
+	Discounts DiscountClient
+	Plans     PlanClient
 }
 
 // NewClient returns a Client and allows us to access the resource clients.
@@ -27,12 +28,13 @@ func NewClient(key string) Client {
 	apiKey = key
 
 	return Client{
-    UserAgent:  userAgent,
-		Cards:      CardClient{},
-    Coupons:    CouponClient{},
-    Customers:  CustomerClient{},
-    Discounts:  DiscountClient{},
-    Plans:      PlanClient{},
+		UserAgent: userAgent,
+		Cards:     CardClient{},
+		Charges:   ChargeClient{},
+		Coupons:   CouponClient{},
+		Customers: CustomerClient{},
+		Discounts: DiscountClient{},
+		Plans:     PlanClient{},
 	}
 }
 
@@ -43,51 +45,51 @@ func get(path string, params url.Values, v interface{}) error {
 
 // post is a shortcut to the underlying request, which sends an HTTP POST.
 func post(path string, params url.Values, v interface{}) error {
-  return request("POST", path, params, v)
+	return request("POST", path, params, v)
 }
 
 func delete(path string, params url.Values, v interface{}) error {
-  return request("DELETE", path, params, v)
+	return request("DELETE", path, params, v)
 }
 
 // request is the method that actually delivers the HTTP Requests.
 func request(method, path string, params url.Values, v interface{}) error {
 
-  // Parse the URL, path, User, etc.
-	u, err := url.Parse(apiUrl + path);
-  if err != nil {
-    return err
-  }
+	// Parse the URL, path, User, etc.
+	u, err := url.Parse(apiUrl + path)
+	if err != nil {
+		return err
+	}
 
-  // Much Authentication!
+	// Much Authentication!
 	u.User = url.User(apiKey)
 
-  // Build and make HTTP Request.
+	// Build and make HTTP Request.
 	bodyReader := parseParams(method, params, u)
-	req, err := http.NewRequest(method, u.String(), bodyReader);
-  if err != nil {
-    return err
-  }
-	res, err := http.DefaultClient.Do(req);
-  if err != nil {
-    return err
-  }
+	req, err := http.NewRequest(method, u.String(), bodyReader)
+	if err != nil {
+		return err
+	}
+	res, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return err
+	}
 
-  // Read response.
+	// Read response.
 	body, err := ioutil.ReadAll(res.Body)
 	defer res.Body.Close()
-  if err != nil {
-    return err
-  }
+	if err != nil {
+		return err
+	}
 
-  // If the API didn't return a 200, parse the error and return it.
-  if res.StatusCode != 200 {
-    err := ErrorResponse{}
-    json.Unmarshal(body, &err)
-    return &err
-  }
+	// If the API didn't return a 200, parse the error and return it.
+	if res.StatusCode != 200 {
+		err := ErrorResponse{}
+		json.Unmarshal(body, &err)
+		return &err
+	}
 
-  // Parse the body, store it in v, return the result of Unmarshal.
+	// Parse the body, store it in v, return the result of Unmarshal.
 	return json.Unmarshal(body, v)
 }
 
@@ -99,12 +101,12 @@ func parseParams(method string, params url.Values, url *url.URL) io.Reader {
 	var reader io.Reader
 	encoded := params.Encode()
 
-  switch method {
-    case "GET":
-      url.RawQuery = encoded
-    default:
-      reader = strings.NewReader(encoded)
-  }
+	switch method {
+	case "GET":
+		url.RawQuery = encoded
+	default:
+		reader = strings.NewReader(encoded)
+	}
 
 	return reader
 }
