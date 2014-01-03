@@ -15,3 +15,13 @@ type CardParams struct {
   AddressCountry string
 }
 
+// PlanParams hold all of the parameters used for creating and updating Plans.
+type PlanParams struct {
+  Id string
+  Amount int
+  Currency string
+  Interval string
+  IntervalCount int
+  Name string
+  TrialPeriodDays int
+}

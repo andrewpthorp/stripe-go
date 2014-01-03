@@ -16,6 +16,7 @@ var (
 type Client struct {
 	UserAgent string
 	Cards     CardClient
+  Plans     PlanClient
 }
 
 // NewClient returns a Client and allows us to access the resource clients.
@@ -25,6 +26,7 @@ func NewClient(key string) Client {
 	return Client{
     UserAgent:  userAgent,
 		Cards:      CardClient{},
+    Plans:      PlanClient{},
 	}
 }
 
