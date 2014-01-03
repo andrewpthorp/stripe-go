@@ -15,6 +15,18 @@ type CardParams struct {
   AddressCountry string
 }
 
+// CouponParams hold all of the parameters used for creating Coupons.
+type CouponParams struct {
+  Id string
+  Duration string
+  AmountOff int
+  Currency string
+  DurationInMonths int
+  MaxRedemptions int
+  PercentOff int
+  RedeemBy int
+}
+
 // PlanParams hold all of the parameters used for creating and updating Plans.
 type PlanParams struct {
   Id string
