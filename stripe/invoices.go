@@ -44,6 +44,22 @@ type Invoice struct {
 	//Lines              []InvoiceLineItem `json:"lines"`
 }
 
+// InvoiceLineItemListResponse is what is returned with a List request.
+type InvoiceLineItemListResponse struct {
+	Object string             `json:"object"`
+	Url    string             `json:"url"`
+	Count  int                `json:"count"`
+	Data   []*InvoiceLineItem `json:"data"`
+}
+
+// InvoiceListResponse is what is returned with a List request.
+type InvoiceListResponse struct {
+	Object string     `json:"object"`
+	Url    string     `json:"url"`
+	Count  int        `json:"count"`
+	Data   []*Invoice `json:"data"`
+}
+
 type InvoiceClient struct{}
 
 // Create creates an invoice.
@@ -81,24 +97,23 @@ func (c *InvoiceClient) Update(id string, params *InvoiceParams) (*Invoice, erro
 // 0 as the offset, which are the defaults in the Stripe API.
 //
 // For more information: https://stripe.com/docs/api#list_invoices
-func (c *InvoiceClient) List() ([]*Invoice, error) {
+func (c *InvoiceClient) List() (*InvoiceListResponse, error) {
 	return c.ListCount(10, 0)
 }
 
 // ListCount lists `count` invoices starting at `offset`.
 //
 // For more information: https://stripe.com/docs/api#list_cards
-func (c *InvoiceClient) ListCount(count, offset int) ([]*Invoice, error) {
-	type cards struct{ Data []*Invoice }
-	list := cards{}
+func (c *InvoiceClient) ListCount(count, offset int) (*InvoiceListResponse, error) {
+	response := InvoiceListResponse{}
 
 	params := url.Values{
 		"count":  {strconv.Itoa(count)},
 		"offset": {strconv.Itoa(offset)},
 	}
 
-	err := get("/invoices", params, &list)
-	return list.Data, err
+	err := get("/invoices", params, &response)
+	return &response, err
 }
 
 // Upcoming loads an upcoming invoice for a customer.
@@ -127,24 +142,23 @@ func (c *InvoiceClient) Pay(id string) (*Invoice, error) {
 // defaults in the Stripe API.
 //
 // For more information: https://stripe.com/docs/api#invoice_lines
-func (c *InvoiceClient) RetrieveLines(invoiceId string) ([]*InvoiceLineItem, error) {
+func (c *InvoiceClient) RetrieveLines(invoiceId string) (*InvoiceLineItemListResponse, error) {
 	return c.RetrieveLinesCount(invoiceId, 10, 0)
 }
 
 // RetrieveLinesCount loads `count` invoice line items starting at `offset`.
 //
 // For more information: https://stripe.com/docs/api#invoice_lines
-func (c *InvoiceClient) RetrieveLinesCount(invoiceId string, count, offset int) ([]*InvoiceLineItem, error) {
-	type lines struct{ Data []*InvoiceLineItem }
-	list := lines{}
+func (c *InvoiceClient) RetrieveLinesCount(invoiceId string, count, offset int) (*InvoiceLineItemListResponse, error) {
+	response := InvoiceLineItemListResponse{}
 
 	params := url.Values{
 		"count":  {strconv.Itoa(count)},
 		"offset": {strconv.Itoa(offset)},
 	}
 
-	err := get("/invoices/"+invoiceId+"/lines", params, &list)
-	return list.Data, err
+	err := get("/invoices/"+invoiceId+"/lines", params, &response)
+	return &response, err
 }
 
 // parseInvoiceParams takes a pointer to an InvoiceParams and a pointer to a
