@@ -25,6 +25,7 @@ type Client struct {
 	Plans         PlanClient
 	Recipients    RecipientClient
 	Subscriptions SubscriptionClient
+  Tokens        TokenClient
 	Transfers     TransferClient
 }
 
@@ -44,6 +45,7 @@ func NewClient(key string) Client {
 		Plans:         PlanClient{},
 		Recipients:    RecipientClient{},
 		Subscriptions: SubscriptionClient{},
+    Tokens:        TokenClient{},
 		Transfers:     TransferClient{},
 	}
 }

@@ -101,6 +101,13 @@ type SubscriptionParams struct {
 	AtPeriodEnd           bool
 }
 
+// TokenParams hold all of the parameters used for creating Tokens.
+type TokenParams struct {
+	BankAccountParams *BankAccountParams
+	CardParams        *CardParams
+	Customer          string
+}
+
 // TransferParams hold all of the parameters used for creating and updating
 // Transfers.
 type TransferParams struct {
