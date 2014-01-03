@@ -15,7 +15,10 @@ Usage
 
     package main
 
-    import "github.com/stripe/stripe-go/stripe"
+    import (
+      "fmt"
+      "github.com/stripe/stripe-go/stripe"
+    )
 
     func main() {
 
