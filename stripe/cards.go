@@ -27,6 +27,14 @@ type Card struct {
 	Name              string `json:"name"`
 }
 
+// CardListResponse is what is returned with a List request.
+type CardListResponse struct {
+	Object string  `json:"object"`
+	Url    string  `json:"url"`
+	Count  int     `json:"count"`
+	Data   []*Card `json:"data"`
+}
+
 // Delete deletes a customers card.
 //
 // For more information: https://stripe.com/docs/api#delete_card
@@ -93,24 +101,23 @@ func (c *CardClient) Delete(customerId, id string) (*DeleteResponse, error) {
 // the count and 0 as the offset, which are the defaults in the Stripe API.
 //
 // For more information: https://stripe.com/docs/api#list_cards
-func (c *CardClient) List(customerId string) ([]*Card, error) {
+func (c *CardClient) List(customerId string) (*CardListResponse, error) {
 	return c.ListCount(customerId, 10, 0)
 }
 
 // ListCount lists `count` cards for a customer starting at `offset`.
 //
 // For more information: https://stripe.com/docs/api#list_cards
-func (c *CardClient) ListCount(customerId string, count, offset int) ([]*Card, error) {
-	type cards struct{ Data []*Card }
-	list := cards{}
+func (c *CardClient) ListCount(customerId string, count, offset int) (*CardListResponse, error) {
+	response := CardListResponse{}
 
 	params := url.Values{
 		"count":  {strconv.Itoa(count)},
 		"offset": {strconv.Itoa(offset)},
 	}
 
-	err := get("/customers/"+customerId+"/cards", params, &list)
-	return list.Data, err
+	err := get("/customers/"+customerId+"/cards", params, &response)
+	return &response, err
 }
 
 // parseCardParams takes a pointer to a CardParams and a pointer to a
