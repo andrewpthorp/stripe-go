@@ -1,5 +1,5 @@
 // Create a Customer with a default Card and some Metadata. To run this on your
-// system.
+// system:
 //
 // STRIPE_SECRET_KEY=sk_your_key go run examples/create_customer.go
 package main
