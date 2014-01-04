@@ -20,35 +20,35 @@ type InvoiceLineItem struct {
 }
 
 type Invoice struct {
-	Id                 string    `json:"id"`
-	Object             string    `json:"object"`
-	Livemode           bool      `json:"livemode"`
-	AmountDue          int64     `json:"amount_due"`
-	AttemptCount       int64     `json:"attempt_count"`
-	Attempted          bool      `json:"attempted"`
-	Closed             bool      `json:"closed"`
-	Currency           string    `json:"currency"`
-	Customer           string    `json:"customer"`
-	Date               int64     `json:"date"`
-	Paid               bool      `json:"paid"`
-	PeriodEnd          int64     `json:"period_end"`
-	PeriodStart        int64     `json:"period_start"`
-	StartingBalance    int64     `json:"starting_balance"`
-	Subtotal           int64     `json:"subtotal"`
-	Total              int64     `json:"total"`
-	ApplicationFee     int64     `json:"application_fee"`
-	Charge             string    `json:"charge"`
-	Discount           *Discount `json:"discount"`
-	EndingBalance      int64     `json:"ending_balance"`
-	NextPaymentAttempt int64     `json:"next_payment_attempt"`
-	//Lines              []InvoiceLineItem `json:"lines"`
+	Id                 string                      `json:"id"`
+	Object             string                      `json:"object"`
+	Livemode           bool                        `json:"livemode"`
+	AmountDue          int64                       `json:"amount_due"`
+	AttemptCount       int64                       `json:"attempt_count"`
+	Attempted          bool                        `json:"attempted"`
+	Closed             bool                        `json:"closed"`
+	Currency           string                      `json:"currency"`
+	Customer           string                      `json:"customer"`
+	Date               int64                       `json:"date"`
+	Paid               bool                        `json:"paid"`
+	PeriodEnd          int64                       `json:"period_end"`
+	PeriodStart        int64                       `json:"period_start"`
+	StartingBalance    int64                       `json:"starting_balance"`
+	Subtotal           int64                       `json:"subtotal"`
+	Total              int64                       `json:"total"`
+	ApplicationFee     int64                       `json:"application_fee"`
+	Charge             string                      `json:"charge"`
+	Discount           *Discount                   `json:"discount"`
+	EndingBalance      int64                       `json:"ending_balance"`
+	NextPaymentAttempt int64                       `json:"next_payment_attempt"`
+	Lines              InvoiceLineItemListResponse `json:"lines"`
 }
 
 type InvoiceLineItemListResponse struct {
-	Object string             `json:"object"`
-	Url    string             `json:"url"`
-	Count  int                `json:"count"`
-	Data   []*InvoiceLineItem `json:"data"`
+	Object string            `json:"object"`
+	Url    string            `json:"url"`
+	Count  int               `json:"count"`
+	Data   []InvoiceLineItem `json:"data"`
 }
 
 type InvoiceListResponse struct {
