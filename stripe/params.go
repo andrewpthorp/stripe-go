@@ -29,11 +29,11 @@ type ChargeParams struct {
 	Amount         int    `stripe_field:"amount"`
 	Currency       string `stripe_field:"currency"`
 	Customer       string `stripe_field:"customer"`
-	CardParams     *CardParams
 	Description    string `stripe_field:"description"`
 	DisableCapture bool   `stripe_field:"capture" opposite:"true"`
 	ApplicationFee int    `stripe_field:"application_fee"`
-	Metadata       Metadata
+	*CardParams
+	Metadata
 }
 
 // CouponParams hold all of the parameters used for creating Coupons.
@@ -51,15 +51,15 @@ type CouponParams struct {
 // CustomerParams hold all of the parameters used for creating and updating
 // Customers.
 type CustomerParams struct {
-	AccountBalance int `stripe_field:"account_balance"`
-	CardParams     *CardParams
+	AccountBalance int    `stripe_field:"account_balance"`
 	Coupon         string `stripe_field:"coupon"`
 	Description    string `stripe_field:"description"`
 	Email          string `stripe_field:"email"`
 	Plan           string `stripe_field:"plan"`
 	Quantity       int    `stripe_field:"quantity"`
 	TrialEnd       int    `stripe_field:"trial_end"`
-	Metadata       Metadata
+	*CardParams
+	Metadata
 }
 
 // InvoiceParams hold all of the parameters used for creating and updating
@@ -78,7 +78,7 @@ type InvoiceItemParams struct {
 	Currency    string
 	Invoice     string
 	Description string
-	Metadata    Metadata
+	Metadata
 }
 
 // PlanParams hold all of the parameters used for creating and updating Plans.
@@ -90,19 +90,19 @@ type PlanParams struct {
 	IntervalCount   int
 	Name            string
 	TrialPeriodDays int
-	Metadata        Metadata
+	Metadata
 }
 
 // RecipientParams hold all of the parameters used for creating and updating
 // Recipients.
 type RecipientParams struct {
-	Name              string
-	Type              string
-	TaxId             string
-	BankAccountParams *BankAccountParams
-	Email             string
-	Description       string
-	Metadata          Metadata
+	Name        string
+	Type        string
+	TaxId       string
+	Email       string
+	Description string
+	*BankAccountParams
+	Metadata
 }
 
 // RefundParams hold all of the parameters used for refunding Charges.
@@ -118,17 +118,17 @@ type SubscriptionParams struct {
 	Coupon                string
 	DisableProrate        bool
 	TrialEnd              int
-	CardParams            *CardParams
 	Quantity              int
 	ApplicationFeePercent float64
 	AtPeriodEnd           bool
+	*CardParams
 }
 
 // TokenParams hold all of the parameters used for creating Tokens.
 type TokenParams struct {
-	BankAccountParams *BankAccountParams
-	CardParams        *CardParams
-	Customer          string
+	Customer string
+	*BankAccountParams
+	*CardParams
 }
 
 // TransferParams hold all of the parameters used for creating and updating
@@ -139,5 +139,5 @@ type TransferParams struct {
 	Recipient           string
 	Description         string
 	StatementDescriptor string
-	Metadata            Metadata
+	Metadata
 }
