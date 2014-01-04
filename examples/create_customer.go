@@ -33,6 +33,6 @@ func main() {
   if err != nil {
     fmt.Println("Error creating customer: ", err)
   } else {
-    fmt.Println("Created customer: ", customer.id)
+    fmt.Println("Created customer: ", customer.Id)
   }
 }
