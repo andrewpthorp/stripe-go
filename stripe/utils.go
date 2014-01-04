@@ -1,7 +1,6 @@
 package stripe
 
 import (
-	"fmt"
 	"net/url"
 	"reflect"
 	"strconv"
@@ -23,8 +22,6 @@ func addParamsToValues(params interface{}, values *url.Values) {
 			val = getFloat64(params, name)
 		case "bool":
 			val = getBool(params, name)
-		default:
-			fmt.Println("NOPE! ", name)
 		}
 
 		if val != "" {
