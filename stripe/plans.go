@@ -119,31 +119,5 @@ func parsePlanParams(params *PlanParams, values *url.Values) {
 		parseMetadata(params.Metadata, values)
 	}
 
-	if params.Id != "" {
-		values.Add("id", params.Id)
-	}
-
-	if params.Amount != 0 {
-		values.Add("amount", strconv.Itoa(params.Amount))
-	}
-
-	if params.Currency != "" {
-		values.Add("currency", params.Currency)
-	}
-
-	if params.Interval != "" {
-		values.Add("interval", params.Interval)
-	}
-
-	if params.IntervalCount != 0 {
-		values.Add("interval_count", strconv.Itoa(params.IntervalCount))
-	}
-
-	if params.Name != "" {
-		values.Add("name", params.Name)
-	}
-
-	if params.TrialPeriodDays != 0 {
-		values.Add("trial_period_days", strconv.Itoa(params.TrialPeriodDays))
-	}
+	addParamsToValues(params, values)
 }

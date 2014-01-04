@@ -83,13 +83,13 @@ type InvoiceItemParams struct {
 
 // PlanParams hold all of the parameters used for creating and updating Plans.
 type PlanParams struct {
-	Id              string
-	Amount          int
-	Currency        string
-	Interval        string
-	IntervalCount   int
-	Name            string
-	TrialPeriodDays int
+	Id              string `stripe_field:"id"`
+	Amount          int    `stripe_field:"amount"`
+	Currency        string `stripe_field:"currency"`
+	Interval        string `stripe_field:"interval"`
+	IntervalCount   int    `stripe_field:"interval_count"`
+	Name            string `stripe_field:"name"`
+	TrialPeriodDays int    `stripe_field:"trial_period_days"`
 	Metadata
 }
 
