@@ -45,7 +45,7 @@ func (c *ApplicationFeeClient) Retrieve(id string) (*ApplicationFee, error) {
 func (c *ApplicationFeeClient) Refund(id string, params *RefundParams) (*ApplicationFee, error) {
 	fee := ApplicationFee{}
 	values := url.Values{}
-	addParamsToValues(params, values)
+	addParamsToValues(params, &values)
 	err := post("/application_fees/"+id+"/refund", values, &fee)
 	return &fee, err
 }

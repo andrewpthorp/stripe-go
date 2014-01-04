@@ -108,7 +108,7 @@ func (c *ChargeClient) ListCount(count, offset int) (*ChargeListResponse, error)
 func (c *ChargeClient) Refund(id string, params *RefundParams) (*Charge, error) {
 	charge := Charge{}
 	values := url.Values{}
-	addParamsToValues(params, values)
+	addParamsToValues(params, &values)
 	err := post("/charges/"+id+"/refund", values, &charge)
 	return &charge, err
 }
