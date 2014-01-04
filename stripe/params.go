@@ -107,8 +107,8 @@ type RecipientParams struct {
 
 // RefundParams hold all of the parameters used for refunding Charges.
 type RefundParams struct {
-	Amount               int
-	RefundApplicationFee bool
+	Amount               int  `stripe_field:"amount"`
+	RefundApplicationFee bool `stripe_field:"refund_application_fee"`
 }
 
 // SubscriptionParams hold all of the parameters used for updating and

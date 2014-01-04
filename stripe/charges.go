@@ -108,15 +108,7 @@ func (c *ChargeClient) ListCount(count, offset int) (*ChargeListResponse, error)
 func (c *ChargeClient) Refund(id string, params *RefundParams) (*Charge, error) {
 	charge := Charge{}
 	values := url.Values{}
-
-	if params.Amount != 0 {
-		values.Add("amount", strconv.Itoa(params.Amount))
-	}
-
-	if params.RefundApplicationFee != false {
-		values.Add("refund_application_fee", strconv.FormatBool(params.RefundApplicationFee))
-	}
-
+	addParamsToValues(params, values)
 	err := post("/charges/"+id+"/refund", values, &charge)
 	return &charge, err
 }
