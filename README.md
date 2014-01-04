@@ -2,6 +2,13 @@
 
 You can sign up for a stripe account at https://stripe.com
 
+API Version
+===========
+
+This library pins the Stripe API Version. To see the current version, view
+`stripe/stripe.go`. You can view more about Stripes API versioning at the
+[stripe documentation](https://stripe.com/docs/api#versioning).
+
 Installation
 ============
 
@@ -46,6 +53,12 @@ Usage
       }
 
     }
+
+License
+=======
+
+stripe-go is released under the MIT license. See
+[LICENSE](https://github.com/stripe/stripe-go/blob/master/LICENSE)
 
 Unfinished
 ==========
