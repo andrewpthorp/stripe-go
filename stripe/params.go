@@ -134,10 +134,10 @@ type TokenParams struct {
 // TransferParams hold all of the parameters used for creating and updating
 // Transfers.
 type TransferParams struct {
-	Amount              int
-	Currency            string
-	Recipient           string
-	Description         string
-	StatementDescriptor string
+	Amount              int    `stripe_field:"amount"`
+	Currency            string `stripe_field:"currency"`
+	Recipient           string `stripe_field:"recipient"`
+	Description         string `stripe_field:"description"`
+	StatementDescriptor string `stripe_field:"statement_descriptor"`
 	Metadata
 }

@@ -103,24 +103,5 @@ func parseTransferParams(params *TransferParams, values *url.Values) {
 		parseMetadata(params.Metadata, values)
 	}
 
-	if params.Amount != 0 {
-		values.Add("amount", strconv.Itoa(params.Amount))
-	}
-
-	if params.Currency != "" {
-		values.Add("currency", params.Currency)
-	}
-
-	if params.Recipient != "" {
-		values.Add("recipient", params.Recipient)
-	}
-
-	if params.Description != "" {
-		values.Add("description", params.Description)
-	}
-
-	if params.StatementDescriptor != "" {
-		values.Add("statement_descriptor", params.StatementDescriptor)
-	}
-
+	addParamsToValues(params, values)
 }
