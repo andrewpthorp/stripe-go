@@ -101,24 +101,5 @@ func parseInvoiceItemParams(params *InvoiceItemParams, values *url.Values) {
 		parseMetadata(params.Metadata, values)
 	}
 
-	if params.Customer != "" {
-		values.Add("customer", params.Customer)
-	}
-
-	if params.Amount != 0 {
-		values.Add("amount", strconv.Itoa(params.Amount))
-	}
-
-	if params.Currency != "" {
-		values.Add("currency", params.Currency)
-	}
-
-	if params.Invoice != "" {
-		values.Add("invoice", params.Invoice)
-	}
-
-	if params.Description != "" {
-		values.Add("description", params.Description)
-	}
-
+	addParamsToValues(params, values)
 }

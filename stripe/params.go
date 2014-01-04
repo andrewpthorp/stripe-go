@@ -73,11 +73,11 @@ type InvoiceParams struct {
 // InvoiceItemParams hold all of the parameters used for creating and updating
 // InvoiceItems.
 type InvoiceItemParams struct {
-	Customer    string
-	Amount      int
-	Currency    string
-	Invoice     string
-	Description string
+	Customer    string `stripe_field:"customer"`
+	Amount      int    `stripe_field:"amount"`
+	Currency    string `stripe_field:"currency"`
+	Invoice     string `stripe_field:"invoice"`
+	Description string `stripe_field:"description"`
 	Metadata
 }
 
