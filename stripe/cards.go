@@ -28,10 +28,10 @@ type Card struct {
 }
 
 type CardListResponse struct {
-	Object string  `json:"object"`
-	Url    string  `json:"url"`
-	Count  int     `json:"count"`
-	Data   []*Card `json:"data"`
+	Object string `json:"object"`
+	Url    string `json:"url"`
+	Count  int    `json:"count"`
+	Data   []Card `json:"data"`
 }
 
 // Delete deletes a customers card.

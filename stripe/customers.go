@@ -6,18 +6,19 @@ import (
 )
 
 type Customer struct {
-	Id             string        `json:"id"`
-	Object         string        `json:"object"`
-	Livemode       bool          `json:"livemode"`
-	Created        int64         `json:"created"`
-	AccountBalance int64         `json:"account_balance"`
-	Currency       string        `json:"currency"`
-	DefaultCard    string        `json:"default_card"`
-	Delinquent     bool          `json:"delinquent"`
-	Discount       *Discount     `json:"discount"`
-	Email          string        `json:"email"`
-	Subscription   *Subscription `json:"subscription"`
-	Metadata       Metadata      `json:"metadata"`
+	Id             string           `json:"id"`
+	Object         string           `json:"object"`
+	Livemode       bool             `json:"livemode"`
+	Created        int64            `json:"created"`
+	AccountBalance int64            `json:"account_balance"`
+	Cards          CardListResponse `json:"cards"`
+	Currency       string           `json:"currency"`
+	DefaultCard    string           `json:"default_card"`
+	Delinquent     bool             `json:"delinquent"`
+	Discount       *Discount        `json:"discount"`
+	Email          string           `json:"email"`
+	Subscription   *Subscription    `json:"subscription"`
+	Metadata       Metadata         `json:"metadata"`
 }
 
 type CustomerListResponse struct {
