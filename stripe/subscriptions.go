@@ -66,31 +66,5 @@ func parseSubscriptionParams(method string, params *SubscriptionParams, values *
 		parseCardParams(params.CardParams, values, true)
 	}
 
-	if params.Plan != "" {
-		values.Add("plan", params.Plan)
-	}
-
-	if params.Coupon != "" {
-		values.Add("coupon", params.Coupon)
-	}
-
-	if params.DisableProrate {
-		values.Add("prorate", "false")
-	}
-
-	if params.TrialEnd != 0 {
-		values.Add("trial_end", strconv.Itoa(params.TrialEnd))
-	}
-
-	if params.Quantity != 0 {
-		values.Add("quantity", strconv.Itoa(params.Quantity))
-	}
-
-	if params.ApplicationFeePercent != 0.0 {
-		values.Add("application_fee_percent", strconv.FormatFloat(params.ApplicationFeePercent, 'f', 2, 32))
-	}
-
-	if params.AtPeriodEnd {
-		values.Add("at_period_end", strconv.FormatBool(params.AtPeriodEnd))
-	}
+	addParamsToValues(params, values)
 }

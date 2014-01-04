@@ -114,13 +114,13 @@ type RefundParams struct {
 // SubscriptionParams hold all of the parameters used for updating and
 // canceling Subscriptions.
 type SubscriptionParams struct {
-	Plan                  string
-	Coupon                string
-	DisableProrate        bool
-	TrialEnd              int
-	Quantity              int
-	ApplicationFeePercent float64
-	AtPeriodEnd           bool
+	Plan                  string  `stripe_field:"plan"`
+	Coupon                string  `stripe_field:"coupon"`
+	DisableProrate        bool    `stripe_field:"prorate" opposite:"true"`
+	TrialEnd              int     `stripe_field:"trial_end"`
+	Quantity              int     `stripe_field:"quantity"`
+	ApplicationFeePercent float64 `stripe_field:"application_fee_percent"`
+	AtPeriodEnd           bool    `stripe_field:"at_period_end"`
 	*CardParams
 }
 
