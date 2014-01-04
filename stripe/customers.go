@@ -127,31 +127,5 @@ func parseCustomerParams(params *CustomerParams, values *url.Values) {
 		parseMetadata(params.Metadata, values)
 	}
 
-	if params.AccountBalance != 0 {
-		values.Add("account_balance", strconv.Itoa(params.AccountBalance))
-	}
-
-	if params.Coupon != "" {
-		values.Add("coupon", params.Coupon)
-	}
-
-	if params.Description != "" {
-		values.Add("description", params.Description)
-	}
-
-	if params.Email != "" {
-		values.Add("email", params.Email)
-	}
-
-	if params.Plan != "" {
-		values.Add("plan", params.Plan)
-	}
-
-	if params.Quantity != 0 {
-		values.Add("quantity", strconv.Itoa(params.Quantity))
-	}
-
-	if params.TrialEnd != 0 {
-		values.Add("trial_end", strconv.Itoa(params.TrialEnd))
-	}
+  addParamsToValues(params, values)
 }

@@ -51,14 +51,14 @@ type CouponParams struct {
 // CustomerParams hold all of the parameters used for creating and updating
 // Customers.
 type CustomerParams struct {
-	AccountBalance int
+	AccountBalance int `stripe_field:"account_balance"`
 	CardParams     *CardParams
-	Coupon         string
-	Description    string
-	Email          string
-	Plan           string
-	Quantity       int
-	TrialEnd       int
+	Coupon         string `stripe_field:"coupon"`
+	Description    string `stripe_field:"description"`
+	Email          string `stripe_field:"email"`
+	Plan           string `stripe_field:"plan"`
+	Quantity       int    `stripe_field:"quantity"`
+	TrialEnd       int    `stripe_field:"trial_end"`
 	Metadata       Metadata
 }
 
