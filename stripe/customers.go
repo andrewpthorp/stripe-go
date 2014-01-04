@@ -127,5 +127,5 @@ func parseCustomerParams(params *CustomerParams, values *url.Values) {
 		parseMetadata(params.Metadata, values)
 	}
 
-  addParamsToValues(params, values)
+	addParamsToValues(params, values)
 }

@@ -74,9 +74,9 @@ func parseSubscriptionParams(method string, params *SubscriptionParams, values *
 		values.Add("coupon", params.Coupon)
 	}
 
-  if params.DisableProrate {
-    values.Add("prorate", "false")
-  }
+	if params.DisableProrate {
+		values.Add("prorate", "false")
+	}
 
 	if params.TrialEnd != 0 {
 		values.Add("trial_end", strconv.Itoa(params.TrialEnd))

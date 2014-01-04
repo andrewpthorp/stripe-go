@@ -52,11 +52,11 @@ func (c *ChargeClient) Create(params *ChargeParams) (*Charge, error) {
 //
 // For more information: https://stripe.com/docs/api#charge_capture
 func (c *ChargeClient) Capture(id string, params *ChargeParams) (*Charge, error) {
-  charge := Charge{}
-  values := url.Values{}
-  parseChargeParams(params, &values)
-  err := post("/charges/" + id + "/capture", values, &charge)
-  return &charge, err
+	charge := Charge{}
+	values := url.Values{}
+	parseChargeParams(params, &values)
+	err := post("/charges/"+id+"/capture", values, &charge)
+	return &charge, err
 }
 
 // Retrieve loads a charge.
@@ -136,5 +136,5 @@ func parseChargeParams(params *ChargeParams, values *url.Values) {
 		parseMetadata(params.Metadata, values)
 	}
 
-  addParamsToValues(params, values)
+	addParamsToValues(params, values)
 }

@@ -18,6 +18,5 @@ type BankAccount struct {
 // to a url.Values. It iterates over everything in the BankAccountParams struct
 // and Adds what is there to the url.Values.
 func parseBankAccountParams(params *BankAccountParams, values *url.Values) {
-  addParamsToValues(params, values)
+	addParamsToValues(params, values)
 }
-
