@@ -31,7 +31,7 @@ type ChargeParams struct {
 	Customer       string
 	CardParams     *CardParams
 	Description    string
-	Capture        bool
+	DisableCapture bool
 	ApplicationFee int
 	Metadata       Metadata
 }
@@ -116,7 +116,7 @@ type RefundParams struct {
 type SubscriptionParams struct {
 	Plan                  string
 	Coupon                string
-	Prorate               bool
+	DisableProrate        bool
 	TrialEnd              int
 	CardParams            *CardParams
 	Quantity              int

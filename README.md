@@ -53,6 +53,5 @@ Unfinished
 Most of the API is covered, but this is missing some major things:
 
 * Tests
-* Auth/Capture flow
 * Filters (passing 'recipient' to Transfers.List(), etc)
 

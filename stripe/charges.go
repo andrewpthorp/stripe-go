@@ -48,6 +48,17 @@ func (c *ChargeClient) Create(params *ChargeParams) (*Charge, error) {
 	return &charge, err
 }
 
+// Capture captures an existing, uncaptured charge.
+//
+// For more information: https://stripe.com/docs/api#charge_capture
+func (c *ChargeClient) Capture(id string, params *ChargeParams) (*Charge, error) {
+  charge := Charge{}
+  values := url.Values{}
+  parseChargeParams(params, &values)
+  err := post("/charges/" + id + "/capture", values, &charge)
+  return &charge, err
+}
+
 // Retrieve loads a charge.
 //
 // For more information: https://stripe.com/docs/api#retrieve_charge
@@ -141,7 +152,9 @@ func parseChargeParams(params *ChargeParams, values *url.Values) {
 		values.Add("description", params.Description)
 	}
 
-	// TODO: What to do with Capture?
+  if params.DisableCapture {
+    values.Add("capture", "false")
+  }
 
 	if params.ApplicationFee != 0 {
 		values.Add("application_fee", strconv.Itoa(params.ApplicationFee))
