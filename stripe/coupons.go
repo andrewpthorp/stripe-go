@@ -94,35 +94,5 @@ func (c *CouponClient) ListCount(count, offset int) (*CouponListResponse, error)
 // it iterates over everything in the CouponParams struct and Adds what is there
 // to the url.Values.
 func parseCouponParams(params *CouponParams, values *url.Values) {
-	if params.Id != "" {
-		values.Add("id", params.Id)
-	}
-
-	if params.Duration != "" {
-		values.Add("duration", params.Duration)
-	}
-
-	if params.AmountOff != 0 {
-		values.Add("amount_off", strconv.Itoa(params.AmountOff))
-	}
-
-	if params.Currency != "" {
-		values.Add("currency", params.Currency)
-	}
-
-	if params.DurationInMonths != 0 {
-		values.Add("duration_in_months", strconv.Itoa(params.DurationInMonths))
-	}
-
-	if params.MaxRedemptions != 0 {
-		values.Add("max_redemptions", strconv.Itoa(params.MaxRedemptions))
-	}
-
-	if params.PercentOff != 0 {
-		values.Add("percent_off", strconv.Itoa(params.PercentOff))
-	}
-
-	if params.RedeemBy != 0 {
-		values.Add("redeem_by", strconv.Itoa(params.RedeemBy))
-	}
+	addParamsToValues(params, values)
 }

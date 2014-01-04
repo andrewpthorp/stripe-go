@@ -38,14 +38,14 @@ type ChargeParams struct {
 
 // CouponParams hold all of the parameters used for creating Coupons.
 type CouponParams struct {
-	Id               string
-	Duration         string
-	AmountOff        int
-	Currency         string
-	DurationInMonths int
-	MaxRedemptions   int
-	PercentOff       int
-	RedeemBy         int
+	Id               string `stripe_field:"id"`
+	Duration         string `stripe_field:"duration"`
+	AmountOff        int    `stripe_field:"amount_off"`
+	Currency         string `stripe_field:"currency"`
+	DurationInMonths int    `stripe_field:"duration_in_months"`
+	MaxRedemptions   int    `stripe_field:"max_redemptions"`
+	PercentOff       int    `stripe_field:"percent_off"`
+	RedeemBy         int    `stripe_field:"redeem_by"`
 }
 
 // CustomerParams hold all of the parameters used for creating and updating
