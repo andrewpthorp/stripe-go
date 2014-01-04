@@ -136,27 +136,5 @@ func parseChargeParams(params *ChargeParams, values *url.Values) {
 		parseMetadata(params.Metadata, values)
 	}
 
-	if params.Amount != 0 {
-		values.Add("amount", strconv.Itoa(params.Amount))
-	}
-
-	if params.Currency != "" {
-		values.Add("currency", params.Currency)
-	}
-
-	if params.Customer != "" {
-		values.Add("customer", params.Customer)
-	}
-
-	if params.Description != "" {
-		values.Add("description", params.Description)
-	}
-
-  if params.DisableCapture {
-    values.Add("capture", "false")
-  }
-
-	if params.ApplicationFee != 0 {
-		values.Add("application_fee", strconv.Itoa(params.ApplicationFee))
-	}
+  addParamsToValues(params, values)
 }

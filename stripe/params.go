@@ -26,13 +26,13 @@ type CardParams struct {
 
 // ChargeParams hold all of the parameters used for creating Charges.
 type ChargeParams struct {
-	Amount         int
-	Currency       string
-	Customer       string
+	Amount         int    `stripe_field:"amount"`
+	Currency       string `stripe_field:"currency"`
+	Customer       string `stripe_field:"customer"`
 	CardParams     *CardParams
-	Description    string
-	DisableCapture bool
-	ApplicationFee int
+	Description    string `stripe_field:"description"`
+	DisableCapture bool   `stripe_field:"capture" opposite:"true"`
+	ApplicationFee int    `stripe_field:"application_fee"`
 	Metadata       Metadata
 }
 
