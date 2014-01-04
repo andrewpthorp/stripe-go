@@ -106,24 +106,5 @@ func parseRecipientParams(params *RecipientParams, values *url.Values) {
 		parseMetadata(params.Metadata, values)
 	}
 
-	if params.Name != "" {
-		values.Add("name", params.Name)
-	}
-
-	if params.Type != "" {
-		values.Add("type", params.Type)
-	}
-
-	if params.TaxId != "" {
-		values.Add("tax_id", params.TaxId)
-	}
-
-	if params.Email != "" {
-		values.Add("email", params.Email)
-	}
-
-	if params.Description != "" {
-		values.Add("description", params.Description)
-	}
-
+	addParamsToValues(params, values)
 }

@@ -96,11 +96,11 @@ type PlanParams struct {
 // RecipientParams hold all of the parameters used for creating and updating
 // Recipients.
 type RecipientParams struct {
-	Name        string
-	Type        string
-	TaxId       string
-	Email       string
-	Description string
+	Name        string `stripe_field:"name"`
+	Type        string `stripe_field:"type"`
+	TaxId       string `stripe_field:"tax_id"`
+	Email       string `stripe_field:"email"`
+	Description string `stripe_field:"description"`
 	*BankAccountParams
 	Metadata
 }
