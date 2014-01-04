@@ -86,12 +86,17 @@ func request(method, path string, params url.Values, v interface{}) error {
 	// Much Authentication!
 	u.User = url.User(apiKey)
 
-	// Build and make HTTP Request.
+	// Build HTTP Request.
 	bodyReader := parseParams(method, params, u)
 	req, err := http.NewRequest(method, u.String(), bodyReader)
 	if err != nil {
 		return err
 	}
+
+	// Pin API Version, simplify maintenance.
+	req.Header.Set("Stripe-Version", apiVersion)
+
+	// Send HTTP Request.
 	res, err := http.DefaultClient.Do(req)
 	if err != nil {
 		return err
