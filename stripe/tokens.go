@@ -43,10 +43,12 @@ func (c *TokenClient) Retrieve(id string) (*Token, error) {
 // CardParams.
 func parseTokenParams(params *TokenParams, values *url.Values) {
 
+  // Use parseCardParams/parseBankAccountParams (whichever is appropriate)
 	if params.CardParams != nil {
 		parseCardParams(params.CardParams, values, true)
 	} else if params.BankAccountParams != nil {
 		parseBankAccountParams(params.BankAccountParams, values)
 	}
 
+  addParamsToValues(params, values)
 }

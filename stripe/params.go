@@ -126,7 +126,7 @@ type SubscriptionParams struct {
 
 // TokenParams hold all of the parameters used for creating Tokens.
 type TokenParams struct {
-	Customer string
+	Customer string `stripe_field:"customer"`
 	*BankAccountParams
 	*CardParams
 }
