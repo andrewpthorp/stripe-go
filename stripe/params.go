@@ -3,9 +3,9 @@ package stripe
 // BankAccountParams hold all of the parameters used for creating and updating
 // BankAccounts.
 type BankAccountParams struct {
-	Country       string
-	RoutingNumber string
-	AccountNumber string
+	Country       string `stripe_field:"bank_account[country]"`
+	RoutingNumber string `stripe_field:"bank_account[routing_number]"`
+	AccountNumber string `stripe_field:"bank_account[account_number]"`
 }
 
 // CardParams hold all of the parameters used for creating and updating Cards.
