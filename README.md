@@ -58,7 +58,7 @@ License
 =======
 
 stripe-go is released under the MIT license. See
-[LICENSE](https://github.com/stripe/stripe-go/blob/master/LICENSE)
+[LICENSE](https://github.com/stripe/stripe-go/blob/master/LICENSE).
 
 Unfinished
 ==========
