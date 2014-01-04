@@ -65,9 +65,9 @@ type CustomerParams struct {
 // InvoiceParams hold all of the parameters used for creating and updating
 // Invoices.
 type InvoiceParams struct {
-	Customer       string
-	ApplicationFee int
-	Closed         bool
+	Customer       string `stripe_field:"customer"`
+	ApplicationFee int    `stripe_field:"application_fee"`
+	Closed         bool   `stripe_field:"closed"`
 }
 
 // InvoiceItemParams hold all of the parameters used for creating and updating

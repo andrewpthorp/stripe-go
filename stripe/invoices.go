@@ -163,17 +163,5 @@ func (c *InvoiceClient) RetrieveLinesCount(invoiceId string, count, offset int) 
 // url.Values. It iterates over everything in the InvoiceParams struct and Adds
 // what is there to the url.Values.
 func parseInvoiceParams(params *InvoiceParams, values *url.Values) {
-
-	if params.Customer != "" {
-		values.Add("customer", params.Customer)
-	}
-
-	if params.ApplicationFee != 0 {
-		values.Add("application_fee", strconv.Itoa(params.ApplicationFee))
-	}
-
-	if params.Closed {
-		values.Add("closed", strconv.FormatBool(params.Closed))
-	}
-
+	addParamsToValues(params, values)
 }
