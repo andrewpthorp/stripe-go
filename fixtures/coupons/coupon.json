@@ -1,0 +1,14 @@
+{
+  "id": "coupon_code",
+  "percent_off": 15,
+  "amount_off": null,
+  "currency": null,
+  "object": "coupon",
+  "livemode": false,
+  "duration": "forever",
+  "redeem_by": 1389311999,
+  "max_redemptions": null,
+  "times_redeemed": 3,
+  "duration_in_months": null,
+  "valid": true
+}

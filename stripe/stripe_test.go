@@ -1,6 +1,7 @@
 package stripe
 
 import (
+  "fmt"
   "io/ioutil"
 	"net/http"
 	"net/http/httptest"
@@ -39,4 +40,12 @@ func loadFixture(f string) string {
   p := path.Join(wd, "..", "fixtures", f)
   c, _ := ioutil.ReadFile(p)
   return string(c)
+}
+
+// handleWithJson takes a path and a jason filename, it uses the serveMux to
+// handle that path and respond with the json.
+func handleWithJSON(path, filename string) {
+  serveMux.HandleFunc(path, func(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprint(w, loadFixture(filename))
+  })
 }
