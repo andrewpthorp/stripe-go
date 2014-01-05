@@ -1,0 +1,13 @@
+{
+  "charge": "ch_123456789",
+  "amount": 1000,
+  "created": 123456789,
+  "status": "needs_response",
+  "livemode": false,
+  "currency": "usd",
+  "object": "dispute",
+  "reason": "general",
+  "balance_transaction": "txn_123456789",
+  "evidence_due_by": 123456789,
+  "evidence": "evidence"
+}

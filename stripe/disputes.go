@@ -12,6 +12,8 @@ type Dispute struct {
 	Reason             string `json:"reason"`
 	Status             string `json:"status"`
 	Evidence           string `json:"evidence"`
+  Created            int64  `json:"created"`
+  EvidenceDueBy      int64  `json:"evidence_due_by"`
 }
 
 type DisputeClient struct{}
