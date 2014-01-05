@@ -86,8 +86,7 @@ func (c *ChargeClient) All() (*ChargeListResponse, error) {
 	return c.AllWithFilters(Filters{})
 }
 
-// AllWithFilters takes a Filters and applies all valid filters for the list
-// charges method.
+// AllWithFilters takes a Filters and applies all valid filters for the action.
 //
 // For more information: https://stripe.com/docs/api#list_charges
 func (c *ChargeClient) AllWithFilters(filters Filters) (*ChargeListResponse, error) {
