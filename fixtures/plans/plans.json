@@ -1,0 +1,20 @@
+{
+  "object": "list",
+  "url": "/v1/plans",
+  "count": 1,
+  "data": [
+    {
+      "id": "plan_code",
+      "object": "plan",
+      "livemode": false,
+      "amount": null,
+      "currency": null,
+      "interval": "monthly",
+      "interval_count": 2,
+      "name": "Plan",
+      "metadata": [],
+      "trial_period_days": 0
+    }
+  ]
+}
+
