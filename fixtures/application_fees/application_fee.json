@@ -1,0 +1,15 @@
+{
+  "id": "fee_123456789",
+  "object": "application_fee",
+  "created": 123456789,
+  "livemode": false,
+  "amount": 100,
+  "currency": "usd",
+  "refunded": false,
+  "amount_refunded": 0,
+  "refunds": [],
+  "balance_transaction": "txn_123456789",
+  "account": "acct_123456789",
+  "application": "ca_123456789",
+  "charge": "ch_123456789"
+}
