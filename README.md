@@ -58,7 +58,9 @@ Usage
 Testing
 =======
 
-This Library is currently missing tests.
+Tests are a WIP. Ideally they will not ever hit the Stripe API.
+
+    script/test
 
 License
 =======
