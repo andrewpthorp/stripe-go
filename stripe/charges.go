@@ -2,7 +2,6 @@ package stripe
 
 import (
 	"net/url"
-	"strconv"
 )
 
 type Charge struct {
@@ -79,26 +78,24 @@ func (c *ChargeClient) Update(id string, params *ChargeParams) (*Charge, error) 
 	return &charge, err
 }
 
-// List lists the first 10 charges. It calls ListCount with 10 as the count and
-// 0 as the offset, which are the defaults in the Stripe API.
+// All lists the first 10 charges. It calls AllWithFilters with a blank Filters
+// so all defaults are used.
 //
 // For more information: https://stripe.com/docs/api#list_charges
-func (c *ChargeClient) List() (*ChargeListResponse, error) {
-	return c.ListCount(10, 0)
+func (c *ChargeClient) All() (*ChargeListResponse, error) {
+	return c.AllWithFilters(Filters{})
 }
 
-// ListCount lists `count` charges starting at `offset`.
+// AllWithFilters takes a Filters and applies all valid filters for the list
+// charges method.
 //
 // For more information: https://stripe.com/docs/api#list_charges
-func (c *ChargeClient) ListCount(count, offset int) (*ChargeListResponse, error) {
+func (c *ChargeClient) AllWithFilters(filters Filters) (*ChargeListResponse, error) {
 	response := ChargeListResponse{}
+	values := url.Values{}
+  addFiltersToValues([]string{"count", "offset", "customer"}, filters, &values)
 
-	params := url.Values{
-		"count":  {strconv.Itoa(count)},
-		"offset": {strconv.Itoa(offset)},
-	}
-
-	err := get("/charges", params, &response)
+	err := get("/charges", values, &response)
 	return &response, err
 }
 
