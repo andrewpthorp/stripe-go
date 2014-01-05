@@ -54,17 +54,14 @@ Usage
 
     }
 
+
+Testing
+=======
+
+This Library is currently missing tests.
+
 License
 =======
 
 stripe-go is released under the MIT license. See
 [LICENSE](https://github.com/stripe/stripe-go/blob/master/LICENSE).
-
-Unfinished
-==========
-
-Most of the API is covered, but this is missing some major things:
-
-* Tests
-* Filters (passing 'recipient' to Transfers.List(), etc)
-
