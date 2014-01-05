@@ -1,0 +1,23 @@
+{
+  "id": "txn_123456789",
+  "object": "balance_transaction",
+  "source": "ch_123456789",
+  "amount": 100,
+  "currency": "usd",
+  "net": 41,
+  "type": "charge",
+  "created": 123456789,
+  "available_on": 123456789,
+  "status": "pending",
+  "fee": 59,
+  "fee_details": [
+    {
+      "amount": 74,
+      "currency": "usd",
+      "type": "stripe_fee",
+      "description": "Stripe processing fees",
+      "application": null
+    }
+  ],
+  "description": null
+}
