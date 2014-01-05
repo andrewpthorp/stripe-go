@@ -27,25 +27,6 @@ type CustomerListResponse struct {
 	Data   []*Customer `json:"data"`
 }
 
-// Delete deletes a customer.
-//
-// For more information: https://stripe.com/docs/api#delete_customer
-func (c *Customer) Delete() (*DeleteResponse, error) {
-	response := DeleteResponse{}
-	err := delete("/customers/"+c.Id, nil, &response)
-	return &response, err
-}
-
-// Update updates a customer.
-//
-// For more information: https://stripe.com/docs/api#update_customer
-func (c *Customer) Update(params *CustomerParams) (*Customer, error) {
-	values := url.Values{}
-	parseCustomerParams(params, &values)
-	err := post("/customers/"+c.Id, values, c)
-	return c, err
-}
-
 type CustomerClient struct{}
 
 // Create creates a customer.

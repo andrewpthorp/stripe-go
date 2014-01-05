@@ -24,25 +24,6 @@ type PlanListResponse struct {
 	Data   []*Plan `json:"data"`
 }
 
-// Delete deletes a plan.
-//
-// For more information: https://stripe.com/docs/api#delete_plan
-func (p *Plan) Delete() (*DeleteResponse, error) {
-	response := DeleteResponse{}
-	err := delete("/plans/"+p.Id, nil, &response)
-	return &response, err
-}
-
-// Update updates a plan.
-//
-// For more information: https://stripe.com/docs/api#update_plan
-func (p *Plan) Update(params *PlanParams) (*Plan, error) {
-	values := url.Values{}
-	parsePlanParams(params, &values)
-	err := post("/plans/"+p.Id, values, p)
-	return p, err
-}
-
 type PlanClient struct{}
 
 // Create creates a plan.

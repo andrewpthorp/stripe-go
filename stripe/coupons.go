@@ -26,15 +26,6 @@ type CouponListResponse struct {
 	Data   []*Coupon `json:"data"`
 }
 
-// Delete deletes a coupon.
-//
-// For more information: https://stripe.com/docs/api#delete_coupon
-func (c *Coupon) Delete() (*DeleteResponse, error) {
-	response := DeleteResponse{}
-	err := delete("/coupons/"+c.Id, nil, &response)
-	return &response, err
-}
-
 type CouponClient struct{}
 
 // Create creates a coupon.

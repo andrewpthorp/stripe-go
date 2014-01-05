@@ -34,25 +34,6 @@ type CardListResponse struct {
 	Data   []*Card `json:"data"`
 }
 
-// Delete deletes a customers card.
-//
-// For more information: https://stripe.com/docs/api#delete_card
-func (c *Card) Delete() (*DeleteResponse, error) {
-	response := DeleteResponse{}
-	err := delete("/customers/"+c.Customer+"/cards/"+c.Id, nil, &response)
-	return &response, err
-}
-
-// Update updates a customers card.
-//
-// For more information: https://stripe.com/docs/api#update_card
-func (c *Card) Update(params *CardParams) (*Card, error) {
-	values := url.Values{}
-	parseCardParams(params, &values, false)
-	err := post("/customers/"+c.Customer+"/cards/"+c.Id, values, c)
-	return c, err
-}
-
 type CardClient struct{}
 
 // Create creates a card for a customer.
