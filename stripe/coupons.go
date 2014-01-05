@@ -2,7 +2,6 @@ package stripe
 
 import (
 	"net/url"
-	"strconv"
 )
 
 type Coupon struct {
@@ -67,26 +66,22 @@ func (c *CouponClient) Delete(id string) (*DeleteResponse, error) {
 	return &response, err
 }
 
-// List lists the first 10 coupons. It calls ListCount with 10 as
-// the count and 0 as the offset, which are the defaults in the Stripe API.
+// All lists the first 10 coupons. It calls AllWithFilters with a blank Filters
+// so all defaults are used.
 //
 // For more information: https://stripe.com/docs/api#list_coupons
-func (c *CouponClient) List() (*CouponListResponse, error) {
-	return c.ListCount(10, 0)
+func (c *CouponClient) All() (*CouponListResponse, error) {
+	return c.AllWithFilters(Filters{})
 }
 
-// ListCount lists `count` coupons starting at `offset`.
+// AllWithFilters takes a Filters and applies all valid filters for the action.
 //
 // For more information: https://stripe.com/docs/api#list_coupons
-func (c *CouponClient) ListCount(count, offset int) (*CouponListResponse, error) {
+func (c *CouponClient) AllWithFilters(filters Filters) (*CouponListResponse, error) {
 	response := CouponListResponse{}
-
-	params := url.Values{
-		"count":  {strconv.Itoa(count)},
-		"offset": {strconv.Itoa(offset)},
-	}
-
-	err := get("/coupons", params, &response)
+  values := url.Values{}
+  addFiltersToValues([]string{"count", "offset"}, filters, &values)
+	err := get("/coupons", values, &response)
 	return &response, err
 }
 
