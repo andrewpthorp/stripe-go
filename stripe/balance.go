@@ -2,7 +2,6 @@ package stripe
 
 import (
 	"net/url"
-	"strconv"
 )
 
 type Fund struct {
@@ -40,6 +39,13 @@ type BalanceTransaction struct {
 	FeeDetails  []*FeeDetails `json:"fee_details"`
 }
 
+type BalanceTransactionListResponse struct {
+	Object string  `json:"object"`
+	Url    string  `json:"url"`
+	Count  int     `json:"count"`
+	Data   []*BalanceTransaction `json:"data"`
+}
+
 type BalanceClient struct{}
 
 // Retrieve loads a balance.
@@ -60,27 +66,21 @@ func (c *BalanceClient) RetrieveTransaction(id string) (*BalanceTransaction, err
 	return &balanceTransaction, err
 }
 
-// History lists the first 10 balances in the balance history. It calls HistoryCount
-// with 10 as the count and 0 as the offset, which are the defaults in the
-// Stripe API.
+// History lists the first 10 balances in the balance history. It calls
+// HistoryWithFilters with a blank Filters so all defaults are used.
 //
 // For more information: https://stripe.com/docs/api#balance_history
-func (c *BalanceClient) History() ([]*BalanceTransaction, error) {
-	return c.HistoryCount(10, 0)
+func (c *BalanceClient) History() (*BalanceTransactionListResponse, error) {
+  return c.HistoryWithFilters(Filters{})
 }
 
-// HistoryCount lists `count` balances in the balance history starting at `offset`.
+// HistoryWithFilters takes a Filters and applies all valid filters for the action.
 //
 // For more information: https://stripe.com/docs/api#balance_history
-func (c *BalanceClient) HistoryCount(count, offset int) ([]*BalanceTransaction, error) {
-	type balances struct{ Data []*BalanceTransaction }
-	list := balances{}
-
-	params := url.Values{
-		"count":  {strconv.Itoa(count)},
-		"offset": {strconv.Itoa(offset)},
-	}
-
-	err := get("/balance/history", params, &list)
-	return list.Data, err
+func (c *BalanceClient) HistoryWithFilters(filters Filters) (*BalanceTransactionListResponse, error) {
+  response := BalanceTransactionListResponse{}
+  values := url.Values{}
+  addFiltersToValues([]string{"count", "offset", "currency", "source", "transfer", "type"}, filters, &values)
+	err := get("/balance/history", values, &response)
+	return &response, err
 }
