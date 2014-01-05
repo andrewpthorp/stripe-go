@@ -1,0 +1,15 @@
+{
+  "id": "acct_abc123",
+  "email": "apt@stripe.com",
+  "statement_descriptor": "Statement Descriptor",
+  "display_name": "Stripe Account",
+  "details_submitted": false,
+  "charge_enabled": false,
+  "transfer_enabled": false,
+  "currencies_supported": [
+    "usd"
+  ],
+  "default_currency": "usd",
+  "country": "US",
+  "object": "account"
+}
