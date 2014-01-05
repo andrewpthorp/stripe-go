@@ -7,7 +7,7 @@ import (
   "github.com/bmizerany/assert"
 )
 
-func TestCreate(t *testing.T) {
+func TestCouponCreate(t *testing.T) {
   setup()
   defer teardown()
   handleWithJSON("/coupons", "coupons/coupon.json")
