@@ -60,6 +60,7 @@ Testing
 
 Tests are a WIP. Ideally they will not ever hit the Stripe API.
 
+    script/bootstrap # Install dependencies
     script/test
 
 License
