@@ -1,0 +1,28 @@
+{
+  "object": "list",
+  "url": "/v1/customers/cu_123456789/cards",
+  "count": 1,
+  "data": [
+    {
+      "id": "card_123456789",
+      "object": "card",
+      "last4": "4242",
+      "type": "Visa",
+      "exp_month": 1,
+      "exp_year": 2020,
+      "fingerprint": "abc123456def",
+      "customer": null,
+      "country": "US",
+      "name": "Andrew Thorp",
+      "address_line1": null,
+      "address_line2": null,
+      "address_city": null,
+      "address_state": null,
+      "address_zip": null,
+      "address_country": null,
+      "cvc_check": null,
+      "address_line1_check": null,
+      "address_zip_check": null
+    }
+  ]
+}
