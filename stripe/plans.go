@@ -2,7 +2,6 @@ package stripe
 
 import (
 	"net/url"
-	"strconv"
 )
 
 type Plan struct {
@@ -86,26 +85,22 @@ func (p *PlanClient) Delete(id string) (*DeleteResponse, error) {
 	return &response, err
 }
 
-// List lists the first 10 plans. It calls ListCount with 10 as
-// the count and 0 as the offset, which are the defaults in the Stripe API.
+// All lists the first 10 plans. It calls AllWithFilters with a blank Filters so
+// all defaults are used.
 //
 // For more information: https://stripe.com/docs/api#list_plans
-func (p *PlanClient) List() (*PlanListResponse, error) {
-	return p.ListCount(10, 0)
+func (p *PlanClient) All() (*PlanListResponse, error) {
+	return p.AllWithFilters(Filters{})
 }
 
-// ListCount lists `count` plans starting at `offset`.
+// AllWithFilters takes a Filters and applies all valid filters for the action.
 //
 // For more information: https://stripe.com/docs/api#list_plans
-func (p *PlanClient) ListCount(count, offset int) (*PlanListResponse, error) {
+func (p *PlanClient) AllWithFilters(filters Filters) (*PlanListResponse, error) {
 	response := PlanListResponse{}
-
-	params := url.Values{
-		"count":  {strconv.Itoa(count)},
-		"offset": {strconv.Itoa(offset)},
-	}
-
-	err := get("/plans", params, &response)
+  values := url.Values{}
+  addFiltersToValues([]string{"count", "offset"}, filters, &values)
+	err := get("/plans", values, &response)
 	return &response, err
 }
 
