@@ -2,7 +2,6 @@ package stripe
 
 import (
 	"net/url"
-	"strconv"
 )
 
 type InvoiceItem struct {
@@ -68,26 +67,22 @@ func (c *InvoiceItemClient) Delete(id string) (*DeleteResponse, error) {
 	return &response, err
 }
 
-// List lists the first 10 invoice items. It calls ListCount with 10 as the
-// count and 0 as the offset, which are the defaults in the Stripe API.
+// All lists the first 10 invoice items. It calls AllWithFilters with a blank
+// Filters so all defaults are used.
 //
 // For more information: https://stripe.com/docs/api#list_invoice_items
-func (c *InvoiceItemClient) List() (*InvoiceItemListResponse, error) {
-	return c.ListCount(10, 0)
+func (c *InvoiceItemClient) All() (*InvoiceItemListResponse, error) {
+	return c.AllWithFilters(Filters{})
 }
 
-// ListCount lists `count` invoice items starting at `offset`.
+// AllWithFilters takes a Filters and applies all valid filters for the action.
 //
 // For more information: https://stripe.com/docs/api#list_invoice_items
-func (c *InvoiceItemClient) ListCount(count, offset int) (*InvoiceItemListResponse, error) {
+func (c *InvoiceItemClient) AllWithFilters(filters Filters) (*InvoiceItemListResponse, error) {
 	response := InvoiceItemListResponse{}
-
-	params := url.Values{
-		"count":  {strconv.Itoa(count)},
-		"offset": {strconv.Itoa(offset)},
-	}
-
-	err := get("/invoiceitems", params, &response)
+  values := url.Values{}
+  addFiltersToValues([]string{"count", "offset"}, filters, &values)
+	err := get("/invoiceitems", values, &response)
 	return &response, err
 }
 
