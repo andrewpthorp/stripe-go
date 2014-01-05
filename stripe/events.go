@@ -2,7 +2,6 @@ package stripe
 
 import (
 	"net/url"
-	"strconv"
 )
 
 // TODO: There is probably a better way to do this.
@@ -39,25 +38,21 @@ func (p *EventClient) Retrieve(id string) (*Event, error) {
 	return &event, err
 }
 
-// List lists the first 10 events. It calls ListCount with 10 as the count and
-// 0 as the offset, which are the defaults in the Stripe API.
+// All lists the first 10 events. It calls AllWithFilters with a blank Filters
+// so all defaults are used.
 //
 // For more information: https://stripe.com/docs/api#list_events
-func (c *EventClient) List() (*EventListResponse, error) {
-	return c.ListCount(10, 0)
+func (c *EventClient) All() (*EventListResponse, error) {
+  return c.AllWithFilters(Filters{})
 }
 
-// ListCount lists `count` events starting at `offset`.
+// AllWithFilters takes a Filters and applies all valid filters for the action.
 //
 // For more information: https://stripe.com/docs/api#list_events
-func (c *EventClient) ListCount(count, offset int) (*EventListResponse, error) {
+func (c *EventClient) AllWithFilters(filters Filters) (*EventListResponse, error) {
 	response := EventListResponse{}
-
-	params := url.Values{
-		"count":  {strconv.Itoa(count)},
-		"offset": {strconv.Itoa(offset)},
-	}
-
-	err := get("/events", params, &response)
+  values := url.Values{}
+  addFiltersToValues([]string{"count", "offset"}, filters, &values)
+	err := get("/events", values, &response)
 	return &response, err
 }
