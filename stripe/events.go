@@ -7,6 +7,7 @@ import (
 // TODO: There is probably a better way to do this.
 type EventData struct {
 	Object map[string]interface{} `json:"object"`
+  PreviousAttributes map[string]interface{} `json:"previous_attributes"`
 }
 
 type Event struct {
