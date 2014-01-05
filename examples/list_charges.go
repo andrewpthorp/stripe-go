@@ -11,7 +11,7 @@ import (
 
 func main() {
   client := stripe.NewClient(os.Getenv("STRIPE_SECRET_KEY"))
-  charges, err := client.Charges.List()
+  charges, err := client.Charges.All()
 
   if err != nil {
     fmt.Println("Error listhing charges: ", err)
