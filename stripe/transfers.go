@@ -2,7 +2,6 @@ package stripe
 
 import (
 	"net/url"
-	"strconv"
 )
 
 type Transfer struct {
@@ -70,26 +69,22 @@ func (c *TransferClient) Cancel(id string) (*Transfer, error) {
 	return &transfer, err
 }
 
-// List lists the first 10 transfers. It calls ListCount with 10 as the count
-// and 0 as the offset, which are the defaults in the Stripe API.
+// All lists the first 10 transfers. It calls AllWithFilters with a blank
+// Filters so all defaults are used.
 //
 // For more information: https://stripe.com/docs/api#list_transfers
-func (c *TransferClient) List() (*TransferListResponse, error) {
-	return c.ListCount(10, 0)
+func (c *TransferClient) All() (*TransferListResponse, error) {
+	return c.AllWithFilters(Filters{})
 }
 
-// ListCount lists `count` transfers starting at `offset`.
+// AllWithFilters takes a Filters and applies all valid filters for the action.
 //
 // For more information: https://stripe.com/docs/api#list_transfers
-func (c *TransferClient) ListCount(count, offset int) (*TransferListResponse, error) {
+func (c *TransferClient) AllWithFilters(filters Filters) (*TransferListResponse, error) {
 	response := TransferListResponse{}
-
-	params := url.Values{
-		"count":  {strconv.Itoa(count)},
-		"offset": {strconv.Itoa(offset)},
-	}
-
-	err := get("/transfers", params, &response)
+  values := url.Values{}
+  addFiltersToValues([]string{"count", "offset", "recipient", "status"}, filters, &values)
+	err := get("/transfers", values, &response)
 	return &response, err
 }
 
