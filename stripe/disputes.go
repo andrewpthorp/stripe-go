@@ -23,10 +23,7 @@ type DisputeClient struct{}
 // For more information: https://stripe.com/docs/api#update_dispute
 func (c *DisputeClient) Update(chargeId, evidence string) (*Dispute, error) {
 	dispute := Dispute{}
-	values := url.Values{
-		"evidence": {evidence},
-	}
-
+	values := url.Values{ "evidence": {evidence} }
 	err := post("/charges/"+chargeId+"/dispute", values, &dispute)
 	return &dispute, err
 }
