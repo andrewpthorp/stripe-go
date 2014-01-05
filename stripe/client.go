@@ -10,53 +10,58 @@ import (
 )
 
 var (
-	apiKey = ""
+	_apiKey = ""
+  _apiUrl = ""
 )
 
 type Client struct {
-	UserAgent       string
-	Account         AccountClient
-	ApplicationFees ApplicationFeeClient
-	Balance         BalanceClient
-	Cards           CardClient
-	Charges         ChargeClient
-	Coupons         CouponClient
-	Customers       CustomerClient
-	Discounts       DiscountClient
-	Disputes        DisputeClient
-	Events          EventClient
-	Invoices        InvoiceClient
-	InvoiceItems    InvoiceItemClient
-	Plans           PlanClient
-	Recipients      RecipientClient
-	Subscriptions   SubscriptionClient
-	Tokens          TokenClient
-	Transfers       TransferClient
+	Account         *AccountClient
+	ApplicationFees *ApplicationFeeClient
+	Balance         *BalanceClient
+	Cards           *CardClient
+	Charges         *ChargeClient
+	Coupons         *CouponClient
+	Customers       *CustomerClient
+	Discounts       *DiscountClient
+	Disputes        *DisputeClient
+	Events          *EventClient
+	Invoices        *InvoiceClient
+	InvoiceItems    *InvoiceItemClient
+	Plans           *PlanClient
+	Recipients      *RecipientClient
+	Subscriptions   *SubscriptionClient
+	Tokens          *TokenClient
+	Transfers       *TransferClient
 }
 
-// NewClient returns a Client and allows us to access the resource clients.
-func NewClient(key string) Client {
-	apiKey = key
+// NewClient returns a Client and sets the apiUrl to the live apiUrl.
+func NewClient(apiKey string) Client {
+  return NewClientWith(apiUrl, apiKey)
+}
+
+// NewClientWith returns a Client and allows us to access the resource clients.
+func NewClientWith(apiUrl, apiKey string) Client {
+	_apiKey = apiKey
+  _apiUrl = apiUrl
 
 	return Client{
-		UserAgent:       userAgent,
-		Account:         AccountClient{},
-		ApplicationFees: ApplicationFeeClient{},
-		Balance:         BalanceClient{},
-		Cards:           CardClient{},
-		Charges:         ChargeClient{},
-		Coupons:         CouponClient{},
-		Customers:       CustomerClient{},
-		Discounts:       DiscountClient{},
-		Disputes:        DisputeClient{},
-		Events:          EventClient{},
-		Invoices:        InvoiceClient{},
-		InvoiceItems:    InvoiceItemClient{},
-		Plans:           PlanClient{},
-		Recipients:      RecipientClient{},
-		Subscriptions:   SubscriptionClient{},
-		Tokens:          TokenClient{},
-		Transfers:       TransferClient{},
+		Account:         new(AccountClient),
+		ApplicationFees: new(ApplicationFeeClient),
+		Balance:         new(BalanceClient),
+		Cards:           new(CardClient),
+		Charges:         new(ChargeClient),
+		Coupons:         new(CouponClient),
+		Customers:       new(CustomerClient),
+		Discounts:       new(DiscountClient),
+		Disputes:        new(DisputeClient),
+		Events:          new(EventClient),
+		Invoices:        new(InvoiceClient),
+		InvoiceItems:    new(InvoiceItemClient),
+		Plans:           new(PlanClient),
+		Recipients:      new(RecipientClient),
+		Subscriptions:   new(SubscriptionClient),
+		Tokens:          new(TokenClient),
+		Transfers:       new(TransferClient),
 	}
 }
 
@@ -78,13 +83,13 @@ func delete(path string, params url.Values, v interface{}) error {
 func request(method, path string, params url.Values, v interface{}) error {
 
 	// Parse the URL, path, User, etc.
-	u, err := url.Parse(apiUrl + path)
+	u, err := url.Parse(_apiUrl + path)
 	if err != nil {
 		return err
 	}
 
 	// Much Authentication!
-	u.User = url.User(apiKey)
+	u.User = url.User(_apiKey)
 
 	// Build HTTP Request.
 	bodyReader := parseParams(method, params, u)
@@ -95,6 +100,7 @@ func request(method, path string, params url.Values, v interface{}) error {
 
 	// Pin API Version, simplify maintenance.
 	req.Header.Set("Stripe-Version", apiVersion)
+  req.Header.Set("User-Agent", userAgent)
 
 	// Send HTTP Request.
 	res, err := http.DefaultClient.Do(req)
