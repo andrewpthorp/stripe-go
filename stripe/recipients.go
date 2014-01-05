@@ -2,7 +2,6 @@ package stripe
 
 import (
 	"net/url"
-	"strconv"
 )
 
 type Recipient struct {
@@ -67,26 +66,22 @@ func (c *RecipientClient) Delete(id string) (*DeleteResponse, error) {
 	return &response, err
 }
 
-// List lists the first 10 recipients. It calls ListCount with 10 as the count
-// and 0 as the offset, which are the defaults in the Stripe API.
+// All lists the first 10 recipients. It calls AllWithFilters with a blank
+// Filters so all defaults are used.
 //
 // For more information: https://stripe.com/docs/api#list_recipients
-func (c *RecipientClient) List() (*RecipientListResponse, error) {
-	return c.ListCount(10, 0)
+func (c *RecipientClient) All() (*RecipientListResponse, error) {
+  return c.AllWithFilters(Filters{})
 }
 
-// ListCount lists `count` recipients starting at `offset`.
+// AllWithFilters takes a Filters and applies all valid filters for the action.
 //
 // For more information: https://stripe.com/docs/api#list_recipients
-func (c *RecipientClient) ListCount(count, offset int) (*RecipientListResponse, error) {
+func (c *RecipientClient) AllWithFilters(filters Filters) (*RecipientListResponse, error) {
 	response := RecipientListResponse{}
-
-	params := url.Values{
-		"count":  {strconv.Itoa(count)},
-		"offset": {strconv.Itoa(offset)},
-	}
-
-	err := get("/recipients", params, &response)
+  values := url.Values{}
+  addFiltersToValues([]string{"count", "offset", "verified"}, filters, &values)
+	err := get("/recipients", values, &response)
 	return &response, err
 }
 
