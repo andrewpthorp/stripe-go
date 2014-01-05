@@ -9,11 +9,11 @@ type Filters map[string]string
 // url.Values.
 func addFiltersToValues(keys []string, filters Filters, values *url.Values) {
 
-  for i := 0; i < len(keys); i++ {
-    key := keys[i]
-    if filters[key] != "" {
-      values.Add(key, filters[key])
-    }
-  }
+	for i := 0; i < len(keys); i++ {
+		key := keys[i]
+		if filters[key] != "" {
+			values.Add(key, filters[key])
+		}
+	}
 
 }

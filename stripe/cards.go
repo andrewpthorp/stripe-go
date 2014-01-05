@@ -108,8 +108,8 @@ func (c *CardClient) All(customerId string) (*CardListResponse, error) {
 // For more information: https://stripe.com/docs/api#list_cards
 func (c *CardClient) AllWithFilters(customerId string, filters Filters) (*CardListResponse, error) {
 	response := CardListResponse{}
-  values := url.Values{}
-  addFiltersToValues([]string{"count", "offset"}, filters, &values)
+	values := url.Values{}
+	addFiltersToValues([]string{"count", "offset"}, filters, &values)
 	err := get("/customers/"+customerId+"/cards", values, &response)
 	return &response, err
 }

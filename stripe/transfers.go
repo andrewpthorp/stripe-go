@@ -82,8 +82,8 @@ func (c *TransferClient) All() (*TransferListResponse, error) {
 // For more information: https://stripe.com/docs/api#list_transfers
 func (c *TransferClient) AllWithFilters(filters Filters) (*TransferListResponse, error) {
 	response := TransferListResponse{}
-  values := url.Values{}
-  addFiltersToValues([]string{"count", "offset", "recipient", "status"}, filters, &values)
+	values := url.Values{}
+	addFiltersToValues([]string{"count", "offset", "recipient", "status"}, filters, &values)
 	err := get("/transfers", values, &response)
 	return &response, err
 }

@@ -80,8 +80,8 @@ func (c *InvoiceItemClient) All() (*InvoiceItemListResponse, error) {
 // For more information: https://stripe.com/docs/api#list_invoice_items
 func (c *InvoiceItemClient) AllWithFilters(filters Filters) (*InvoiceItemListResponse, error) {
 	response := InvoiceItemListResponse{}
-  values := url.Values{}
-  addFiltersToValues([]string{"count", "offset", "customer"}, filters, &values)
+	values := url.Values{}
+	addFiltersToValues([]string{"count", "offset", "customer"}, filters, &values)
 	err := get("/invoiceitems", values, &response)
 	return &response, err
 }

@@ -98,8 +98,8 @@ func (p *PlanClient) All() (*PlanListResponse, error) {
 // For more information: https://stripe.com/docs/api#list_plans
 func (p *PlanClient) AllWithFilters(filters Filters) (*PlanListResponse, error) {
 	response := PlanListResponse{}
-  values := url.Values{}
-  addFiltersToValues([]string{"count", "offset"}, filters, &values)
+	values := url.Values{}
+	addFiltersToValues([]string{"count", "offset"}, filters, &values)
 	err := get("/plans", values, &response)
 	return &response, err
 }

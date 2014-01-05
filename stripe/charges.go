@@ -92,7 +92,7 @@ func (c *ChargeClient) All() (*ChargeListResponse, error) {
 func (c *ChargeClient) AllWithFilters(filters Filters) (*ChargeListResponse, error) {
 	response := ChargeListResponse{}
 	values := url.Values{}
-  addFiltersToValues([]string{"count", "offset", "customer"}, filters, &values)
+	addFiltersToValues([]string{"count", "offset", "customer"}, filters, &values)
 
 	err := get("/charges", values, &response)
 	return &response, err

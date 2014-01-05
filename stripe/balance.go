@@ -40,9 +40,9 @@ type BalanceTransaction struct {
 }
 
 type BalanceTransactionListResponse struct {
-	Object string  `json:"object"`
-	Url    string  `json:"url"`
-	Count  int     `json:"count"`
+	Object string                `json:"object"`
+	Url    string                `json:"url"`
+	Count  int                   `json:"count"`
 	Data   []*BalanceTransaction `json:"data"`
 }
 
@@ -71,16 +71,16 @@ func (c *BalanceClient) RetrieveTransaction(id string) (*BalanceTransaction, err
 //
 // For more information: https://stripe.com/docs/api#balance_history
 func (c *BalanceClient) History() (*BalanceTransactionListResponse, error) {
-  return c.HistoryWithFilters(Filters{})
+	return c.HistoryWithFilters(Filters{})
 }
 
 // HistoryWithFilters takes a Filters and applies all valid filters for the action.
 //
 // For more information: https://stripe.com/docs/api#balance_history
 func (c *BalanceClient) HistoryWithFilters(filters Filters) (*BalanceTransactionListResponse, error) {
-  response := BalanceTransactionListResponse{}
-  values := url.Values{}
-  addFiltersToValues([]string{"count", "offset", "currency", "source", "transfer", "type"}, filters, &values)
+	response := BalanceTransactionListResponse{}
+	values := url.Values{}
+	addFiltersToValues([]string{"count", "offset", "currency", "source", "transfer", "type"}, filters, &values)
 	err := get("/balance/history", values, &response)
 	return &response, err
 }

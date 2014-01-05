@@ -71,7 +71,7 @@ func (c *RecipientClient) Delete(id string) (*DeleteResponse, error) {
 //
 // For more information: https://stripe.com/docs/api#list_recipients
 func (c *RecipientClient) All() (*RecipientListResponse, error) {
-  return c.AllWithFilters(Filters{})
+	return c.AllWithFilters(Filters{})
 }
 
 // AllWithFilters takes a Filters and applies all valid filters for the action.
@@ -79,8 +79,8 @@ func (c *RecipientClient) All() (*RecipientListResponse, error) {
 // For more information: https://stripe.com/docs/api#list_recipients
 func (c *RecipientClient) AllWithFilters(filters Filters) (*RecipientListResponse, error) {
 	response := RecipientListResponse{}
-  values := url.Values{}
-  addFiltersToValues([]string{"count", "offset", "verified"}, filters, &values)
+	values := url.Values{}
+	addFiltersToValues([]string{"count", "offset", "verified"}, filters, &values)
 	err := get("/recipients", values, &response)
 	return &response, err
 }

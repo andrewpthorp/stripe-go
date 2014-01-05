@@ -54,7 +54,7 @@ func (c *ApplicationFeeClient) Refund(id string, params *RefundParams) (*Applica
 //
 // For more information: https://stripe.com/docs/api#list_application_fees
 func (c *ApplicationFeeClient) All() (*ApplicationFeeListResponse, error) {
-  return c.AllWithFilters(Filters{})
+	return c.AllWithFilters(Filters{})
 }
 
 // AllWithFilters takes a Filters and applies all valid filters for the action.
@@ -62,8 +62,8 @@ func (c *ApplicationFeeClient) All() (*ApplicationFeeListResponse, error) {
 // For more information: https://stripe.com/docs/api#list_application_fees
 func (c *ApplicationFeeClient) AllWithFilters(filters Filters) (*ApplicationFeeListResponse, error) {
 	response := ApplicationFeeListResponse{}
-  values := url.Values{}
-  addFiltersToValues([]string{"count", "offset", "charge"}, filters, &values)
+	values := url.Values{}
+	addFiltersToValues([]string{"count", "offset", "charge"}, filters, &values)
 	err := get("/application_fees", values, &response)
 	return &response, err
 }

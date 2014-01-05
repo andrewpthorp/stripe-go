@@ -101,8 +101,8 @@ func (c *CustomerClient) All() (*CustomerListResponse, error) {
 // For more information: https://stripe.com/docs/api#list_customers
 func (c *CustomerClient) AllWithFilters(filters Filters) (*CustomerListResponse, error) {
 	response := CustomerListResponse{}
-  values := url.Values{}
-  addFiltersToValues([]string{"count", "offset"}, filters, &values)
+	values := url.Values{}
+	addFiltersToValues([]string{"count", "offset"}, filters, &values)
 	err := get("/customers", values, &response)
 	return &response, err
 }

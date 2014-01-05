@@ -79,8 +79,8 @@ func (c *CouponClient) All() (*CouponListResponse, error) {
 // For more information: https://stripe.com/docs/api#list_coupons
 func (c *CouponClient) AllWithFilters(filters Filters) (*CouponListResponse, error) {
 	response := CouponListResponse{}
-  values := url.Values{}
-  addFiltersToValues([]string{"count", "offset"}, filters, &values)
+	values := url.Values{}
+	addFiltersToValues([]string{"count", "offset"}, filters, &values)
 	err := get("/coupons", values, &response)
 	return &response, err
 }

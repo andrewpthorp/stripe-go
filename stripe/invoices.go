@@ -103,8 +103,8 @@ func (c *InvoiceClient) All() (*InvoiceListResponse, error) {
 // For more information: https://stripe.com/docs/api#list_cards
 func (c *InvoiceClient) AllWithFilters(filters Filters) (*InvoiceListResponse, error) {
 	response := InvoiceListResponse{}
-  values := url.Values{}
-  addFiltersToValues([]string{"count", "offset", "customer"}, filters, &values)
+	values := url.Values{}
+	addFiltersToValues([]string{"count", "offset", "customer"}, filters, &values)
 	err := get("/invoices", values, &response)
 	return &response, err
 }
@@ -143,8 +143,8 @@ func (c *InvoiceClient) RetrieveLines(invoiceId string) (*InvoiceLineItemListRes
 // For more information: https://stripe.com/docs/api#invoice_lines
 func (c *InvoiceClient) RetrieveLinesCount(invoiceId string, filters Filters) (*InvoiceLineItemListResponse, error) {
 	response := InvoiceLineItemListResponse{}
-  values := url.Values{}
-  addFiltersToValues([]string{"count", "offset", "customer"}, filters, &values)
+	values := url.Values{}
+	addFiltersToValues([]string{"count", "offset", "customer"}, filters, &values)
 	err := get("/invoices/"+invoiceId+"/lines", values, &response)
 	return &response, err
 }

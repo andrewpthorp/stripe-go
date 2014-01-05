@@ -43,7 +43,7 @@ func (p *EventClient) Retrieve(id string) (*Event, error) {
 //
 // For more information: https://stripe.com/docs/api#list_events
 func (c *EventClient) All() (*EventListResponse, error) {
-  return c.AllWithFilters(Filters{})
+	return c.AllWithFilters(Filters{})
 }
 
 // AllWithFilters takes a Filters and applies all valid filters for the action.
@@ -51,8 +51,8 @@ func (c *EventClient) All() (*EventListResponse, error) {
 // For more information: https://stripe.com/docs/api#list_events
 func (c *EventClient) AllWithFilters(filters Filters) (*EventListResponse, error) {
 	response := EventListResponse{}
-  values := url.Values{}
-  addFiltersToValues([]string{"count", "offset", "type"}, filters, &values)
+	values := url.Values{}
+	addFiltersToValues([]string{"count", "offset", "type"}, filters, &values)
 	err := get("/events", values, &response)
 	return &response, err
 }
