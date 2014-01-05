@@ -2,7 +2,6 @@ package stripe
 
 import (
 	"net/url"
-	"strconv"
 )
 
 type InvoiceLineItem struct {
@@ -91,26 +90,22 @@ func (c *InvoiceClient) Update(id string, params *InvoiceParams) (*Invoice, erro
 	return &invoice, err
 }
 
-// List lists the first 10 invoices. It calls ListCount with 10 as the count and
-// 0 as the offset, which are the defaults in the Stripe API.
+// All lists the first 10 invoice. It calls AllWithFilters with a blank Filters
+// so all defaults are used.
 //
 // For more information: https://stripe.com/docs/api#list_invoices
-func (c *InvoiceClient) List() (*InvoiceListResponse, error) {
-	return c.ListCount(10, 0)
+func (c *InvoiceClient) All() (*InvoiceListResponse, error) {
+	return c.AllWithFilters(Filters{})
 }
 
-// ListCount lists `count` invoices starting at `offset`.
+// AllWithFilters takes a Filters and applies all valid filters for the action.
 //
 // For more information: https://stripe.com/docs/api#list_cards
-func (c *InvoiceClient) ListCount(count, offset int) (*InvoiceListResponse, error) {
+func (c *InvoiceClient) AllWithFilters(filters Filters) (*InvoiceListResponse, error) {
 	response := InvoiceListResponse{}
-
-	params := url.Values{
-		"count":  {strconv.Itoa(count)},
-		"offset": {strconv.Itoa(offset)},
-	}
-
-	err := get("/invoices", params, &response)
+  values := url.Values{}
+  addFiltersToValues([]string{"count", "offset", "customer"}, filters, &values)
+	err := get("/invoices", values, &response)
 	return &response, err
 }
 
@@ -136,26 +131,21 @@ func (c *InvoiceClient) Pay(id string) (*Invoice, error) {
 }
 
 // RetrieveLines loads the first 10 line items for an invoice. It calls
-// RetrieveLinesCount with 10 as the count and 0 as the offset, which are the
-// defaults in the Stripe API.
+// RetrieveLinesWithFilters with a blank Filters, so all defaults are used.
 //
 // For more information: https://stripe.com/docs/api#invoice_lines
 func (c *InvoiceClient) RetrieveLines(invoiceId string) (*InvoiceLineItemListResponse, error) {
-	return c.RetrieveLinesCount(invoiceId, 10, 0)
+	return c.RetrieveLinesCount(invoiceId, Filters{})
 }
 
-// RetrieveLinesCount loads `count` invoice line items starting at `offset`.
+// RetrieveLinesWithFilters takes a Filters and applies all valid filters for the action.
 //
 // For more information: https://stripe.com/docs/api#invoice_lines
-func (c *InvoiceClient) RetrieveLinesCount(invoiceId string, count, offset int) (*InvoiceLineItemListResponse, error) {
+func (c *InvoiceClient) RetrieveLinesCount(invoiceId string, filters Filters) (*InvoiceLineItemListResponse, error) {
 	response := InvoiceLineItemListResponse{}
-
-	params := url.Values{
-		"count":  {strconv.Itoa(count)},
-		"offset": {strconv.Itoa(offset)},
-	}
-
-	err := get("/invoices/"+invoiceId+"/lines", params, &response)
+  values := url.Values{}
+  addFiltersToValues([]string{"count", "offset"}, filters, &values)
+	err := get("/invoices/"+invoiceId+"/lines", values, &response)
 	return &response, err
 }
 
