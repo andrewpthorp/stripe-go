@@ -2,7 +2,6 @@ package stripe
 
 import (
 	"net/url"
-	"strconv"
 )
 
 type ApplicationFee struct {
@@ -50,25 +49,21 @@ func (c *ApplicationFeeClient) Refund(id string, params *RefundParams) (*Applica
 	return &fee, err
 }
 
-// List lists the first 10 application fees. It calls ListCount with 10 as the
-// count and 0 as the offset, which are the defaults in the Stripe API.
+// All lists the first 10 application fees. It calls AllWithFilters with a blank
+// Filters so all defaults are used.
 //
 // For more information: https://stripe.com/docs/api#list_application_fees
-func (c *ApplicationFeeClient) List() (*ApplicationFeeListResponse, error) {
-	return c.ListCount(10, 0)
+func (c *ApplicationFeeClient) All() (*ApplicationFeeListResponse, error) {
+  return c.AllWithFilters(Filters{})
 }
 
-// ListCount lists `count` application fees starting at `offset`.
+// AllWithFilters takes a Filters and applies all valid filters for the action.
 //
 // For more information: https://stripe.com/docs/api#list_application_fees
-func (c *ApplicationFeeClient) ListCount(count, offset int) (*ApplicationFeeListResponse, error) {
+func (c *ApplicationFeeClient) AllWithFilters(filters Filters) (*ApplicationFeeListResponse, error) {
 	response := ApplicationFeeListResponse{}
-
-	params := url.Values{
-		"count":  {strconv.Itoa(count)},
-		"offset": {strconv.Itoa(offset)},
-	}
-
-	err := get("/application_fees", params, &response)
+  values := url.Values{}
+  addFiltersToValues([]string{"count", "offset"}, filters, &values)
+	err := get("/application_fees", values, &response)
 	return &response, err
 }
