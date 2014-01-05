@@ -81,7 +81,7 @@ func (c *InvoiceItemClient) All() (*InvoiceItemListResponse, error) {
 func (c *InvoiceItemClient) AllWithFilters(filters Filters) (*InvoiceItemListResponse, error) {
 	response := InvoiceItemListResponse{}
   values := url.Values{}
-  addFiltersToValues([]string{"count", "offset"}, filters, &values)
+  addFiltersToValues([]string{"count", "offset", "customer"}, filters, &values)
 	err := get("/invoiceitems", values, &response)
 	return &response, err
 }

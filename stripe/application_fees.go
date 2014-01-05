@@ -63,7 +63,7 @@ func (c *ApplicationFeeClient) All() (*ApplicationFeeListResponse, error) {
 func (c *ApplicationFeeClient) AllWithFilters(filters Filters) (*ApplicationFeeListResponse, error) {
 	response := ApplicationFeeListResponse{}
   values := url.Values{}
-  addFiltersToValues([]string{"count", "offset"}, filters, &values)
+  addFiltersToValues([]string{"count", "offset", "charge"}, filters, &values)
 	err := get("/application_fees", values, &response)
 	return &response, err
 }

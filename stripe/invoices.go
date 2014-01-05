@@ -144,7 +144,7 @@ func (c *InvoiceClient) RetrieveLines(invoiceId string) (*InvoiceLineItemListRes
 func (c *InvoiceClient) RetrieveLinesCount(invoiceId string, filters Filters) (*InvoiceLineItemListResponse, error) {
 	response := InvoiceLineItemListResponse{}
   values := url.Values{}
-  addFiltersToValues([]string{"count", "offset"}, filters, &values)
+  addFiltersToValues([]string{"count", "offset", "customer"}, filters, &values)
 	err := get("/invoices/"+invoiceId+"/lines", values, &response)
 	return &response, err
 }

@@ -52,7 +52,7 @@ func (c *EventClient) All() (*EventListResponse, error) {
 func (c *EventClient) AllWithFilters(filters Filters) (*EventListResponse, error) {
 	response := EventListResponse{}
   values := url.Values{}
-  addFiltersToValues([]string{"count", "offset"}, filters, &values)
+  addFiltersToValues([]string{"count", "offset", "type"}, filters, &values)
 	err := get("/events", values, &response)
 	return &response, err
 }
