@@ -13,30 +13,30 @@ func TestPlanCreate(t *testing.T) {
   handleWithJSON("/plans", "plans/plan.json")
   params := PlanParams{}
   plan, _ := client.Plans.Create(&params)
-  assert.Equal(t, plan.Id, "plan_code")
+  assert.Equal(t, plan.Id, "plan_123456789")
 }
 
 func TestPlansRetrieve(t *testing.T) {
   setup()
   defer teardown()
-  handleWithJSON("/plans/id", "plans/plan.json")
-  plan, _ := client.Plans.Retrieve("id")
-  assert.Equal(t, plan.Id, "plan_code")
+  handleWithJSON("/plans/plan_123456789", "plans/plan.json")
+  plan, _ := client.Plans.Retrieve("plan_123456789")
+  assert.Equal(t, plan.Id, "plan_123456789")
 }
 
 func TestPlansUpdate(t *testing.T) {
   setup()
   defer teardown()
-  handleWithJSON("/plans/id", "plans/plan.json")
-  plan, _ := client.Plans.Update("id", new(PlanParams))
-  assert.Equal(t, plan.Id, "plan_code")
+  handleWithJSON("/plans/plan_123456789", "plans/plan.json")
+  plan, _ := client.Plans.Update("plan_123456789", new(PlanParams))
+  assert.Equal(t, plan.Id, "plan_123456789")
 }
 
 func TestPlansDelete(t *testing.T) {
   setup()
   defer teardown()
-  handleWithJSON("/plans/id", "delete.json")
-  res, _ := client.Plans.Delete("id")
+  handleWithJSON("/plans/plan_123456789", "delete.json")
+  res, _ := client.Plans.Delete("plan_123456789")
   assert.Equal(t, res.Deleted, true)
 }
 
@@ -46,7 +46,7 @@ func TestPlansAll(t *testing.T) {
   handleWithJSON("/plans", "plans/plans.json")
   plans, _ := client.Plans.All()
   assert.Equal(t, plans.Count, 1)
-  assert.Equal(t, plans.Data[0].Id, "plan_code")
+  assert.Equal(t, plans.Data[0].Id, "plan_123456789")
 }
 
 
@@ -56,12 +56,12 @@ func TestPlansAllWithFilters(t *testing.T) {
   handleWithJSON("/plans", "plans/plans.json")
   plans, _ := client.Plans.AllWithFilters(Filters{})
   assert.Equal(t, plans.Count, 1)
-  assert.Equal(t, plans.Data[0].Id, "plan_code")
+  assert.Equal(t, plans.Data[0].Id, "plan_123456789")
 }
 
 func TestParsePlanParams(t *testing.T) {
   params := PlanParams{
-    Id: "plan_id",
+    Id: "plan_123456789",
     Amount: 1000,
     Currency: "USD",
     Interval: "monthly",
