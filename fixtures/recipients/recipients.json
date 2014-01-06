@@ -1,0 +1,31 @@
+{
+  "object": "list",
+  "url": "v1/recipients",
+  "count": 1,
+  "data": [
+    {
+      "id": "rp_123456789",
+      "object": "recipient",
+      "created": 123456789,
+      "livemode": false,
+      "type": "individual",
+      "description": null,
+      "email": null,
+      "name": "Andrew Thorp",
+      "verified": false,
+      "metadata": {
+      },
+      "active_account": {
+        "object": "bank_account",
+        "id": "ba_123456789",
+        "bank_name": "STRIPE TEST BANK",
+        "last4": "6789",
+        "country": "US",
+        "currency": "usd",
+        "validated": false,
+        "verified": false,
+        "fingerprint": "abc123456def"
+      }
+    }
+  ]
+}
