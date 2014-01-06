@@ -65,7 +65,7 @@ func (c *TransferClient) Update(id string, params *TransferParams) (*Transfer, e
 // For more information: https://stripe.com/docs/api/#cancel_transfer
 func (c *TransferClient) Cancel(id string) (*Transfer, error) {
 	transfer := Transfer{}
-	err := post("/transfers/"+id, nil, &transfer)
+	err := post("/transfers/"+id+"/cancel", nil, &transfer)
 	return &transfer, err
 }
 

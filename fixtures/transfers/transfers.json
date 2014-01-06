@@ -1,0 +1,82 @@
+{
+  "object": "list",
+  "url": "/v1/transfers",
+  "count": 1,
+  "data": [
+    {
+      "id": "tr_123456789",
+      "object": "transfer",
+      "date": 123456789,
+      "livemode": false,
+      "amount": 3854,
+      "currency": "usd",
+      "status": "paid",
+      "balance_transaction": "txn_123456789",
+      "summary": {
+        "charge_gross": 4000,
+        "charge_fees": 146,
+        "charge_fee_details": [
+          {
+            "amount": 146,
+            "currency": "usd",
+            "type": "stripe_fee",
+            "description": null,
+            "application": null
+          }
+        ],
+        "refund_gross": 0,
+        "refund_fees": 0,
+        "refund_fee_details": [],
+        "adjustment_gross": 0,
+        "adjustment_fees": 0,
+        "adjustment_fee_details": [],
+        "validation_fees": 0,
+        "validation_count": 0,
+        "charge_count": 1,
+        "refund_count": 0,
+        "adjustment_count": 0,
+        "net": 3854,
+        "currency": "usd",
+        "collected_fee_gross": 0,
+        "collected_fee_count": 0,
+        "collected_fee_refund_gross": 0,
+        "collected_fee_refund_count": 0
+      },
+      "transactions": {
+        "object": "list",
+        "count": 1,
+        "url": "/v1/transfers/tr_123456789/transactions",
+        "data": [
+          {
+            "id": "ch_123456789",
+            "type": "charge",
+            "amount": 4000,
+            "currency": "usd",
+            "net": 3854,
+            "created": 123456789,
+            "description": null,
+            "fee": 146,
+            "fee_details": [
+              {
+                "amount": 146,
+                "currency": "usd",
+                "type": "stripe_fee",
+                "description": "Stripe processing fees",
+                "application": null
+              }
+            ]
+          }
+        ]
+      },
+      "other_transfers": [
+        "tr_987654321"
+      ],
+      "account": null,
+      "description": "STRIPE TRANSFER",
+      "metadata": {
+      },
+      "statement_descriptor": null,
+      "recipient": null
+    }
+  ]
+}
