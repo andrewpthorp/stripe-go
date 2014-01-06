@@ -1,0 +1,20 @@
+{
+  "object": "list",
+  "url": "/v1/invoiceitems",
+  "count": 1,
+  "data": [
+    {
+      "object": "invoiceitem",
+      "id": "ii_123456789",
+      "date": 123456789,
+      "amount": 10000,
+      "livemode": false,
+      "proration": true,
+      "currency": "usd",
+      "customer": "cus_123456789",
+      "description": "Description",
+      "metadata": {},
+      "invoice": "in_123456789"
+    }
+  ]
+}
