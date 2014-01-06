@@ -135,13 +135,13 @@ func (c *InvoiceClient) Pay(id string) (*Invoice, error) {
 //
 // For more information: https://stripe.com/docs/api#invoice_lines
 func (c *InvoiceClient) RetrieveLines(invoiceId string) (*InvoiceLineItemListResponse, error) {
-	return c.RetrieveLinesCount(invoiceId, Filters{})
+	return c.RetrieveLinesWithFilters(invoiceId, Filters{})
 }
 
 // RetrieveLinesWithFilters takes a Filters and applies all valid filters for the action.
 //
 // For more information: https://stripe.com/docs/api#invoice_lines
-func (c *InvoiceClient) RetrieveLinesCount(invoiceId string, filters Filters) (*InvoiceLineItemListResponse, error) {
+func (c *InvoiceClient) RetrieveLinesWithFilters(invoiceId string, filters Filters) (*InvoiceLineItemListResponse, error) {
 	response := InvoiceLineItemListResponse{}
 	values := url.Values{}
 	addFiltersToValues([]string{"count", "offset", "customer"}, filters, &values)

@@ -1,0 +1,59 @@
+{
+  "date": 123456789,
+  "id": "in_123456789",
+  "period_start": 123456789,
+  "period_end": 123456789,
+  "lines": {
+    "data": [
+      {
+        "id": "sub_123456789",
+        "object": "line_item",
+        "type": "subscription",
+        "livemode": true,
+        "amount": 10000,
+        "currency": "usd",
+        "proration": false,
+        "period": {
+          "start": 123456789,
+          "end": 123456789
+        },
+        "quantity": 1,
+        "plan": {
+          "interval": "month",
+          "name": "Monthly Plan",
+          "amount": 10000,
+          "currency": "usd",
+          "id": "monthly_plan",
+          "object": "plan",
+          "livemode": false,
+          "interval_count": 1,
+          "trial_period_days": null,
+          "metadata": {
+          }
+        },
+        "description": null,
+        "metadata": null
+      }
+    ],
+    "count": 1,
+    "object": "list",
+    "url": "/v1/invoices/in_123456789/lines"
+  },
+  "subtotal": 10000,
+  "total": 10000,
+  "customer": "cus_123456789",
+  "object": "invoice",
+  "attempted": true,
+  "closed": true,
+  "paid": true,
+  "livemode": false,
+  "attempt_count": 0,
+  "amount_due": 10000,
+  "currency": "usd",
+  "starting_balance": 0,
+  "ending_balance": 0,
+  "next_payment_attempt": null,
+  "charge": "ch_123456789",
+  "discount": null,
+  "application_fee": null
+}
