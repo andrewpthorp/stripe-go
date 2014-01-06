@@ -61,7 +61,12 @@ Testing
 Tests are all stubbed out. You can view the fixture responses in `fixtures/`.
 Ideally, tests will never actually hit the Stripe API. To run the tests:
 
-    script/bootstrap # Install dependencies
+Install Dependencies
+
+    script/bootstrap
+
+Run Tests
+
     script/test
 
 License
