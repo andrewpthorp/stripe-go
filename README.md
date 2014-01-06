@@ -58,7 +58,8 @@ Usage
 Testing
 =======
 
-Tests are a WIP. Ideally they will not ever hit the Stripe API.
+Tests are all stubbed out. You can view the fixture responses in `fixtures/`.
+Ideally, tests will never actually hit the Stripe API. To run the tests:
 
     script/bootstrap # Install dependencies
     script/test
