@@ -32,7 +32,9 @@ type ChargeListResponse struct {
 	Data []Charge `json:"data"`
 }
 
-type ChargeClient struct{}
+type ChargeClient struct {
+	client Client
+}
 
 // Create creates a charge.
 //
@@ -41,7 +43,7 @@ func (c *ChargeClient) Create(params *ChargeParams) (*Charge, error) {
 	charge := Charge{}
 	values := url.Values{}
 	parseChargeParams(params, &values)
-	err := post("/charges", values, &charge)
+	err := c.client.post("/charges", values, &charge)
 	return &charge, err
 }
 
@@ -52,7 +54,7 @@ func (c *ChargeClient) Capture(id string, params *ChargeParams) (*Charge, error)
 	charge := Charge{}
 	values := url.Values{}
 	parseChargeParams(params, &values)
-	err := post("/charges/"+id+"/capture", values, &charge)
+	err := c.client.post("/charges/"+id+"/capture", values, &charge)
 	return &charge, err
 }
 
@@ -61,7 +63,7 @@ func (c *ChargeClient) Capture(id string, params *ChargeParams) (*Charge, error)
 // For more information: https://stripe.com/docs/api#retrieve_charge
 func (c *ChargeClient) Retrieve(id string) (*Charge, error) {
 	charge := Charge{}
-	err := get("/charges/"+id, nil, &charge)
+	err := c.client.get("/charges/"+id, nil, &charge)
 	return &charge, err
 }
 
@@ -72,7 +74,7 @@ func (c *ChargeClient) Update(id string, params *ChargeParams) (*Charge, error) 
 	charge := Charge{}
 	values := url.Values{}
 	parseChargeParams(params, &values)
-	err := post("/charges/"+id, values, &charge)
+	err := c.client.post("/charges/"+id, values, &charge)
 	return &charge, err
 }
 
@@ -92,7 +94,7 @@ func (c *ChargeClient) AllWithFilters(filters Filters) (*ChargeListResponse, err
 	values := url.Values{}
 	addFiltersToValues([]string{"count", "offset", "customer"}, filters, &values)
 
-	err := get("/charges", values, &response)
+	err := c.client.get("/charges", values, &response)
 	return &response, err
 }
 
@@ -103,7 +105,7 @@ func (c *ChargeClient) Refund(id string, params *RefundParams) (*Charge, error) 
 	charge := Charge{}
 	values := url.Values{}
 	addParamsToValues(params, &values)
-	err := post("/charges/"+id+"/refund", values, &charge)
+	err := c.client.post("/charges/"+id+"/refund", values, &charge)
 	return &charge, err
 }
 

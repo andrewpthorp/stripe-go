@@ -22,45 +22,47 @@ type PlanListResponse struct {
 	Data []Plan `json:"data"`
 }
 
-type PlanClient struct{}
+type PlanClient struct {
+	client Client
+}
 
 // Create creates a plan.
 //
 // For more information: https://stripe.com/docs/api#create_plan
-func (p *PlanClient) Create(params *PlanParams) (*Plan, error) {
+func (c *PlanClient) Create(params *PlanParams) (*Plan, error) {
 	plan := Plan{}
 	values := url.Values{}
 	parsePlanParams(params, &values)
-	err := post("/plans", values, &plan)
+	err := c.client.post("/plans", values, &plan)
 	return &plan, err
 }
 
 // Retrieve loads a plan.
 //
 // For more information: https://stripe.com/docs/api#retrieve_plan
-func (p *PlanClient) Retrieve(id string) (*Plan, error) {
+func (c *PlanClient) Retrieve(id string) (*Plan, error) {
 	plan := Plan{}
-	err := get("/plans/"+id, nil, &plan)
+	err := c.client.get("/plans/"+id, nil, &plan)
 	return &plan, err
 }
 
 // Update updates a plan.
 //
 // For more information: https://stripe.com/docs/api#update_plan
-func (p *PlanClient) Update(id string, params *PlanParams) (*Plan, error) {
+func (c *PlanClient) Update(id string, params *PlanParams) (*Plan, error) {
 	plan := Plan{}
 	values := url.Values{}
 	parsePlanParams(params, &values)
-	err := post("/plans/"+id, values, &plan)
+	err := c.client.post("/plans/"+id, values, &plan)
 	return &plan, err
 }
 
 // Delete deletes a plan.
 //
 // For more information: https://stripe.com/docs/api#delete_plan
-func (p *PlanClient) Delete(id string) (*DeleteResponse, error) {
+func (c *PlanClient) Delete(id string) (*DeleteResponse, error) {
 	response := DeleteResponse{}
-	err := delete("/plans/"+id, nil, &response)
+	err := c.client.delete("/plans/"+id, nil, &response)
 	return &response, err
 }
 
@@ -68,18 +70,18 @@ func (p *PlanClient) Delete(id string) (*DeleteResponse, error) {
 // all defaults are used.
 //
 // For more information: https://stripe.com/docs/api#list_plans
-func (p *PlanClient) All() (*PlanListResponse, error) {
-	return p.AllWithFilters(Filters{})
+func (c *PlanClient) All() (*PlanListResponse, error) {
+	return c.AllWithFilters(Filters{})
 }
 
 // AllWithFilters takes a Filters and applies all valid filters for the action.
 //
 // For more information: https://stripe.com/docs/api#list_plans
-func (p *PlanClient) AllWithFilters(filters Filters) (*PlanListResponse, error) {
+func (c *PlanClient) AllWithFilters(filters Filters) (*PlanListResponse, error) {
 	response := PlanListResponse{}
 	values := url.Values{}
 	addFiltersToValues([]string{"count", "offset"}, filters, &values)
-	err := get("/plans", values, &response)
+	err := c.client.get("/plans", values, &response)
 	return &response, err
 }
 

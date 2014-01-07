@@ -23,7 +23,9 @@ type Subscription struct {
 	TrialStart            int64   `json:"trial_start"`
 }
 
-type SubscriptionClient struct{}
+type SubscriptionClient struct {
+	client Client
+}
 
 // Update updates a customers subscription.
 //
@@ -32,7 +34,7 @@ func (c *SubscriptionClient) Update(customerId string, params *SubscriptionParam
 	subscription := Subscription{}
 	values := url.Values{}
 	parseSubscriptionParams("update", params, &values)
-	err := post("/customers/"+customerId+"/subscription", values, &subscription)
+	err := c.client.post("/customers/"+customerId+"/subscription", values, &subscription)
 	return &subscription, err
 }
 
@@ -43,7 +45,7 @@ func (c *SubscriptionClient) Cancel(customerId string, params *SubscriptionParam
 	subscription := Subscription{}
 	values := url.Values{}
 	parseSubscriptionParams("cancel", params, &values)
-	err := delete("/customers/"+customerId+"/subscription", values, &subscription)
+	err := c.client.delete("/customers/"+customerId+"/subscription", values, &subscription)
 	return &subscription, err
 }
 

@@ -23,7 +23,9 @@ type InvoiceItemListResponse struct {
 	Data []InvoiceItem `json:"data"`
 }
 
-type InvoiceItemClient struct{}
+type InvoiceItemClient struct {
+	client Client
+}
 
 // Create creates an invoice item.
 //
@@ -32,7 +34,7 @@ func (c *InvoiceItemClient) Create(params *InvoiceItemParams) (*InvoiceItem, err
 	item := InvoiceItem{}
 	values := url.Values{}
 	parseInvoiceItemParams(params, &values)
-	err := post("/invoiceitems", values, &item)
+	err := c.client.post("/invoiceitems", values, &item)
 	return &item, err
 }
 
@@ -41,7 +43,7 @@ func (c *InvoiceItemClient) Create(params *InvoiceItemParams) (*InvoiceItem, err
 // For more information: https://stripe.com/docs/api#retrieve_invoice_item
 func (c *InvoiceItemClient) Retrieve(id string) (*InvoiceItem, error) {
 	item := InvoiceItem{}
-	err := get("/invoiceitems/"+id, nil, &item)
+	err := c.client.get("/invoiceitems/"+id, nil, &item)
 	return &item, err
 }
 
@@ -52,7 +54,7 @@ func (c *InvoiceItemClient) Update(id string, params *InvoiceItemParams) (*Invoi
 	item := InvoiceItem{}
 	values := url.Values{}
 	parseInvoiceItemParams(params, &values)
-	err := post("/invoiceitems/"+id, values, &item)
+	err := c.client.post("/invoiceitems/"+id, values, &item)
 	return &item, err
 }
 
@@ -61,7 +63,7 @@ func (c *InvoiceItemClient) Update(id string, params *InvoiceItemParams) (*Invoi
 // For more information: https://stripe.com/docs/api#delete_invoice_item
 func (c *InvoiceItemClient) Delete(id string) (*DeleteResponse, error) {
 	response := DeleteResponse{}
-	err := delete("/invoiceitems/"+id, nil, &response)
+	err := c.client.delete("/invoiceitems/"+id, nil, &response)
 	return &response, err
 }
 
@@ -80,7 +82,7 @@ func (c *InvoiceItemClient) AllWithFilters(filters Filters) (*InvoiceItemListRes
 	response := InvoiceItemListResponse{}
 	values := url.Values{}
 	addFiltersToValues([]string{"count", "offset", "customer"}, filters, &values)
-	err := get("/invoiceitems", values, &response)
+	err := c.client.get("/invoiceitems", values, &response)
 	return &response, err
 }
 

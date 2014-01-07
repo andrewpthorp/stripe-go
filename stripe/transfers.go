@@ -25,7 +25,9 @@ type TransferListResponse struct {
 	Data []Transfer `json:"data"`
 }
 
-type TransferClient struct{}
+type TransferClient struct {
+	client Client
+}
 
 // Create creates a transfer.
 //
@@ -34,7 +36,7 @@ func (c *TransferClient) Create(params *TransferParams) (*Transfer, error) {
 	transfer := Transfer{}
 	values := url.Values{}
 	parseTransferParams(params, &values)
-	err := post("/transfers", values, &transfer)
+	err := c.client.post("/transfers", values, &transfer)
 	return &transfer, err
 }
 
@@ -43,7 +45,7 @@ func (c *TransferClient) Create(params *TransferParams) (*Transfer, error) {
 // For more information: https://stripe.com/docs/api#retrieve_transfer
 func (c *TransferClient) Retrieve(id string) (*Transfer, error) {
 	transfer := Transfer{}
-	err := get("/transfers/"+id, nil, &transfer)
+	err := c.client.get("/transfers/"+id, nil, &transfer)
 	return &transfer, err
 }
 
@@ -54,7 +56,7 @@ func (c *TransferClient) Update(id string, params *TransferParams) (*Transfer, e
 	transfer := Transfer{}
 	values := url.Values{}
 	parseTransferParams(params, &values)
-	err := post("/transfers/"+id, values, &transfer)
+	err := c.client.post("/transfers/"+id, values, &transfer)
 	return &transfer, err
 }
 
@@ -63,7 +65,7 @@ func (c *TransferClient) Update(id string, params *TransferParams) (*Transfer, e
 // For more information: https://stripe.com/docs/api/#cancel_transfer
 func (c *TransferClient) Cancel(id string) (*Transfer, error) {
 	transfer := Transfer{}
-	err := post("/transfers/"+id+"/cancel", nil, &transfer)
+	err := c.client.post("/transfers/"+id+"/cancel", nil, &transfer)
 	return &transfer, err
 }
 
@@ -82,7 +84,7 @@ func (c *TransferClient) AllWithFilters(filters Filters) (*TransferListResponse,
 	response := TransferListResponse{}
 	values := url.Values{}
 	addFiltersToValues([]string{"count", "offset", "recipient", "status"}, filters, &values)
-	err := get("/transfers", values, &response)
+	err := c.client.get("/transfers", values, &response)
 	return &response, err
 }
 

@@ -16,7 +16,9 @@ type Dispute struct {
 	EvidenceDueBy      int64  `json:"evidence_due_by"`
 }
 
-type DisputeClient struct{}
+type DisputeClient struct {
+	client Client
+}
 
 // Update updates a dispute.
 //
@@ -24,7 +26,7 @@ type DisputeClient struct{}
 func (c *DisputeClient) Update(chargeId, evidence string) (*Dispute, error) {
 	dispute := Dispute{}
 	values := url.Values{"evidence": {evidence}}
-	err := post("/charges/"+chargeId+"/dispute", values, &dispute)
+	err := c.client.post("/charges/"+chargeId+"/dispute", values, &dispute)
 	return &dispute, err
 }
 
@@ -33,6 +35,6 @@ func (c *DisputeClient) Update(chargeId, evidence string) (*Dispute, error) {
 // For more information: https://stripe.com/docs/api#close_dispute
 func (c *DisputeClient) Close(chargeId string) (*Dispute, error) {
 	dispute := Dispute{}
-	err := post("/charges/"+chargeId+"/dispute/close", nil, &dispute)
+	err := c.client.post("/charges/"+chargeId+"/dispute/close", nil, &dispute)
 	return &dispute, err
 }

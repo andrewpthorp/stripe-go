@@ -53,7 +53,9 @@ type InvoiceListResponse struct {
 	Data []Invoice `json:"data"`
 }
 
-type InvoiceClient struct{}
+type InvoiceClient struct {
+	client Client
+}
 
 // Create creates an invoice.
 //
@@ -62,7 +64,7 @@ func (c *InvoiceClient) Create(params *InvoiceParams) (*Invoice, error) {
 	invoice := Invoice{}
 	values := url.Values{}
 	parseInvoiceParams(params, &values)
-	err := post("/invoices", values, &invoice)
+	err := c.client.post("/invoices", values, &invoice)
 	return &invoice, err
 }
 
@@ -71,7 +73,7 @@ func (c *InvoiceClient) Create(params *InvoiceParams) (*Invoice, error) {
 // For more information: https://stripe.com/docs/api#retrieve_invoice
 func (c *InvoiceClient) Retrieve(id string) (*Invoice, error) {
 	invoice := Invoice{}
-	err := get("/invoices/"+id, nil, &invoice)
+	err := c.client.get("/invoices/"+id, nil, &invoice)
 	return &invoice, err
 }
 
@@ -82,7 +84,7 @@ func (c *InvoiceClient) Update(id string, params *InvoiceParams) (*Invoice, erro
 	invoice := Invoice{}
 	values := url.Values{}
 	parseInvoiceParams(params, &values)
-	err := post("/invoices/"+id, values, &invoice)
+	err := c.client.post("/invoices/"+id, values, &invoice)
 	return &invoice, err
 }
 
@@ -101,7 +103,7 @@ func (c *InvoiceClient) AllWithFilters(filters Filters) (*InvoiceListResponse, e
 	response := InvoiceListResponse{}
 	values := url.Values{}
 	addFiltersToValues([]string{"count", "offset", "customer"}, filters, &values)
-	err := get("/invoices", values, &response)
+	err := c.client.get("/invoices", values, &response)
 	return &response, err
 }
 
@@ -113,7 +115,7 @@ func (c *InvoiceClient) RetrieveUpcoming(customerId string) (*Invoice, error) {
 	params := url.Values{
 		"customer": {customerId},
 	}
-	err := get("/invoices/upcoming", params, &invoice)
+	err := c.client.get("/invoices/upcoming", params, &invoice)
 	return &invoice, err
 }
 
@@ -122,7 +124,7 @@ func (c *InvoiceClient) RetrieveUpcoming(customerId string) (*Invoice, error) {
 // For more information: https://stripe.com/docs/api#pay_invoice
 func (c *InvoiceClient) Pay(id string) (*Invoice, error) {
 	invoice := Invoice{}
-	err := post("/invoices/"+id+"/pay", nil, &invoice)
+	err := c.client.post("/invoices/"+id+"/pay", nil, &invoice)
 	return &invoice, err
 }
 
@@ -141,7 +143,7 @@ func (c *InvoiceClient) RetrieveLinesWithFilters(invoiceId string, filters Filte
 	response := InvoiceLineItemListResponse{}
 	values := url.Values{}
 	addFiltersToValues([]string{"count", "offset", "customer"}, filters, &values)
-	err := get("/invoices/"+invoiceId+"/lines", values, &response)
+	err := c.client.get("/invoices/"+invoiceId+"/lines", values, &response)
 	return &response, err
 }
 

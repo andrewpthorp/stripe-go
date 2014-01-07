@@ -8,13 +8,15 @@ type Discount struct {
 	End      int64   `json:"end"`
 }
 
-type DiscountClient struct{}
+type DiscountClient struct {
+	client Client
+}
 
 // Delete deletes a customers discount.
 //
 // For more information: https://stripe.com/docs/api#delete_discount
 func (c *DiscountClient) Delete(customerId string) (*DeleteResponse, error) {
 	response := DeleteResponse{}
-	err := delete("/customers/"+customerId+"/discount", nil, &response)
+	err := c.client.delete("/customers/"+customerId+"/discount", nil, &response)
 	return &response, err
 }

@@ -25,7 +25,7 @@ var (
 func setup() {
 	serveMux = http.NewServeMux()
 	server = httptest.NewServer(serveMux)
-	client = NewClientWith(server.URL, "sk_abc123")
+	client = NewClientWith(nil, server.URL, "sk_abc123")
 }
 
 // teardown closes the server that is initialized in setup()

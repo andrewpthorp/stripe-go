@@ -9,12 +9,12 @@ import (
 	"strings"
 )
 
-var (
-	_apiKey = ""
-	_apiUrl = ""
-)
-
 type Client struct {
+	client          *http.Client
+	apiKey          string
+	apiUrl          string
+	apiVersion      string
+	userAgent       string
 	Account         *AccountClient
 	ApplicationFees *ApplicationFeeClient
 	Balance         *BalanceClient
@@ -35,61 +35,71 @@ type Client struct {
 }
 
 // NewClient returns a Client and sets the apiUrl to the live apiUrl.
-func NewClient(apiKey string) Client {
-	return NewClientWith(apiUrl, apiKey)
+func NewClient(client *http.Client, apiKey string) Client {
+	return NewClientWith(client, apiUrl, apiKey)
 }
 
 // NewClientWith returns a Client and allows us to access the resource clients.
-func NewClientWith(apiUrl, apiKey string) Client {
-	_apiKey = apiKey
-	_apiUrl = apiUrl
-
-	return Client{
-		Account:         new(AccountClient),
-		ApplicationFees: new(ApplicationFeeClient),
-		Balance:         new(BalanceClient),
-		Cards:           new(CardClient),
-		Charges:         new(ChargeClient),
-		Coupons:         new(CouponClient),
-		Customers:       new(CustomerClient),
-		Discounts:       new(DiscountClient),
-		Disputes:        new(DisputeClient),
-		Events:          new(EventClient),
-		Invoices:        new(InvoiceClient),
-		InvoiceItems:    new(InvoiceItemClient),
-		Plans:           new(PlanClient),
-		Recipients:      new(RecipientClient),
-		Subscriptions:   new(SubscriptionClient),
-		Tokens:          new(TokenClient),
-		Transfers:       new(TransferClient),
+func NewClientWith(client *http.Client, apiUrl, apiKey string) Client {
+	c := Client{
+		apiKey:     apiKey,
+		apiUrl:     apiUrl,
+		apiVersion: apiVersion,
+		userAgent:  userAgent,
 	}
+
+	if client == nil {
+		c.client = http.DefaultClient
+	} else {
+		c.client = client
+	}
+
+	c.Account = &AccountClient{client: c}
+	c.ApplicationFees = &ApplicationFeeClient{client: c}
+	c.Balance = &BalanceClient{client: c}
+	c.Cards = &CardClient{client: c}
+	c.Charges = &ChargeClient{client: c}
+	c.Coupons = &CouponClient{client: c}
+	c.Customers = &CustomerClient{client: c}
+	c.Discounts = &DiscountClient{client: c}
+	c.Disputes = &DisputeClient{client: c}
+	c.Events = &EventClient{client: c}
+	c.Invoices = &InvoiceClient{client: c}
+	c.InvoiceItems = &InvoiceItemClient{client: c}
+	c.Plans = &PlanClient{client: c}
+	c.Recipients = &RecipientClient{client: c}
+	c.Subscriptions = &SubscriptionClient{client: c}
+	c.Tokens = &TokenClient{client: c}
+	c.Transfers = &TransferClient{client: c}
+
+	return c
 }
 
 // get is a shortcut to the underlying request, which sends an HTTP GET.
-func get(path string, params url.Values, v interface{}) error {
-	return request("GET", path, params, v)
+func (c *Client) get(path string, params url.Values, v interface{}) error {
+	return c.request("GET", path, params, v)
 }
 
 // post is a shortcut to the underlying request, which sends an HTTP POST.
-func post(path string, params url.Values, v interface{}) error {
-	return request("POST", path, params, v)
+func (c *Client) post(path string, params url.Values, v interface{}) error {
+	return c.request("POST", path, params, v)
 }
 
-func delete(path string, params url.Values, v interface{}) error {
-	return request("DELETE", path, params, v)
+func (c *Client) delete(path string, params url.Values, v interface{}) error {
+	return c.request("DELETE", path, params, v)
 }
 
 // request is the method that actually delivers the HTTP Requests.
-func request(method, path string, params url.Values, v interface{}) error {
+func (c *Client) request(method, path string, params url.Values, v interface{}) error {
 
 	// Parse the URL, path, User, etc.
-	u, err := url.Parse(_apiUrl + path)
+	u, err := url.Parse(c.apiUrl + path)
 	if err != nil {
 		return err
 	}
 
 	// Much Authentication!
-	u.User = url.User(_apiKey)
+	u.User = url.User(c.apiKey)
 
 	// Build HTTP Request.
 	bodyReader := parseParams(method, params, u)
@@ -99,11 +109,11 @@ func request(method, path string, params url.Values, v interface{}) error {
 	}
 
 	// Pin API Version, simplify maintenance.
-	req.Header.Set("Stripe-Version", apiVersion)
-	req.Header.Set("User-Agent", userAgent)
+	req.Header.Set("Stripe-Version", c.apiVersion)
+	req.Header.Set("User-Agent", c.userAgent)
 
 	// Send HTTP Request.
-	res, err := http.DefaultClient.Do(req)
+	res, err := c.client.Do(req)
 	if err != nil {
 		return err
 	}

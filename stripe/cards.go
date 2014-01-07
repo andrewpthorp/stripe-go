@@ -32,7 +32,9 @@ type CardListResponse struct {
 	Data []Card `json:"data"`
 }
 
-type CardClient struct{}
+type CardClient struct {
+	client Client
+}
 
 // Create creates a card for a customer.
 //
@@ -41,7 +43,7 @@ func (c *CardClient) Create(customerId string, params *CardParams) (*Card, error
 	card := Card{}
 	values := url.Values{}
 	parseCardParams(params, &values, true)
-	err := post("/customers/"+customerId+"/cards", values, &card)
+	err := c.client.post("/customers/"+customerId+"/cards", values, &card)
 	return &card, err
 }
 
@@ -50,7 +52,7 @@ func (c *CardClient) Create(customerId string, params *CardParams) (*Card, error
 // For more information: https://stripe.com/docs/api#retrieve_card
 func (c *CardClient) Retrieve(customerId, id string) (*Card, error) {
 	card := Card{}
-	err := get("/customers/"+customerId+"/cards/"+id, nil, &card)
+	err := c.client.get("/customers/"+customerId+"/cards/"+id, nil, &card)
 	return &card, err
 }
 
@@ -61,7 +63,7 @@ func (c *CardClient) Update(customerId, id string, params *CardParams) (*Card, e
 	card := Card{}
 	values := url.Values{}
 	parseCardParams(params, &values, false)
-	err := post("/customers/"+customerId+"/cards/"+id, values, &card)
+	err := c.client.post("/customers/"+customerId+"/cards/"+id, values, &card)
 	return &card, err
 }
 
@@ -70,7 +72,7 @@ func (c *CardClient) Update(customerId, id string, params *CardParams) (*Card, e
 // For more information: https://stripe.com/docs/api#delete_card
 func (c *CardClient) Delete(customerId, id string) (*DeleteResponse, error) {
 	response := DeleteResponse{}
-	err := delete("/customers/"+customerId+"/cards/"+id, nil, &response)
+	err := c.client.delete("/customers/"+customerId+"/cards/"+id, nil, &response)
 	return &response, err
 }
 
@@ -89,7 +91,7 @@ func (c *CardClient) AllWithFilters(customerId string, filters Filters) (*CardLi
 	response := CardListResponse{}
 	values := url.Values{}
 	addFiltersToValues([]string{"count", "offset"}, filters, &values)
-	err := get("/customers/"+customerId+"/cards", values, &response)
+	err := c.client.get("/customers/"+customerId+"/cards", values, &response)
 	return &response, err
 }
 

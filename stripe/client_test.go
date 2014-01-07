@@ -5,27 +5,44 @@ import (
 	"github.com/bmizerany/assert"
 	"io/ioutil"
 	"net/http"
+	"net/http/cookiejar"
 	"net/url"
 	"reflect"
 	"testing"
 )
 
 func TestNewClient(t *testing.T) {
-	client := NewClient("abc123")
-	assert.Equal(t, _apiKey, "abc123")
-	assert.Equal(t, _apiUrl, apiUrl)
+	client := NewClient(nil, "abc123")
+	assert.Equal(t, client.apiKey, "abc123")
+	assert.Equal(t, client.apiUrl, apiUrl)
+	assert.Equal(t, client.apiVersion, apiVersion)
+	assert.Equal(t, client.userAgent, userAgent)
+	assert.Equal(t, client.client, http.DefaultClient)
 	assert.Equal(t, reflect.TypeOf(client).Name(), "Client")
+
+	jar, _ := cookiejar.New(nil)
+	c := &http.Client{Jar: jar}
+	client = NewClient(c, "abc123")
+	assert.Equal(t, client.client, c)
 }
 
 func TestNewClientWith(t *testing.T) {
-	client := NewClientWith("http://foo.bar", "token")
-	assert.Equal(t, _apiKey, "token")
-	assert.Equal(t, _apiUrl, "http://foo.bar")
+	client := NewClientWith(nil, "http://foo.bar", "token")
+	assert.Equal(t, client.apiKey, "token")
+	assert.Equal(t, client.apiUrl, "http://foo.bar")
+	assert.Equal(t, client.apiVersion, apiVersion)
+	assert.Equal(t, client.userAgent, userAgent)
+	assert.Equal(t, client.client, http.DefaultClient)
 	assert.Equal(t, reflect.TypeOf(client).Name(), "Client")
+
+	jar, _ := cookiejar.New(nil)
+	c := &http.Client{Jar: jar}
+	client = NewClientWith(c, "http://foo.bar", "token")
+	assert.Equal(t, client.client, c)
 }
 
 func TestResourceClients(t *testing.T) {
-	client := NewClient("abc123")
+	client := NewClient(nil, "abc123")
 	assert.Equal(t, reflect.TypeOf(*client.Account).Name(), "AccountClient")
 	assert.Equal(t, reflect.TypeOf(*client.ApplicationFees).Name(), "ApplicationFeeClient")
 	assert.Equal(t, reflect.TypeOf(*client.Balance).Name(), "BalanceClient")
@@ -55,7 +72,7 @@ func TestGet(t *testing.T) {
 	})
 
 	var response struct{ Foo string }
-	get("/get", nil, &response)
+	client.get("/get", nil, &response)
 	assert.Equal(t, response.Foo, "bar")
 }
 
@@ -69,7 +86,7 @@ func TestPost(t *testing.T) {
 	})
 
 	var response struct{ Foo string }
-	post("/post", nil, &response)
+	client.post("/post", nil, &response)
 	assert.Equal(t, response.Foo, "bar")
 }
 
@@ -83,7 +100,7 @@ func TestDelete(t *testing.T) {
 	})
 
 	var response struct{ Foo string }
-	delete("/delete", nil, &response)
+	client.delete("/delete", nil, &response)
 	assert.Equal(t, response.Foo, "bar")
 }
 
@@ -105,11 +122,11 @@ func TestRequest(t *testing.T) {
 
 	// Success
 	var response struct{ Foo string }
-	request("GET", "/get", nil, &response)
+	client.request("GET", "/get", nil, &response)
 	assert.Equal(t, response.Foo, "bar")
 
 	// Error
-	err := request("POST", "/error", nil, nil)
+	err := client.request("POST", "/error", nil, nil)
 	assert.Equal(t, err.Error(), "An error occurred.")
 }
 

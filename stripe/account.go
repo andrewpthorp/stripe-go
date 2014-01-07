@@ -14,13 +14,15 @@ type Account struct {
 	StatementDescriptor string   `json:"statement_descriptor"`
 }
 
-type AccountClient struct{}
+type AccountClient struct {
+	client Client
+}
 
 // Retrieve loads a account.
 //
 // For more information: https://stripe.com/docs/api#retrieve_account
-func (p *AccountClient) Retrieve() (*Account, error) {
+func (c *AccountClient) Retrieve() (*Account, error) {
 	account := Account{}
-	err := get("/account", nil, &account)
+	err := c.client.get("/account", nil, &account)
 	return &account, err
 }

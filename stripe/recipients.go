@@ -22,7 +22,9 @@ type RecipientListResponse struct {
 	Data []Recipient `json:"data"`
 }
 
-type RecipientClient struct{}
+type RecipientClient struct {
+	client Client
+}
 
 // Create creates a recipient.
 //
@@ -31,7 +33,7 @@ func (c *RecipientClient) Create(params *RecipientParams) (*Recipient, error) {
 	recipient := Recipient{}
 	values := url.Values{}
 	parseRecipientParams(params, &values)
-	err := post("/recipients", values, &recipient)
+	err := c.client.post("/recipients", values, &recipient)
 	return &recipient, err
 }
 
@@ -40,7 +42,7 @@ func (c *RecipientClient) Create(params *RecipientParams) (*Recipient, error) {
 // For more information: https://stripe.com/docs/api#retrieve_recipient
 func (c *RecipientClient) Retrieve(id string) (*Recipient, error) {
 	recipient := Recipient{}
-	err := get("/recipients/"+id, nil, &recipient)
+	err := c.client.get("/recipients/"+id, nil, &recipient)
 	return &recipient, err
 }
 
@@ -51,7 +53,7 @@ func (c *RecipientClient) Update(id string, params *RecipientParams) (*Recipient
 	recipient := Recipient{}
 	values := url.Values{}
 	parseRecipientParams(params, &values)
-	err := post("/recipients/"+id, values, &recipient)
+	err := c.client.post("/recipients/"+id, values, &recipient)
 	return &recipient, err
 }
 
@@ -60,7 +62,7 @@ func (c *RecipientClient) Update(id string, params *RecipientParams) (*Recipient
 // For more information: https://stripe.com/docs/api/#delete_recipient
 func (c *RecipientClient) Delete(id string) (*DeleteResponse, error) {
 	response := DeleteResponse{}
-	err := delete("/recipients/"+id, nil, &response)
+	err := c.client.delete("/recipients/"+id, nil, &response)
 	return &response, err
 }
 
@@ -79,7 +81,7 @@ func (c *RecipientClient) AllWithFilters(filters Filters) (*RecipientListRespons
 	response := RecipientListResponse{}
 	values := url.Values{}
 	addFiltersToValues([]string{"count", "offset", "verified"}, filters, &values)
-	err := get("/recipients", values, &response)
+	err := c.client.get("/recipients", values, &response)
 	return &response, err
 }
 

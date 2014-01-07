@@ -26,14 +26,16 @@ type EventListResponse struct {
 	Data []Event `json:"data"`
 }
 
-type EventClient struct{}
+type EventClient struct {
+	client Client
+}
 
 // Retrieve loads a event.
 //
 // For more information: https://stripe.com/docs/api#retrieve_event
-func (p *EventClient) Retrieve(id string) (*Event, error) {
+func (c *EventClient) Retrieve(id string) (*Event, error) {
 	event := Event{}
-	err := get("/events/"+id, nil, &event)
+	err := c.client.get("/events/"+id, nil, &event)
 	return &event, err
 }
 
@@ -52,6 +54,6 @@ func (c *EventClient) AllWithFilters(filters Filters) (*EventListResponse, error
 	response := EventListResponse{}
 	values := url.Values{}
 	addFiltersToValues([]string{"count", "offset", "type"}, filters, &values)
-	err := get("/events", values, &response)
+	err := c.client.get("/events", values, &response)
 	return &response, err
 }

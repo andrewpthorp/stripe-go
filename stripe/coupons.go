@@ -24,7 +24,9 @@ type CouponListResponse struct {
 	Data []Coupon `json:"data"`
 }
 
-type CouponClient struct{}
+type CouponClient struct {
+	client Client
+}
 
 // Create creates a coupon.
 //
@@ -33,7 +35,7 @@ func (c *CouponClient) Create(params *CouponParams) (*Coupon, error) {
 	coupon := Coupon{}
 	values := url.Values{}
 	parseCouponParams(params, &values)
-	err := post("/coupons", values, &coupon)
+	err := c.client.post("/coupons", values, &coupon)
 	return &coupon, err
 }
 
@@ -42,7 +44,7 @@ func (c *CouponClient) Create(params *CouponParams) (*Coupon, error) {
 // For more information: https://stripe.com/docs/api#retrieve_coupon
 func (c *CouponClient) Retrieve(id string) (*Coupon, error) {
 	coupon := Coupon{}
-	err := get("/coupons/"+id, nil, &coupon)
+	err := c.client.get("/coupons/"+id, nil, &coupon)
 	return &coupon, err
 }
 
@@ -51,7 +53,7 @@ func (c *CouponClient) Retrieve(id string) (*Coupon, error) {
 // For more information: https://stripe.com/docs/api#delete_coupon
 func (c *CouponClient) Delete(id string) (*DeleteResponse, error) {
 	response := DeleteResponse{}
-	err := delete("/coupons/"+id, nil, &response)
+	err := c.client.delete("/coupons/"+id, nil, &response)
 	return &response, err
 }
 
@@ -70,7 +72,7 @@ func (c *CouponClient) AllWithFilters(filters Filters) (*CouponListResponse, err
 	response := CouponListResponse{}
 	values := url.Values{}
 	addFiltersToValues([]string{"count", "offset"}, filters, &values)
-	err := get("/coupons", values, &response)
+	err := c.client.get("/coupons", values, &response)
 	return &response, err
 }
 

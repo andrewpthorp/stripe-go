@@ -13,7 +13,9 @@ type Token struct {
 	Card        *Card        `json:"card"`
 }
 
-type TokenClient struct{}
+type TokenClient struct {
+	client Client
+}
 
 // Create creates a token. This method will either create a Card Token or a
 // Bank Account Token. If both CardParams and BankAccountParams are set, the
@@ -26,13 +28,13 @@ func (c *TokenClient) Create(params *TokenParams) (*Token, error) {
 	token := Token{}
 	values := url.Values{}
 	parseTokenParams(params, &values)
-	err := post("/tokens", values, &token)
+	err := c.client.post("/tokens", values, &token)
 	return &token, err
 }
 
 func (c *TokenClient) Retrieve(id string) (*Token, error) {
 	token := Token{}
-	err := get("/tokens/"+id, nil, &token)
+	err := c.client.get("/tokens/"+id, nil, &token)
 	return &token, err
 }
 

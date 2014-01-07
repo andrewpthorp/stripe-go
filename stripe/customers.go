@@ -25,7 +25,9 @@ type CustomerListResponse struct {
 	Data []Customer `json:"data"`
 }
 
-type CustomerClient struct{}
+type CustomerClient struct {
+	client Client
+}
 
 // Create creates a customer.
 //
@@ -34,7 +36,7 @@ func (c *CustomerClient) Create(params *CustomerParams) (*Customer, error) {
 	customer := Customer{}
 	values := url.Values{}
 	parseCustomerParams(params, &values)
-	err := post("/customers", values, &customer)
+	err := c.client.post("/customers", values, &customer)
 	return &customer, err
 }
 
@@ -43,7 +45,7 @@ func (c *CustomerClient) Create(params *CustomerParams) (*Customer, error) {
 // For more information: https://stripe.com/docs/api#retrieve_customer
 func (c *CustomerClient) Retrieve(id string) (*Customer, error) {
 	customer := Customer{}
-	err := get("/customers/"+id, nil, &customer)
+	err := c.client.get("/customers/"+id, nil, &customer)
 	return &customer, err
 }
 
@@ -54,7 +56,7 @@ func (c *CustomerClient) Update(id string, params *CustomerParams) (*Customer, e
 	customer := Customer{}
 	values := url.Values{}
 	parseCustomerParams(params, &values)
-	err := post("/customers/"+id, values, &customer)
+	err := c.client.post("/customers/"+id, values, &customer)
 	return &customer, err
 }
 
@@ -63,7 +65,7 @@ func (c *CustomerClient) Update(id string, params *CustomerParams) (*Customer, e
 // For more information: https://stripe.com/docs/api#delete_customer
 func (c *CustomerClient) Delete(id string) (*DeleteResponse, error) {
 	response := DeleteResponse{}
-	err := delete("/customers/"+id, nil, &response)
+	err := c.client.delete("/customers/"+id, nil, &response)
 	return &response, err
 }
 
@@ -82,7 +84,7 @@ func (c *CustomerClient) AllWithFilters(filters Filters) (*CustomerListResponse,
 	response := CustomerListResponse{}
 	values := url.Values{}
 	addFiltersToValues([]string{"count", "offset"}, filters, &values)
-	err := get("/customers", values, &response)
+	err := c.client.get("/customers", values, &response)
 	return &response, err
 }
 

@@ -25,14 +25,16 @@ type ApplicationFeeListResponse struct {
 	Data []ApplicationFee `json:"data"`
 }
 
-type ApplicationFeeClient struct{}
+type ApplicationFeeClient struct {
+	client Client
+}
 
 // Retrieve loads an application fee.
 //
 // For more information: https://stripe.com/docs/api#retrieve_application_fee
 func (c *ApplicationFeeClient) Retrieve(id string) (*ApplicationFee, error) {
 	fee := ApplicationFee{}
-	err := get("/application_fees/"+id, nil, &fee)
+	err := c.client.get("/application_fees/"+id, nil, &fee)
 	return &fee, err
 }
 
@@ -43,7 +45,7 @@ func (c *ApplicationFeeClient) Refund(id string, params *RefundParams) (*Applica
 	fee := ApplicationFee{}
 	values := url.Values{}
 	addParamsToValues(params, &values)
-	err := post("/application_fees/"+id+"/refund", values, &fee)
+	err := c.client.post("/application_fees/"+id+"/refund", values, &fee)
 	return &fee, err
 }
 
@@ -62,6 +64,6 @@ func (c *ApplicationFeeClient) AllWithFilters(filters Filters) (*ApplicationFeeL
 	response := ApplicationFeeListResponse{}
 	values := url.Values{}
 	addFiltersToValues([]string{"count", "offset", "charge"}, filters, &values)
-	err := get("/application_fees", values, &response)
+	err := c.client.get("/application_fees", values, &response)
 	return &response, err
 }
