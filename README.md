@@ -20,41 +20,42 @@ Import the library:
 Usage
 =====
 
-    package main
+```go
+package main
 
-    import (
-      "fmt"
-      "github.com/stripe/stripe-go/stripe"
-    )
+import (
+  "fmt"
+  "github.com/stripe/stripe-go/stripe"
+)
 
-    func main() {
+func main() {
 
-      // use the DefaultClient
-      client := stripe.NewClient(nil, "sk_your_secret_key")
+  // use the DefaultClient
+  client := stripe.NewClient(nil, "sk_your_secret_key")
 
-      params := stripe.CustomerParams{
-        Email: "apt@stripe.com",
-        CardParams: &stripe.CardParams{
-          Name: "4242424242424242",
-          ExpMonth: 01,
-          ExpYear: 2020,
-          CVC: "111",
-        },
-        Metadata: stripe.Metadata{
-          "twitter": "@andrewpthorp"
-        },
-      }
+  params := stripe.CustomerParams{
+    Email: "apt@stripe.com",
+    CardParams: &stripe.CardParams{
+      Name: "4242424242424242",
+      ExpMonth: 01,
+      ExpYear: 2020,
+      CVC: "111",
+    },
+    Metadata: stripe.Metadata{
+      "twitter": "@andrewpthorp"
+    },
+  }
 
-      customer, err := client.Customers.Create(&params)
+  customer, err := client.Customers.Create(&params)
 
-      if err != nil {
-        fmt.Println("Error creating customer: ", err)
-      } else {
-        fmt.Println("Created customer: ", customer.id)
-      }
+  if err != nil {
+    fmt.Println("Error creating customer: ", err)
+  } else {
+    fmt.Println("Created customer: ", customer.id)
+  }
 
-    }
-
+}
+```
 
 Testing
 =======
