@@ -19,10 +19,8 @@ type InvoiceItem struct {
 }
 
 type InvoiceItemListResponse struct {
-	Object string        `json:"object"`
-	Url    string        `json:"url"`
-	Count  int           `json:"count"`
-	Data   []InvoiceItem `json:"data"`
+	ListResponse
+	Data []InvoiceItem `json:"data"`
 }
 
 type InvoiceItemClient struct{}

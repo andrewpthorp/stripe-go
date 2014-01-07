@@ -21,10 +21,8 @@ type ApplicationFee struct {
 }
 
 type ApplicationFeeListResponse struct {
-	Object string           `json:"object"`
-	Url    string           `json:"url"`
-	Count  int              `json:"count"`
-	Data   []ApplicationFee `json:"data"`
+	ListResponse
+	Data []ApplicationFee `json:"data"`
 }
 
 type ApplicationFeeClient struct{}

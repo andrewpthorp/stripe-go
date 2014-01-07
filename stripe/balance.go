@@ -40,10 +40,8 @@ type BalanceTransaction struct {
 }
 
 type BalanceTransactionListResponse struct {
-	Object string               `json:"object"`
-	Url    string               `json:"url"`
-	Count  int                  `json:"count"`
-	Data   []BalanceTransaction `json:"data"`
+	ListResponse
+	Data []BalanceTransaction `json:"data"`
 }
 
 type BalanceClient struct{}

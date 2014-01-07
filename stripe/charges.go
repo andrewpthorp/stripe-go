@@ -28,10 +28,8 @@ type Charge struct {
 }
 
 type ChargeListResponse struct {
-	Object string   `json:"object"`
-	Url    string   `json:"url"`
-	Count  int      `json:"count"`
-	Data   []Charge `json:"data"`
+	ListResponse
+	Data []Charge `json:"data"`
 }
 
 type ChargeClient struct{}

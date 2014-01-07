@@ -20,10 +20,8 @@ type Coupon struct {
 }
 
 type CouponListResponse struct {
-	Object string   `json:"object"`
-	Url    string   `json:"url"`
-	Count  int      `json:"count"`
-	Data   []Coupon `json:"data"`
+	ListResponse
+	Data []Coupon `json:"data"`
 }
 
 type CouponClient struct{}

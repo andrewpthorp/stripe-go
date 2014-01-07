@@ -1,5 +1,13 @@
 package stripe
 
+// ListResponse is a part of what is returned from the Stripe API after a GET
+// for a collection.
+type ListResponse struct {
+	Object string `json:"object"`
+	Url    string `json:"url"`
+	Count  int    `json:"count"`
+}
+
 // DeleteResponse is what is returned from the Stripe API after a DELETE.
 type DeleteResponse struct {
 	Id      string `json:"id"`
