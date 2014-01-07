@@ -29,7 +29,8 @@ Usage
 
     func main() {
 
-      client := stripe.NewClient("sk_your_secret_key")
+      // use the DefaultClient
+      client := stripe.NewClient(nil, "sk_your_secret_key")
 
       params := stripe.CustomerParams{
         Email: "apt@stripe.com",
