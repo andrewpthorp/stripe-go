@@ -10,8 +10,8 @@ type Fund struct {
 }
 
 type Balance struct {
-	Object    string  `json:"object"`
-	Livemode  bool    `json:"livemode"`
+	Object    string `json:"object"`
+	Livemode  bool   `json:"livemode"`
 	Available []Fund `json:"available"`
 	Pending   []Fund `json:"pending"`
 }
@@ -25,24 +25,24 @@ type FeeDetails struct {
 }
 
 type BalanceTransaction struct {
-	Id          string        `json:"id"`
-	Object      string        `json:"object"`
-	Source      string        `json:"source"`
-	Amount      int64         `json:"amount"`
-	Currency    string        `json:"currency"`
-	Net         int64         `json:"net"`
-	Type        string        `json:"type"`
-	Created     int64         `json:"created"`
-	AvailableOn int64         `json:"available_on"`
-	Status      string        `json:"status"`
-	Fee         int64         `json:"fee"`
+	Id          string       `json:"id"`
+	Object      string       `json:"object"`
+	Source      string       `json:"source"`
+	Amount      int64        `json:"amount"`
+	Currency    string       `json:"currency"`
+	Net         int64        `json:"net"`
+	Type        string       `json:"type"`
+	Created     int64        `json:"created"`
+	AvailableOn int64        `json:"available_on"`
+	Status      string       `json:"status"`
+	Fee         int64        `json:"fee"`
 	FeeDetails  []FeeDetails `json:"fee_details"`
 }
 
 type BalanceTransactionListResponse struct {
-	Object string                `json:"object"`
-	Url    string                `json:"url"`
-	Count  int                   `json:"count"`
+	Object string               `json:"object"`
+	Url    string               `json:"url"`
+	Count  int                  `json:"count"`
 	Data   []BalanceTransaction `json:"data"`
 }
 

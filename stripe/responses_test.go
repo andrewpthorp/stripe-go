@@ -1,12 +1,12 @@
 package stripe
 
 import (
-  "testing"
-  "github.com/bmizerany/assert"
+	"github.com/bmizerany/assert"
+	"testing"
 )
 
-func TestErrorMessage(t *testing.T){
-  err := ErrorResponse{}
-  err.Err.Message = "Error Message"
-  assert.Equal(t, err.Error(), err.Err.Message)
+func TestErrorMessage(t *testing.T) {
+	err := ErrorResponse{}
+	err.Err.Message = "Error Message"
+	assert.Equal(t, err.Error(), err.Err.Message)
 }

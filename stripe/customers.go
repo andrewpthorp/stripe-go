@@ -21,9 +21,9 @@ type Customer struct {
 }
 
 type CustomerListResponse struct {
-	Object string      `json:"object"`
-	Url    string      `json:"url"`
-	Count  int         `json:"count"`
+	Object string     `json:"object"`
+	Url    string     `json:"url"`
+	Count  int        `json:"count"`
 	Data   []Customer `json:"data"`
 }
 

@@ -44,16 +44,16 @@ type Invoice struct {
 }
 
 type InvoiceLineItemListResponse struct {
-	Object string             `json:"object"`
-	Url    string             `json:"url"`
-	Count  int                `json:"count"`
+	Object string            `json:"object"`
+	Url    string            `json:"url"`
+	Count  int               `json:"count"`
 	Data   []InvoiceLineItem `json:"data"`
 }
 
 type InvoiceListResponse struct {
-	Object string     `json:"object"`
-	Url    string     `json:"url"`
-	Count  int        `json:"count"`
+	Object string    `json:"object"`
+	Url    string    `json:"url"`
+	Count  int       `json:"count"`
 	Data   []Invoice `json:"data"`
 }
 

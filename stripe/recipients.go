@@ -18,9 +18,9 @@ type Recipient struct {
 }
 
 type RecipientListResponse struct {
-	Object string       `json:"object"`
-	Url    string       `json:"url"`
-	Count  int          `json:"count"`
+	Object string      `json:"object"`
+	Url    string      `json:"url"`
+	Count  int         `json:"count"`
 	Data   []Recipient `json:"data"`
 }
 

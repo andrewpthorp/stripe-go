@@ -6,8 +6,8 @@ import (
 
 // TODO: There is probably a better way to do this.
 type EventData struct {
-	Object map[string]interface{} `json:"object"`
-  PreviousAttributes map[string]interface{} `json:"previous_attributes"`
+	Object             map[string]interface{} `json:"object"`
+	PreviousAttributes map[string]interface{} `json:"previous_attributes"`
 }
 
 type Event struct {
@@ -22,9 +22,9 @@ type Event struct {
 }
 
 type EventListResponse struct {
-	Object string   `json:"object"`
-	Url    string   `json:"url"`
-	Count  int      `json:"count"`
+	Object string  `json:"object"`
+	Url    string  `json:"url"`
+	Count  int     `json:"count"`
 	Data   []Event `json:"data"`
 }
 

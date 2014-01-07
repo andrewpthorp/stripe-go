@@ -5,32 +5,32 @@ import (
 )
 
 type Charge struct {
-	Id                 string    `json:"id"`
-	Object             string    `json:"object"`
-	Livemode           bool      `json:"livemode"`
-	Amount             int64     `json:"amount"`
-	Captured           bool      `json:"captured"`
-	Card               *Card     `json:"card"`
-	Created            int64     `json:"created"`
-	Currency           string    `json:"currency"`
-	Paid               bool      `json:"paid"`
-	Refunded           bool      `json:"refunded"`
+	Id                 string   `json:"id"`
+	Object             string   `json:"object"`
+	Livemode           bool     `json:"livemode"`
+	Amount             int64    `json:"amount"`
+	Captured           bool     `json:"captured"`
+	Card               *Card    `json:"card"`
+	Created            int64    `json:"created"`
+	Currency           string   `json:"currency"`
+	Paid               bool     `json:"paid"`
+	Refunded           bool     `json:"refunded"`
 	Refunds            []Refund `json:"refunds"`
-	AmountRefunded     int64     `json:"amount_refunded"`
-	BalanceTransaction string    `json:"balance_transaction"`
-	Customer           string    `json:"customer"`
-	Description        string    `json:"description"`
-	Dispute            *Dispute  `json:"dispute"`
-	FailureCode        string    `json:"failure_code"`
-	FailureMessage     string    `json:"failure_message"`
-	Invoice            string    `json:"invoice"`
-	Metadata           Metadata  `json:"metadata"`
+	AmountRefunded     int64    `json:"amount_refunded"`
+	BalanceTransaction string   `json:"balance_transaction"`
+	Customer           string   `json:"customer"`
+	Description        string   `json:"description"`
+	Dispute            *Dispute `json:"dispute"`
+	FailureCode        string   `json:"failure_code"`
+	FailureMessage     string   `json:"failure_message"`
+	Invoice            string   `json:"invoice"`
+	Metadata           Metadata `json:"metadata"`
 }
 
 type ChargeListResponse struct {
-	Object string    `json:"object"`
-	Url    string    `json:"url"`
-	Count  int       `json:"count"`
+	Object string   `json:"object"`
+	Url    string   `json:"url"`
+	Count  int      `json:"count"`
 	Data   []Charge `json:"data"`
 }
 

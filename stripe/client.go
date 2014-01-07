@@ -11,7 +11,7 @@ import (
 
 var (
 	_apiKey = ""
-  _apiUrl = ""
+	_apiUrl = ""
 )
 
 type Client struct {
@@ -36,13 +36,13 @@ type Client struct {
 
 // NewClient returns a Client and sets the apiUrl to the live apiUrl.
 func NewClient(apiKey string) Client {
-  return NewClientWith(apiUrl, apiKey)
+	return NewClientWith(apiUrl, apiKey)
 }
 
 // NewClientWith returns a Client and allows us to access the resource clients.
 func NewClientWith(apiUrl, apiKey string) Client {
 	_apiKey = apiKey
-  _apiUrl = apiUrl
+	_apiUrl = apiUrl
 
 	return Client{
 		Account:         new(AccountClient),
@@ -100,7 +100,7 @@ func request(method, path string, params url.Values, v interface{}) error {
 
 	// Pin API Version, simplify maintenance.
 	req.Header.Set("Stripe-Version", apiVersion)
-  req.Header.Set("User-Agent", userAgent)
+	req.Header.Set("User-Agent", userAgent)
 
 	// Send HTTP Request.
 	res, err := http.DefaultClient.Do(req)

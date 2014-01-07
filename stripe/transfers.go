@@ -21,9 +21,9 @@ type Transfer struct {
 }
 
 type TransferListResponse struct {
-	Object string      `json:"object"`
-	Url    string      `json:"url"`
-	Count  int         `json:"count"`
+	Object string     `json:"object"`
+	Url    string     `json:"url"`
+	Count  int        `json:"count"`
 	Data   []Transfer `json:"data"`
 }
 
