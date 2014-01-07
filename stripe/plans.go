@@ -21,7 +21,7 @@ type PlanListResponse struct {
 	Object string  `json:"object"`
 	Url    string  `json:"url"`
 	Count  int     `json:"count"`
-	Data   []*Plan `json:"data"`
+	Data   []Plan `json:"data"`
 }
 
 type PlanClient struct{}

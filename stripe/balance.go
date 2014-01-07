@@ -12,8 +12,8 @@ type Fund struct {
 type Balance struct {
 	Object    string  `json:"object"`
 	Livemode  bool    `json:"livemode"`
-	Available []*Fund `json:"available"`
-	Pending   []*Fund `json:"pending"`
+	Available []Fund `json:"available"`
+	Pending   []Fund `json:"pending"`
 }
 
 type FeeDetails struct {
@@ -36,14 +36,14 @@ type BalanceTransaction struct {
 	AvailableOn int64         `json:"available_on"`
 	Status      string        `json:"status"`
 	Fee         int64         `json:"fee"`
-	FeeDetails  []*FeeDetails `json:"fee_details"`
+	FeeDetails  []FeeDetails `json:"fee_details"`
 }
 
 type BalanceTransactionListResponse struct {
 	Object string                `json:"object"`
 	Url    string                `json:"url"`
 	Count  int                   `json:"count"`
-	Data   []*BalanceTransaction `json:"data"`
+	Data   []BalanceTransaction `json:"data"`
 }
 
 type BalanceClient struct{}

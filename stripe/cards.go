@@ -31,7 +31,7 @@ type CardListResponse struct {
 	Object string  `json:"object"`
 	Url    string  `json:"url"`
 	Count  int     `json:"count"`
-	Data   []*Card `json:"data"`
+	Data   []Card `json:"data"`
 }
 
 type CardClient struct{}

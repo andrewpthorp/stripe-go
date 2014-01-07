@@ -16,7 +16,7 @@ type ApplicationFee struct {
 	Created            int64     `json:"created"`
 	Currency           string    `json:"currency"`
 	Refunded           bool      `json:"refunded"`
-	Refunds            []*Refund `json:"refunds"`
+	Refunds            []Refund `json:"refunds"`
 	AmountRefunded     int64     `json:"amount_refunded"`
 }
 
@@ -24,7 +24,7 @@ type ApplicationFeeListResponse struct {
 	Object string            `json:"object"`
 	Url    string            `json:"url"`
 	Count  int               `json:"count"`
-	Data   []*ApplicationFee `json:"data"`
+	Data   []ApplicationFee `json:"data"`
 }
 
 type ApplicationFeeClient struct{}

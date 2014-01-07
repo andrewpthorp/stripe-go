@@ -25,7 +25,7 @@ type EventListResponse struct {
 	Object string   `json:"object"`
 	Url    string   `json:"url"`
 	Count  int      `json:"count"`
-	Data   []*Event `json:"data"`
+	Data   []Event `json:"data"`
 }
 
 type EventClient struct{}

@@ -21,7 +21,7 @@ type RecipientListResponse struct {
 	Object string       `json:"object"`
 	Url    string       `json:"url"`
 	Count  int          `json:"count"`
-	Data   []*Recipient `json:"data"`
+	Data   []Recipient `json:"data"`
 }
 
 type RecipientClient struct{}

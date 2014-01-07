@@ -22,7 +22,7 @@ type InvoiceItemListResponse struct {
 	Object string         `json:"object"`
 	Url    string         `json:"url"`
 	Count  int            `json:"count"`
-	Data   []*InvoiceItem `json:"data"`
+	Data   []InvoiceItem `json:"data"`
 }
 
 type InvoiceItemClient struct{}

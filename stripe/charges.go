@@ -15,7 +15,7 @@ type Charge struct {
 	Currency           string    `json:"currency"`
 	Paid               bool      `json:"paid"`
 	Refunded           bool      `json:"refunded"`
-	Refunds            []*Refund `json:"refunds"`
+	Refunds            []Refund `json:"refunds"`
 	AmountRefunded     int64     `json:"amount_refunded"`
 	BalanceTransaction string    `json:"balance_transaction"`
 	Customer           string    `json:"customer"`
@@ -31,7 +31,7 @@ type ChargeListResponse struct {
 	Object string    `json:"object"`
 	Url    string    `json:"url"`
 	Count  int       `json:"count"`
-	Data   []*Charge `json:"data"`
+	Data   []Charge `json:"data"`
 }
 
 type ChargeClient struct{}
