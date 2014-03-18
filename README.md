@@ -6,7 +6,7 @@ API Version
 ===========
 
 This library pins the Stripe API Version. To see the current version, view
-`stripe/stripe.go`. You can view more about Stripes API versioning at the
+`andrewpthorp/stripe.go`. You can view more about Stripes API versioning at the
 [stripe documentation](https://stripe.com/docs/api#versioning).
 
 Installation
@@ -14,7 +14,7 @@ Installation
 
 Import the library:
 
-    import "github.com/stripe/stripe-go/stripe"
+    import "github.com/andrewpthorp/stripe-go/stripe"
 
 
 Usage
@@ -25,7 +25,7 @@ package main
 
 import (
   "fmt"
-  "github.com/stripe/stripe-go/stripe"
+  "github.com/andrewpthorp/stripe-go/stripe"
 )
 
 func main() {
@@ -75,4 +75,4 @@ License
 =======
 
 stripe-go is released under the MIT license. See
-[LICENSE](https://github.com/stripe/stripe-go/blob/master/LICENSE).
+[LICENSE](https://github.com/andrewpthorp/stripe-go/blob/master/LICENSE).

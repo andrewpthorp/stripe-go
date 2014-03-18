@@ -6,7 +6,7 @@ package main
 import (
   "fmt"
   "os"
-  "github.com/stripe/stripe-go/stripe"
+  "github.com/andrewpthorp/stripe-go/stripe"
 )
 
 func main() {
