@@ -64,7 +64,7 @@ func TestParseTransferParams(t *testing.T) {
 		Currency:            "USD",
 		Recipient:           "rp_123456789",
 		Description:         "Description",
-		StatementDescriptor: "Statement Descriptor",
+		StatementDescription: "Statement Descripion",
 		Metadata: Metadata{
 			"foo": "bar",
 		},
@@ -75,6 +75,6 @@ func TestParseTransferParams(t *testing.T) {
 	assert.Equal(t, values.Get("currency"), params.Currency)
 	assert.Equal(t, values.Get("recipient"), params.Recipient)
 	assert.Equal(t, values.Get("description"), params.Description)
-	assert.Equal(t, values.Get("statement_descriptor"), params.StatementDescriptor)
+	assert.Equal(t, values.Get("statement_description"), params.StatementDescription)
 	assert.Equal(t, values.Get("metadata[foo]"), params.Metadata["foo"])
 }

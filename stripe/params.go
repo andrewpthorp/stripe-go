@@ -138,6 +138,6 @@ type TransferParams struct {
 	Currency            string `stripe_field:"currency"`
 	Recipient           string `stripe_field:"recipient"`
 	Description         string `stripe_field:"description"`
-	StatementDescriptor string `stripe_field:"statement_descriptor"`
+	StatementDescription string `stripe_field:"statement_description"`
 	Metadata
 }

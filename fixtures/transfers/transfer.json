@@ -70,7 +70,7 @@
   "description": "STRIPE TRANSFER",
   "metadata": {
   },
-  "statement_descriptor": null,
+  "statement_description": null,
   "recipient": null
 }
 

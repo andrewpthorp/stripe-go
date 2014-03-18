@@ -16,7 +16,7 @@ type Transfer struct {
 	BalanceTransaction  string       `json:"balance_transaction"`
 	Description         string       `json:"description"`
 	Recipient           string       `json:"recipient"`
-	StatementDescriptor string       `json:"statement_descriptor"`
+	StatementDescription string       `json:"statement_description"`
 	Metadata            Metadata     `json:"metadata"`
 }
 
