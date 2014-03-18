@@ -23,30 +23,74 @@ type Subscription struct {
 	TrialStart            int64   `json:"trial_start"`
 }
 
+type SubscriptionListResponse struct {
+  ListResponse
+  Data []Subscription `json:"data"`
+}
+
 type SubscriptionClient struct {
 	client Client
+}
+
+// Create creates a subscription.
+//
+// For more information: https://stripe.com/docs/api#create_subscription
+func (c *SubscriptionClient) Create(customerId string, params *SubscriptionParams) (*Subscription, error) {
+	subscription := Subscription{}
+	values := url.Values{}
+	parseSubscriptionParams("create", params, &values)
+	err := c.client.post("/customers/"+customerId+"/subscriptions", values, &subscription)
+	return &subscription, err
+}
+
+// Retrieve loads a subscription.
+//
+// For more information: https://stripe.com/docs/api#retrieve_subscription
+func (c *SubscriptionClient) Retrieve(customerId, id string) (*Subscription, error) {
+	subscription := Subscription{}
+	err := c.client.get("/customers/"+customerId+"/subscriptions/"+id, nil, &subscription)
+	return &subscription, err
 }
 
 // Update updates a customers subscription.
 //
 // For more information: https://stripe.com/docs/api#update_subscription.
-func (c *SubscriptionClient) Update(customerId string, params *SubscriptionParams) (*Subscription, error) {
+func (c *SubscriptionClient) Update(customerId, id string, params *SubscriptionParams) (*Subscription, error) {
 	subscription := Subscription{}
 	values := url.Values{}
 	parseSubscriptionParams("update", params, &values)
-	err := c.client.post("/customers/"+customerId+"/subscription", values, &subscription)
+	err := c.client.post("/customers/"+customerId+"/subscriptions/"+id, values, &subscription)
 	return &subscription, err
 }
 
-// Cancel cancels a customers subscription.
+// Delete cancels a customers subscription.
 //
 // For more information: https://stripe.com/docs/api#cancel_subscription.
-func (c *SubscriptionClient) Cancel(customerId string, params *SubscriptionParams) (*Subscription, error) {
+func (c *SubscriptionClient) Delete(customerId, id string, params *SubscriptionParams) (*Subscription, error) {
 	subscription := Subscription{}
 	values := url.Values{}
 	parseSubscriptionParams("cancel", params, &values)
-	err := c.client.delete("/customers/"+customerId+"/subscription", values, &subscription)
+	err := c.client.delete("/customers/"+customerId+"/subscriptions/"+id, values, &subscription)
 	return &subscription, err
+}
+
+// All lists the first 10 customers. It calls AllWithFilters with a blank Filters
+// so all defaults are used.
+//
+// For more information: https://stripe.com/docs/api#list_customers
+func (c *SubscriptionClient) All(customerId string) (*SubscriptionListResponse, error) {
+	return c.AllWithFilters(customerId, Filters{})
+}
+
+// AllWithFilters takes a Filters and applies all valid filters for the action.
+//
+// For more information: https://stripe.com/docs/api#list_customers
+func (c *SubscriptionClient) AllWithFilters(customerId string, filters Filters) (*SubscriptionListResponse, error) {
+	response := SubscriptionListResponse{}
+	values := url.Values{}
+	addFiltersToValues([]string{"count", "offset"}, filters, &values)
+	err := c.client.get("/customers/"+customerId+"/subscriptions", values, &response)
+	return &response, err
 }
 
 // parseSubscriptionParams takes a string (method), a pointer to

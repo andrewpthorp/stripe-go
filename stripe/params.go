@@ -111,8 +111,8 @@ type RefundParams struct {
 	RefundApplicationFee bool `stripe_field:"refund_application_fee"`
 }
 
-// SubscriptionParams hold all of the parameters used for updating and
-// canceling Subscriptions.
+// SubscriptionParams hold all of the parameters used for creating, updating,
+// and canceling Subscriptions.
 type SubscriptionParams struct {
 	Plan                  string  `stripe_field:"plan"`
 	Coupon                string  `stripe_field:"coupon"`
