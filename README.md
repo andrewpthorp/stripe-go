@@ -1,3 +1,7 @@
+### This project is now deprecated in favor of the official Stripe library, which you can see at https://github.com/stripe/stripe-go
+
+---
+
 # Stripe Go Bindings
 
 You can sign up for a stripe account at https://stripe.com
