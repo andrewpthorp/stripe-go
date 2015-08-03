@@ -16,7 +16,7 @@ type Customer struct {
 	Delinquent     bool              `json:"delinquent"`
 	Discount       *Discount         `json:"discount"`
 	Email          string            `json:"email"`
-	Subscriptions  []Subscription    `json:"subscriptions"`
+	Subscriptions  Subscription      `json:"subscriptions"`
 	Metadata       Metadata          `json:"metadata"`
 }
 
